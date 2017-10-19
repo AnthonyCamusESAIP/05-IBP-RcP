@@ -2,10 +2,7 @@ package beans;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Random;
-
 import javax.faces.bean.ManagedBean;
 
 import org.primefaces.model.chart.Axis;
@@ -24,10 +21,11 @@ public class MainClass implements Serializable {
 	
 	@PostConstruct
     public void init() {
-
+		
         createPieModel1(CsvReader.ReadCSV());
-        createLineModel1();
-        /* 
+        createPieModel2(CsvReader.ReadCSV());
+        //createLineModel1();
+        
         try {
         
 			MysqlConnect.setCsvData(CsvReader.ReadCSV());
@@ -35,49 +33,85 @@ public class MainClass implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 */
     }
 	
+	public static void createPieModel1(ArrayList<String[]> tabCsv) {
+	    pieModel1 = new PieChartModel();
+	    int cmptP = 0, cmptF = 0, cmptNA = 0; 
+	    
+	    for(String[] ligne : tabCsv){
+	
+	    	String Statut = ligne[2];
+			    		
+	    	if(Statut.equals("Passed")){
+	    		cmptP++;
+	    	}
+	    	if (Statut.equals("Failed")){
+	    		cmptF++;
+	    	}
+	    	if (Statut.equals("N/A")){
+	    		cmptNA++;
+	    	}
+		}
+	    pieModel1.set("Test Passed", cmptP );
+	    pieModel1.set("Test Failed", cmptF );
+	    pieModel1.set("Test N/A", cmptNA );
+	
+	    pieModel1.setTitle("Nombre Test suivant le statut");
+	    pieModel1.setLegendPosition("w");
+	}
+
 	private static PieChartModel pieModel1;
+	private static PieChartModel pieModel2;
     private static LineChartModel lineModel1;
     private static Tuple tu;
     private static ArrayList<Tuple> tab = new ArrayList<Tuple>();
     
     public PieChartModel getPieModel1() {
-
-        return pieModel1;
+        return pieModel1; 
+    } 
+    public PieChartModel getPieModel2() {
+        return pieModel2;
     }
     public LineChartModel getLineModel1() {
         return lineModel1;
     }
     
-    public static void createPieModel1(ArrayList<String[]> tabCsv) {
-        pieModel1 = new PieChartModel();
-        int cmptP = 0, cmptF = 0, cmptNA = 0; 
-        
-        for(String[] ligne : tabCsv){
-
-        	String Statut = ligne[2];
-    		System.out.println(Statut);
-    		
-        	if(Statut == "Passed"){
-        		cmptP++;
-        		System.out.println("Passed");
-        	}
-        	if (Statut == "Failed"){
-        		cmptF++;
-        		System.out.println("Failed");
-        	}
-        	if (Statut == "N/A"){
-        		cmptNA++;
-        	}
-		}
-        pieModel1.set("Test Passed", cmptP );
-        pieModel1.set("Test Failed", cmptF );
-        pieModel1.set("Test N/A", cmptNA );
+    public static void createPieModel2(ArrayList<String[]> tabCsv) {
+        pieModel2 = new PieChartModel();
        
-        pieModel1.setTitle("Nombre Test suivant le statut");
-        pieModel1.setLegendPosition("w");
+        ArrayList<Projet> ListeProjet = new ArrayList<Projet>();
+        for(String[] ligneCSV : tabCsv){
+        	
+        	Boolean flag = false;
+        	String NomProjet = ligneCSV[3];
+        	
+        	for(Projet unProjet : ListeProjet){
+        		if(unProjet.getNom().equals(NomProjet)){
+        			flag = true;
+        		}
+        	}
+        	
+        	if((flag == false)&&(!(NomProjet.equals("Projet")))) {
+        		Projet Pro = new Projet(NomProjet, 1);
+        		ListeProjet.add(Pro);
+        	}
+        }
+        for(Projet unProjet : ListeProjet){
+        	for(String[] ligneCSV : tabCsv){
+        		if(unProjet.getNom().equals(ligneCSV[3])){
+	        		unProjet.setNombre(unProjet.getNbr()+1);
+	        	}
+    		}
+    	}
+        
+        for(Projet unProjet : ListeProjet){        	
+        	pieModel2.set(unProjet.getNom(),unProjet.getNbr());
+    	}
+        
+        
+        pieModel2.setTitle("Nombre Test par Projet");
+        pieModel2.setLegendPosition("w");
     }
     public static void createLineModel1() {
         lineModel1 = initLinearModel();

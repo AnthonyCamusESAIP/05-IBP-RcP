@@ -21,7 +21,7 @@ public class CsvReader implements Serializable{
 	//@SuppressWarnings("resource")
 	public static ArrayList<String[]> ReadCSV(){
 		
-		String LienCsv = "C:/Users/AlbanEcobichon/workspace/TpPrimeFace/src/beans/test.csv";
+		String LienCsv = "C:/Users/AlbanEcobichon/Documents/GitHub/05-IBP-RcP/Formation/TpPrimeFace/src/beans/test.csv";
 		String spliter = ";";
 		
 		try{
