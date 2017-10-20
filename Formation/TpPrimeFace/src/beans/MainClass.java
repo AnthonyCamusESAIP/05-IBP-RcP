@@ -26,7 +26,7 @@ public class MainClass implements Serializable {
         createPieModel2(CsvReader.ReadCSV());
         //createLineModel1();
         
-        try { 
+        try {
         
 			MysqlConnect.setCsvData(CsvReader.ReadCSV());
 		} catch (Exception e) {
