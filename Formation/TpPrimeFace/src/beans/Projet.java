@@ -9,7 +9,7 @@ public class Projet {
 	{
 		this.Nom = x;
 		this.Nombre= y;
-	}
+	} 
 
 	public String getNom() {
 		return Nom;
