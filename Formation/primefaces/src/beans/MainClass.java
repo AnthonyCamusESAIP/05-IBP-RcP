@@ -1,4 +1,17 @@
+/***
+ * Nom de la class :Mainclass.java
+ * 
+ * Description : class général
+ * 
+ * version : 1.0
+ * 
+ * Copyrigth : Maryan Cimia
+ * 
+ * date :23/10/2017
+ * 
+ */
 package beans;
+
 
 import javax.annotation.PostConstruct;
 
@@ -45,9 +58,15 @@ public class MainClass implements Serializable {
     public void init() {
 		//System.out.println("coucou");
 		excel = new ReaderExcel();
-		excel.setNameFile("F:/primefaces/src/beans/P_EFF_V1.xlsm");
-    	excel.readExcel();
-    	excel.tabExcel();
+		excel.setNameFile("F:/ESAIP/Nouveau dossier/gitHub/05-IBP-RcP/Formation/primefaces/src/beans/P_EF_V1.xlsm");
+		
+		System.out.println("excel 2");
+		
+		excel.initReader();
+    	excel.readExcel2();
+    	
+    	//excel.tabExcel();
+		System.out.println("excel 3");
     	
         createPieModel1();
         createLineModels();
@@ -82,7 +101,7 @@ public class MainClass implements Serializable {
     	for(i=0;i<nbr;i++){
     		val=rad.nextInt(1000)+1;
     		values[i]=val;
-    		baseDD.addValues("Brand "+i,val);
+    		//baseDD.addValues("Brand "+i,val);
     		//pieModel1.set("Brand "+i,rad.nextInt(1000)+1);
     		//lineModel3.getSeries(brd).set("Brand"+i, val);    		
     	}

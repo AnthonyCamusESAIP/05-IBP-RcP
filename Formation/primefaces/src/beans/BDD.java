@@ -9,7 +9,7 @@ public class BDD {
 	public void connection() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			String url="jdbc:mysql://localhost:3306/primefaces?useSSL=false";
+			String url="jdbc:mysql://localhost:3306/ibp-rcp?useSSL=false";
 			String user ="root";
 			String passwd ="";
 			com = DriverManager.getConnection(url,user,passwd);

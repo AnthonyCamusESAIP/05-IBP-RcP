@@ -41,7 +41,7 @@ public class ReaderExcel {
         try {
 			file = new FileInputStream(new File(getNameFile()));
 			workbook1 = WorkbookFactory.create(file);
-			sheet = workbook1.getSheet("list1");
+			sheet = workbook1.getSheet("Query1");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (EncryptedDocumentException e) {
@@ -55,18 +55,22 @@ public class ReaderExcel {
 		}
 	}
 	
+	//Lecture en dure de la feuille
 	@SuppressWarnings("deprecation")
-	public void readExcel(){		
+	public void readExcel2(){		
+		System.out.println(" name File");
 		try
         {
     		
     		Iterator<org.apache.poi.ss.usermodel.Row> iterator = sheet.iterator();
-    		
+    		System.out.println("coucou du try");
     		
     		while (iterator.hasNext()) {
+    			System.out.println("Set");
     			
     			Row nextRow = iterator.next();
     			Iterator<Cell> cellIterator = nextRow.cellIterator();
+    			System.out.println("File please");
     			
     			while (cellIterator.hasNext()) {
     				Cell cell = cellIterator.next();
@@ -93,37 +97,55 @@ public class ReaderExcel {
             e.printStackTrace();
         }
 	}
-
+	
+	//lecture plus tableau
 	@SuppressWarnings("deprecation")
+	public ArrayList<ArrayList<String>> ReadExcel(){		
+
+		ArrayList<ArrayList<String>> tabDonneeExcel = new ArrayList<ArrayList<String>>();		//Note (Alban) : Création d'un tableau de données
+		ArrayList<String> tabLigneDonnee = new ArrayList<String>();		//Note (Alban) : Création d'une ligne de données
+		
+		try
+        {
+    		
+    		Iterator<Row> iterator = sheet.iterator();
+    		
+    		while (iterator.hasNext()) {
+    			tabLigneDonnee = new ArrayList<String>();
+    			Row nextRow = iterator.next();
+    			Iterator<Cell> cellIterator = nextRow.cellIterator();
+    			
+    			while (cellIterator.hasNext()) {
+    				Cell cell = cellIterator.next();
+    				
+    				switch (cell.getCellType()) {
+    					case Cell.CELL_TYPE_STRING:
+    						tabLigneDonnee.add(cell.getStringCellValue());
+    						break;
+    					case Cell.CELL_TYPE_NUMERIC:
+    						tabLigneDonnee.add(Float.toString((float) cell.getNumericCellValue()));
+    						break;
+    				}
+    			}
+        		tabDonneeExcel.add(tabLigneDonnee);
+    		}
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+		
+		for(ArrayList<String> ligne : tabDonneeExcel) {
+			for(String cellule : ligne) {
+				System.out.println(cellule);
+			}
+		}
+		return tabDonneeExcel;
+	}
+	
 	public ArrayList<String>  tabExcel(){
 		ArrayList<String> e= new ArrayList<String>();
-		Iterator<org.apache.poi.ss.usermodel.Row> iterator = sheet.iterator();
 		
-		while (iterator.hasNext()) {
-			
-			Row nextRow = iterator.next();
-			Iterator<Cell> cellIterator = nextRow.cellIterator();
-			
-			while (cellIterator.hasNext()) {
-				Cell cell = cellIterator.next();
-				
-				switch (cell.getCellType()) {
-					case Cell.CELL_TYPE_STRING:
-						e.add(cell.getStringCellValue());
-						System.out.print(cell.getStringCellValue());
-						break;
-					case Cell.CELL_TYPE_BOOLEAN:
-						System.out.print(cell.getBooleanCellValue());
-						break;
-					case Cell.CELL_TYPE_NUMERIC:
-						e.add((int)cell.getNumericCellValue());
-						System.out.print(cell.getNumericCellValue());
-						break;
-				}
-				System.out.print(" - ");
-			}
-			System.out.println(e);
-		}
 		
 		return e;
 	}
