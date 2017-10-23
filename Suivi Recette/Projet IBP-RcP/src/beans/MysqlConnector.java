@@ -24,8 +24,8 @@ public class MysqlConnector {
 	//Note (Alban): Methode de connexion à la bdd
 	public MysqlConnector(){
 
-		//Note (Alban) : Voir si probleme enlever useSSL=false
 		connect = null;
+		//Note (Alban): Lien de la bdd 
 		String url = "jdbc:mysql://localhost:3306/ibp-rcp?useSSL=false";
 
 		try {
@@ -54,6 +54,7 @@ public class MysqlConnector {
 	//Note (Alban): Création d'une vue
 	public void MysqlCreate(String nomTable, String[] listeVariable){
 
+		//Note (Alban): Creation de la requete
 		String sqlQuery = "CREATE VIEW [ Current " +nomTable+ " List ] AS "
 				+ "SELECT " + nomTable + " FROM ";
 		for(int i = 0; i < listeVariable.length; i++) {
@@ -63,6 +64,7 @@ public class MysqlConnector {
 			}
 		}
 		
+		//Note (Alban): Execution de la requete
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
 			pstmt.executeUpdate();
@@ -78,6 +80,7 @@ public class MysqlConnector {
 	//Note (Alban): Insert de données dans la base
 	public void MysqlInsert(String nomTable, String[] listeDonnee){
 		
+		//Note (Alban): Creation de la requete
 		String sqlQuery = "INSERT INTO " +nomTable+ " VALUES (";
 		for(int i = 0; i <= listeDonnee.length; i++) {
 			sqlQuery += listeDonnee[i];
@@ -86,6 +89,7 @@ public class MysqlConnector {
 			}
 		}
 		
+		//Note (Alban): Execution de la requete
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
 			pstmt.executeUpdate();
@@ -101,7 +105,10 @@ public class MysqlConnector {
 	//Note (Alban): Selection de données dans la base
 	public ArrayList<ArrayList<String>> MysqlSelect(String nomTable, String[] listeVariable){
 		
+		//Note (Alban) : Tableau de données séectionner
 		ArrayList<ArrayList<String>> donnees = new ArrayList<ArrayList<String>>();
+		
+		//Note (Alban) : Creation de la requete
 		String sqlQuery = "SELECT " +nomTable+ " FROM ";
 		for(int i = 0; i < listeVariable.length; i++) {
 			sqlQuery += listeVariable[i];
@@ -110,13 +117,14 @@ public class MysqlConnector {
 			}
 		}
 		
+		//Note (Alban) : Execution de la requete
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
 			ResultSet rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
+
 				ArrayList<String> ligne = null;
-				
 				//Note (Alban) : Pour chaque listeVariable on ajoute à un Tableau la valeur de la cellule
 				for(int i = 0; i < listeVariable.length; i++) {
 					ligne.add(rs.getString(listeVariable[i]));
@@ -134,7 +142,5 @@ public class MysqlConnector {
 			System.out.println(e.getMessage());
 		}
 		return donnees;
-		
 	}
-
 }
