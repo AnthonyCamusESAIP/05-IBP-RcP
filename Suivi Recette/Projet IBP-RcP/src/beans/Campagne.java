@@ -19,6 +19,15 @@ public class Campagne {
 	private String label;
 	private Projet projet;
 	
+	
+	
+	public Campagne(int idCampagne, String label, Projet projet) 
+	{
+		this.idCampagne = idCampagne;
+		this.label = label;
+		this.projet = projet;
+	}
+
 	public int getIdCampagne() 
 	{
 		return idCampagne;

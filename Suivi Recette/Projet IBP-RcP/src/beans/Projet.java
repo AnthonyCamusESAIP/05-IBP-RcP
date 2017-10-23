@@ -18,6 +18,12 @@ public class Projet {
 	private int idProjet;
 	private String label;
 	
+	public Projet(int idProjet, String label) 
+	{
+		this.idProjet = idProjet;
+		this.label = label;
+	}
+	
 	public int getIdProjet() 
 	{
 		return idProjet;

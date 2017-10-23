@@ -18,6 +18,13 @@ public class Testeur {
 	private int idTesteur;
 	private String nomTesteur;
 	
+	
+	public Testeur(int idTesteur, String nomTesteur) 
+	{
+		this.idTesteur = idTesteur;
+		this.nomTesteur = nomTesteur;
+	}
+	
 	public int getIdTesteur() 
 	{
 		return idTesteur;
