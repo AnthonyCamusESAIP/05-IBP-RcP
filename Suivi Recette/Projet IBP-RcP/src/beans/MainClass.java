@@ -20,10 +20,11 @@ public class MainClass implements Serializable {
 
 	@PostConstruct
 	public void init(){
-        createPieModel1();
+        //createPieModel1();
 		createReaderExcel();
 	}
 	
+	/*
 	//graphique
     public PieChartModel getPieModel1() {
         return pieModel1;
@@ -68,7 +69,7 @@ public class MainClass implements Serializable {
         pieModel1.setTitle("Simple Pie");
         pieModel1.setLegendPosition("e");
     }
-
+*/
 	public void createReaderExcel(){
 
 		excel = new ReaderExcel();
