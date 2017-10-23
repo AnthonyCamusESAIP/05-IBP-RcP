@@ -78,5 +78,6 @@ public class MainClass implements Serializable {
 		excel.initReader();		
 		
 		excel.read();
+		System.out.println(excel.ReadExcel());
 	}
 }

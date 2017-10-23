@@ -66,10 +66,11 @@ public class ReaderExcel {
 	
 	//Lecture en dure de la feuille excel
 	@SuppressWarnings("deprecation")
-	public void read(){		
+	public void read(){
+		Iterator<org.apache.poi.ss.usermodel.Row> iterator = null ;
 		try
         {    		
-    		Iterator<org.apache.poi.ss.usermodel.Row> iterator = sheet.iterator();
+    		iterator = sheet.iterator();
     		
     		while (iterator.hasNext()) {		
     			Row nextRow = iterator.next();
@@ -86,7 +87,7 @@ public class ReaderExcel {
     						System.out.print(cell.getBooleanCellValue());
     						break;
     					case Cell.CELL_TYPE_NUMERIC:
-    						System.out.print((char)cell.getNumericCellValue());
+    						System.out.print(cell.getNumericCellValue());
     						break;
     				}
     				System.out.print(" - ");
