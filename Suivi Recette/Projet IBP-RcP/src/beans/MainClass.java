@@ -20,11 +20,10 @@ public class MainClass implements Serializable {
 
 	@PostConstruct
 	public void init(){
-        //createPieModel1();
+        createPieModel1();
 		createReaderExcel();
 	}
 	
-	/*
 	//graphique
     public PieChartModel getPieModel1() {
         return pieModel1;
@@ -69,12 +68,12 @@ public class MainClass implements Serializable {
         pieModel1.setTitle("Simple Pie");
         pieModel1.setLegendPosition("e");
     }
-*/
+
 	public void createReaderExcel(){
 
 		excel = new ReaderExcel();
 		
-		excel.setNameFile("C:/Users/Mama/Dropbox/PCPI-05_IBP-RCP_2017/RE PCPI-05_IBP-RcP_2017  Recueil des besoins/Liste des tests exécutés MOA VPS05-01 (Conflit lié au codage Unicode).xls");		
+		excel.setNameFile("C:\\Users\\Dante\\Desktop\\CPI4\\Projet\\Projet IBP - RcP\\Développement\\05-IBP-RcP\\Suivi Recette\\Projet IBP-RcP\\src\\beans\\Listetests.xls");		
 		excel.setNameFeuille("Query1");
 		excel.initReader();		
 		
