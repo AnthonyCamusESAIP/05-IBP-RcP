@@ -14,6 +14,8 @@ package beans;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
+import java.util.ArrayList;
+
 import javax.faces.bean.ManagedBean;
 import org.primefaces.model.chart.PieChartModel;
 
@@ -22,13 +24,15 @@ public class MainClass implements Serializable {
 
 	private static final long serialVersionUID = 593544194954729597L; //Note (Alban) : Id de Serialization 
 	private PieChartModel pieModel1; //Note (Alban) : graphique camembert 1
-	private ExcelReader excelR = new ExcelReader();
+	private ExcelReader excelR = new ExcelReader();	//Note (Alban) : Ouverture Excel
+	private ArrayList<ArrayList<String>> tabDonnee = new ArrayList<ArrayList<String>>();
 	
 	@PostConstruct
     public void init() {
         createPieModel1();
         excelR.setNameFile("C:/Users/AlbanEcobichon/Documents/test.xls");
         excelR.initExcelReader();
+        tabDonnee = excelR.ReadExcel();
     } 
  
     public PieChartModel getPieModel1() { 

@@ -14,15 +14,9 @@ package beans;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javax.faces.bean.ManagedBean;
-
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
@@ -33,9 +27,9 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 public class ExcelReader {
 
 	//private Workbook workbook2;
-	private Sheet sheet;
-	private Workbook workbook1;
-	private String nameFile;
+	private Sheet sheet;		//Note (Alban) : Feuille Excel
+	private Workbook workbook1;	//Note (Alban) : Ensemble des feuilles de l'Excel
+	private String nameFile;	//Note (Alban) : Lien du fichier
 	
 	public void setNameFile(String e){ 
 		this.nameFile=e;
@@ -46,7 +40,8 @@ public class ExcelReader {
 
 	public void initExcelReader(){
         try {
-
+        	
+        	//Note (Alban) : Création d'un fichier avec le lien de l'Excel et récuperation de la feuille
         	FileInputStream file = new FileInputStream(new File(getNameFile()));
 			workbook1 = WorkbookFactory.create(file); 
 			sheet = workbook1.getSheet("list1");
@@ -59,15 +54,14 @@ public class ExcelReader {
 	
 	@SuppressWarnings("deprecation")
 	public ArrayList<ArrayList<String>> ReadExcel(){		
-		
-		ArrayList<ArrayList<String>> tabDonneeExcel = new ArrayList<ArrayList<String>>();
-		ArrayList<String> tabLigneDonnee = new ArrayList<String>();
+
+		ArrayList<ArrayList<String>> tabDonneeExcel = new ArrayList<ArrayList<String>>();		//Note (Alban) : Création d'un tableau de données
+		ArrayList<String> tabLigneDonnee = new ArrayList<String>();		//Note (Alban) : Création d'une ligne de données
 		
 		try
         {
     		
-    		Iterator<org.apache.poi.ss.usermodel.Row> iterator = sheet.iterator();
-    		
+    		Iterator<Row> iterator = sheet.iterator();
     		
     		while (iterator.hasNext()) {
     			tabLigneDonnee = new ArrayList<String>();
@@ -86,14 +80,19 @@ public class ExcelReader {
     						break;
     				}
     			}
-    			
+        		tabDonneeExcel.add(tabLigneDonnee);
     		}
-    		tabDonneeExcel.add(tabLigneDonnee);
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+		
+		for(ArrayList<String> ligne : tabDonneeExcel) {
+			for(String cellule : ligne) {
+				System.out.println(cellule);
+			}
+		}
 		return tabDonneeExcel;
 	}
 	

@@ -10,11 +10,16 @@
 
 </h:head>
 <h:body>
-	
 	<p:chart type="pie" model="#{mainClass.pieModel1}"  />
-
-
-
+	<h:dataTable value="#{tabDonnee}" var="car" border="2">
+		<h:column>#{car[0]}</h:column>
+		<h:column>#{car[1]}</h:column>
+	   	<h:column>#{car[2]}</h:column>
+	    <h:column>#{car[3]}</h:column>
+	    <h:column>#{car[4]}</h:column>
+	    <h:column>#{car[5]}</h:column>
+	    <h:column>#{car[6]}</h:column>
+	</h:dataTable>
 </h:body>
 </html>
 
