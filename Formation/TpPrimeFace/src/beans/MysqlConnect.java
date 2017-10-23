@@ -23,7 +23,8 @@ public class MysqlConnect implements Serializable{
 	public List<Tuple> getTuple() throws ClassNotFoundException, SQLException{
 		
 		Connection connect = null;
-		String url = "jdbc:mysql://localhost:3306/testjava";
+		//Note (Alban) : Voir si probleme enlever useSSL=false
+		String url = "jdbc:mysql://localhost:3306/testjava?useSSL=false";
 		//System.out.println("Connection test");
 
 		try {
