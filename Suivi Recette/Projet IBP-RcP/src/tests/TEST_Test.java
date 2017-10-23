@@ -1,79 +1,110 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
+import beans.*;
+import java.sql.Date;
 
 import junit.framework.TestCase;
 
-class TEST_Test extends TestCase{
-
+public class TEST_Test extends TestCase{
+	
+	Projet p = new Projet(1, "Projet de test");
+	Campagne c = new Campagne(1, "Campagne de test", p);
+	Testeur t = new Testeur(1, "Anthony");
+	java.util.Date utilDate = new java.util.Date();
+	Date sqlDate = new java.sql.Date(utilDate.getTime());
+	beans.Test te = new beans.Test(1,sqlDate,"15:49:00","Passed",p,c,t);
+	
 	@Test
-	void testGetIdTest() {
-		fail("Not yet implemented");
+	public void testGetIdTest() {
+		int expected = 1;
+		assertEquals(expected, te.getIdTest());
 	}
 
 	@Test
-	void testSetIdTest() {
-		fail("Not yet implemented");
+	public void testSetIdTest() {
+		int expected = 2;
+		te.setIdTest(expected);
+		assertEquals(expected, te.getIdTest());
 	}
 
 	@Test
-	void testGetDate() {
-		fail("Not yet implemented");
+	public void testGetDate() {
+		Date expected = sqlDate;
+		assertEquals(expected,te.getDate());
 	}
 
 	@Test
-	void testSetDate() {
-		fail("Not yet implemented");
+	public void testSetDate() {
+		java.util.Date utilDate = new java.util.Date();
+		Date expected = new java.sql.Date(utilDate.getTime());
+		te.setDate(expected);
+		assertEquals(expected,te.getDate());
 	}
 
 	@Test
-	void testGetHeure() {
-		fail("Not yet implemented");
+	public void testGetHeure() {
+		String expected = "15:49:00";
+		assertEquals(expected,te.getHeure());
 	}
 
 	@Test
-	void testSetHeure() {
-		fail("Not yet implemented");
+	public void testSetHeure() {
+		String expected = "15:59:00";
+		te.setHeure(expected);
+		assertEquals(expected,te.getHeure());
 	}
 
 	@Test
-	void testGetStatut() {
-		fail("Not yet implemented");
+	public void testGetStatut() {
+		String expected = "Passed";
+		assertEquals(expected,te.getStatut());
 	}
 
 	@Test
-	void testSetStatut() {
-		fail("Not yet implemented");
+	public void testSetStatut() {
+		String expected = "Failed";
+		te.setStatut(expected);
+		assertEquals(expected,te.getStatut());
 	}
 
 	@Test
-	void testGetProjet() {
-		fail("Not yet implemented");
+	public void testGetProjet() {
+		Projet expected = p;
+		assertEquals(expected,te.getProjet());
 	}
 
 	@Test
-	void testSetProjet() {
-		fail("Not yet implemented");
+	public void testSetProjet() {
+		Projet expected = new Projet(2, "Projet de test unitaires");
+		te.setProjet(expected);
+		assertEquals(expected,te.getProjet());
 	}
 
 	@Test
-	void testGetCampagne() {
-		fail("Not yet implemented");
+	public void testGetCampagne() {
+		Campagne expected = c;
+		assertEquals(expected,te.getCampagne());
 	}
 
 	@Test
-	void testSetCampagne() {
-		fail("Not yet implemented");
+	public void testSetCampagne() {
+		Campagne expected = new Campagne(2, "Campagne de test unitaire", p);
+		te.setCampagne(expected);
+		assertEquals(expected,te.getCampagne());
 	}
 
 	@Test
-	void testGetTesteur() {
-		fail("Not yet implemented");
+	public void testGetTesteur() {
+		Testeur expected = t;
+		assertEquals(expected,te.getTesteur());
 	}
 
 	@Test
-	void testSetTesteur() {
-		fail("Not yet implemented");
+	public void testSetTesteur() {
+		Testeur expected = new Testeur(1, "Maryan");
+		te.setTesteur(expected);
+		assertEquals(expected,te.getTesteur());
 	}
 
 }

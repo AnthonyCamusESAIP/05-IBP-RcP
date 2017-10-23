@@ -3,27 +3,35 @@ package tests;
 import org.junit.jupiter.api.Test;
 
 import junit.framework.TestCase;
+import beans.*;
 
-class TEST_Projet extends TestCase{
+public class TEST_Projet extends TestCase{
 
+	Projet p = new Projet(1, "Projet de test");
 	@Test
-	void testGetIdProjet() {
-		fail("Not yet implemented");
+	public void testGetIdProjet() {
+		int expected = 1;
+		assertEquals(expected, p.getIdProjet());
 	}
 
 	@Test
-	void testSetIdProjet() {
-		fail("Not yet implemented");
+	public void testSetIdProjet() {
+		int expected = 1;
+		p.setIdProjet(expected);
+		assertEquals(expected, p.getIdProjet());
 	}
 
 	@Test
-	void testGetLabel() {
-		fail("Not yet implemented");
+	public void testGetLabel() {
+		String expected ="Projet de test";
+		assertEquals(expected, p.getLabel());
 	}
 
 	@Test
-	void testSetLabel() {
-		fail("Not yet implemented");
+	public void testSetLabel() {
+		String expected ="Projet de test unitaire";
+		p.setLabel(expected);
+		assertEquals(expected, p.getLabel());
 	}
 
 }

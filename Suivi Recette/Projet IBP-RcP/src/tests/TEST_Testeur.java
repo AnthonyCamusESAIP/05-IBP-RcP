@@ -1,29 +1,37 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
+import beans.*;
 
 import junit.framework.TestCase;
 
-class TEST_Testeur extends TestCase{
+public class TEST_Testeur extends TestCase{
 
+	Testeur t = new Testeur(1, "Anthony");
 	@Test
-	void testGetIdTesteur() {
-		fail("Not yet implemented");
+	public void testGetIdTesteur() {
+		int expected = 1;
+		assertEquals(expected, t.getIdTesteur());
 	}
 
 	@Test
-	void testSetIdTesteur() {
-		fail("Not yet implemented");
+	public void testSetIdTesteur() {
+		int expected = 2;
+		t.setIdTesteur(expected);
+		assertEquals(expected, t.getIdTesteur());
 	}
 
 	@Test
-	void testGetNomTesteur() {
-		fail("Not yet implemented");
+	public void testGetNomTesteur() {
+		String expected = "Anthony";
+		assertEquals(expected, t.getNomTesteur());
 	}
 
 	@Test
-	void testSetNomTesteur() {
-		fail("Not yet implemented");
+	public void testSetNomTesteur() {
+		String expected = "Maryan";
+		t.setNomTesteur(expected);
+		assertEquals(expected, t.getNomTesteur());
 	}
 
 }
