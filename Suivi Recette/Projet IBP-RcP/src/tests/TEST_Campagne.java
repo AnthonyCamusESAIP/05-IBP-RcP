@@ -2,38 +2,52 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 
+import beans.Campagne;
+import beans.Projet;
 import junit.framework.TestCase;
 
 class TEST_Campagne extends TestCase {
+	
+	Projet p = new Projet(1, "Projet de test");
+	Campagne c = new Campagne(1, "Campagne de test", p);
 
 	@Test
 	void testGetIdCampagne() {
-		fail("Not yet implemented");
+		int expected = 1;
+		assertEquals(expected, c.getIdCampagne());
 	}
 
 	@Test
 	void testSetIdCampagne() {
-		fail("Not yet implemented");
+		int expected = 2;
+		c.setIdCampagne(expected);	
+		assertEquals(expected, c.getIdCampagne());
 	}
 
 	@Test
 	void testGetLabel() {
-		fail("Not yet implemented");
+		String expected = "Campagne de test";
+		assertEquals(expected, c.getLabel());
 	}
 
 	@Test
 	void testSetLabel() {
-		fail("Not yet implemented");
+		String expected = "Campagne de test avec des TU";
+		c.setLabel(expected);
+		assertEquals(expected, c.getLabel());
 	}
 
 	@Test
 	void testGetProjet() {
-		fail("Not yet implemented");
+		Projet expected = p;
+		assertEquals(expected,c.getProjet());
 	}
 
 	@Test
 	void testSetProjet() {
-		fail("Not yet implemented");
+		Projet expected = new Projet(2, "Projet de test de classes");
+		c.setProjet(expected);
+		assertEquals(expected,c.getProjet());
 	}
 
 }
