@@ -17,6 +17,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MysqlConnector {
 	
@@ -51,34 +52,8 @@ public class MysqlConnector {
 		}
 	}
 	
-	//Note (Alban): Création d'une vue
-	public void MysqlCreate(String nomTable, String[] listeVariable){
-
-		//Note (Alban): Creation de la requete
-		String sqlQuery = "CREATE VIEW [ Current " +nomTable+ " List ] AS "
-				+ "SELECT " + nomTable + " FROM ";
-		for(int i = 0; i < listeVariable.length; i++) {
-			sqlQuery += listeVariable[i];
-			if( i != listeVariable.length ) {
-				sqlQuery += ", ";
-			}
-		}
-		
-		//Note (Alban): Execution de la requete
-		try {
-			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
-			pstmt.executeUpdate();
-
-			pstmt.close();
-			
-		} catch (Exception e) {
-
-			System.out.println("MysqlCreate Error : ");
-			System.out.println(e.getMessage());
-		}
-	}
 	//Note (Alban): Insert de données dans la base
-	public void MysqlInsert(String nomTable, String[] listeDonnee){
+	public int MysqlInsert(String nomTable, String[] listeDonnee){
 		
 		//Note (Alban): Creation de la requete
 		String sqlQuery = "INSERT INTO " +nomTable+ " VALUES (";
@@ -90,9 +65,10 @@ public class MysqlConnector {
 		}
 		
 		//Note (Alban): Execution de la requete
+		int result = 0;
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
-			pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 
 			pstmt.close();
 			
@@ -101,21 +77,31 @@ public class MysqlConnector {
 			System.out.println("MysqlInsert Error : ");
 			System.out.println(e.getMessage());
 		}
+		return result;
 	}
 	//Note (Alban): Selection de données dans la base
-	public ArrayList<ArrayList<String>> MysqlSelect(String nomTable, String[] listeVariable){
+	public ArrayList<ArrayList<String>> MysqlSelect(String nomTable, List<String> listeVariable, List<String> listeCondition){
 		
 		//Note (Alban) : Tableau de données séectionner
 		ArrayList<ArrayList<String>> donnees = new ArrayList<ArrayList<String>>();
 		
 		//Note (Alban) : Creation de la requete
-		String sqlQuery = "SELECT " +nomTable+ " FROM ";
-		for(int i = 0; i < listeVariable.length; i++) {
-			sqlQuery += listeVariable[i];
-			if( i != listeVariable.length ) {
-				sqlQuery += ", ";
-			}
+		String sqlQuery = "SELECT ";
+		for(String Variable : listeVariable) {
+			sqlQuery += Variable;
+			
+			/*
+			 * if(Variable.hasNext()) {
+			 *
+			 *	sqlQuery += ", ";
+			 *}
+			 */
 		}
+		sqlQuery +=  " FROM "+ nomTable;
+		if (listeCondition != null){
+			
+		}
+
 		
 		//Note (Alban) : Execution de la requete
 		try {

@@ -73,7 +73,7 @@ public class MainClass implements Serializable {
 
 		excel = new ReaderExcel();
 		
-		excel.setNameFile("C:/Users/Mama/Dropbox/PCPI-05_IBP-RCP_2017/RE PCPI-05_IBP-RcP_2017  Recueil des besoins/Liste des tests exécutés MOA VPS05-01 (Conflit lié au codage Unicode).xls");		
+		excel.setNameFile("C:/Users/AlbanEcobichon/Dropbox/PCPI-05_IBP-RCP_2017/RE PCPI-05_IBP-RcP_2017  Recueil des besoins/Liste des tests exécutés MOA VPS05-01 (Conflit lié au codage Unicode).xls");		
 		excel.setNameFeuille("Query1");
 		excel.initReader();		
 		
