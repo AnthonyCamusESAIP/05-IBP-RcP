@@ -2,8 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 
-import beans.Campagne;
-import beans.Projet;
+import beans.*;
 import junit.framework.TestCase;
 
 class TEST_Campagne extends TestCase {
