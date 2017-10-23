@@ -1,28 +1,29 @@
 package tests;
 
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 
 import junit.framework.TestCase;
 
-class TEST_Projet extends TestCase{
+public class TEST_Projet extends TestCase{
 
 	@Test
-	void testGetIdProjet() {
+	public void testGetIdProjet() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testSetIdProjet() {
+	public void testSetIdProjet() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testGetLabel() {
+	public void testGetLabel() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testSetLabel() {
+	public void testSetLabel() {
 		fail("Not yet implemented");
 	}
 

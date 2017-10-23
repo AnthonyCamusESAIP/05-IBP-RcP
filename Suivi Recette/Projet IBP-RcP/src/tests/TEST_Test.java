@@ -1,78 +1,80 @@
 package tests;
 
-import org.junit.jupiter.api.Test;
+
+
+import org.junit.Test;
 
 import junit.framework.TestCase;
 
-class TEST_Test extends TestCase{
+public class TEST_Test extends TestCase{
 
 	@Test
-	void testGetIdTest() {
+	public void testGetIdTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testSetIdTest() {
+	public void testSetIdTest() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testGetDate() {
+	public void testGetDate() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testSetDate() {
+	public void testSetDate() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testGetHeure() {
+	public void testGetHeure() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testSetHeure() {
+	public void testSetHeure() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testGetStatut() {
+	public void testGetStatut() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testSetStatut() {
+	public void testSetStatut() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testGetProjet() {
+	public void testGetProjet() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testSetProjet() {
+	public void testSetProjet() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testGetCampagne() {
+	public void testGetCampagne() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testSetCampagne() {
+	public void testSetCampagne() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testGetTesteur() {
+	public void testGetTesteur() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testSetTesteur() {
+	public void testSetTesteur() {
 		fail("Not yet implemented");
 	}
 
