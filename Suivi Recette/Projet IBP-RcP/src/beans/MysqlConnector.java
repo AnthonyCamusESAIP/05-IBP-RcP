@@ -27,7 +27,7 @@ public class MysqlConnector {
 
 		connect = null;
 		//Note (Alban): Lien de la bdd 
-		String url = "jdbc:mysql://localhost:3306/ibp-rcp?useSSL=false";
+		String url = "jdbc:mysql://localhost:3306/ibp-rcp";
 
 		try {
 
@@ -51,18 +51,47 @@ public class MysqlConnector {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	//Note (Alban): Insert de données dans la base
+	public int MysqlInsert(Projet projet){
+		
+		String sqlQuery = "INSERT INTO projet ('idProjet','label') VALUES ("+projet.getIdProjet()+",'"+ projet.getLabel() +"');";
+		int result = 0;
+		try {
+			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
+			result  = pstmt.executeUpdate();
+
+			pstmt.close();
+			
+		} catch (Exception e) {
+
+			System.out.println("MysqlInsert Error : ");
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
+	public int MysqlInsert(Campagne campagne){
+		return 0;
+	}
+	public int MysqlInsert(Test test){
+		return 0;
+	}
+	public int MysqlInsert(Testeur testeur){
+		return 0;
+	}
+	/*
 	public int MysqlInsert(String nomTable, String[] listeDonnee){
 		
-		//Note (Alban): Creation de la requete
-		String sqlQuery = "INSERT INTO " +nomTable+ " VALUES (";
-		for(int i = 0; i <= listeDonnee.length; i++) {
-			sqlQuery += listeDonnee[i];
-			if( i != listeDonnee.length -1) {
-				sqlQuery += ", ";
-			}
-		}
+		//Note (Alban) : Appelle de la requete
+		//Note (Alban) : Creation de la requete
+				String sqlQuery = "INSERT INTO " +nomTable+ " VALUES (";
+				for(int i = 0; i <= listeDonnee.length; i++) {
+					sqlQuery += listeDonnee[i];
+					if( i != listeDonnee.length -1) {
+						sqlQuery += ", ";
+					}
+				}
+			 	sqlQuery += " ;";
 		
 		//Note (Alban): Execution de la requete
 		int result = 0;
@@ -79,41 +108,28 @@ public class MysqlConnector {
 		}
 		return result;
 	}
+	*/
 	//Note (Alban): Selection de données dans la base
-	public ArrayList<ArrayList<String>> MysqlSelect(String nomTable, List<String> listeVariable, List<String> listeCondition){
+	public ArrayList<ArrayList<String>> MysqlSelect(List<String> nomTables, List<String> listeVariable, List<String> listeCondition){
 		
 		//Note (Alban) : Tableau de données séectionner
 		ArrayList<ArrayList<String>> donnees = new ArrayList<ArrayList<String>>();
-		
-		//Note (Alban) : Creation de la requete
-		String sqlQuery = "SELECT ";
-		for(String Variable : listeVariable) {
-			sqlQuery += Variable;
-			
-			/*
-			 * if(Variable.hasNext()) {
-			 *
-			 *	sqlQuery += ", ";
-			 *}
-			 */
-		}
-		sqlQuery +=  " FROM "+ nomTable;
-		if (listeCondition != null){
-			
-		}
-
+		//Note (Alban) : Requete Sql de Select
+		String sqlQuery = MysqlSelectRequete(nomTables, listeVariable, listeCondition);
 		
 		//Note (Alban) : Execution de la requete
 		try {
+			
 			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
 			ResultSet rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
 
-				ArrayList<String> ligne = null;
+			while (rs.next()) {
+				ArrayList<String> ligne = new ArrayList<String>();
 				//Note (Alban) : Pour chaque listeVariable on ajoute à un Tableau la valeur de la cellule
-				for(int i = 0; i < listeVariable.length; i++) {
-					ligne.add(rs.getString(listeVariable[i]));
+				for(String variable : listeVariable) {
+
+					ligne.add(rs.getString(variable));
+	 
 				}
 				//Note (Alban) : On ajoute le tableau aux données
 				donnees.add(ligne);
@@ -127,6 +143,46 @@ public class MysqlConnector {
 			System.out.println("MysqlSelect Error : ");
 			System.out.println(e.getMessage());
 		}
+		
 		return donnees;
+	}
+	public String MysqlSelectRequete(List<String> nomTables, List<String> listeVariable, List<String> listeCondition){
+				
+		//Note (Alban) : Creation de la requete
+		String sqlQuery = "SELECT ";
+		for(String variable : listeVariable) {
+			sqlQuery += variable;
+
+			if(!(variable.equals(listeVariable.get(listeVariable.size()-1)))) {
+			 
+			 	sqlQuery += ", ";
+			 }
+			 
+		}
+		sqlQuery +=  " FROM ";
+		for(String table : nomTables) {
+			sqlQuery += table;
+
+			if(!(table.equals(nomTables.get(nomTables.size()-1)))) {
+			 
+			 	sqlQuery += " NATURAL JOIN ";
+			 }
+			 
+		}
+		if (listeCondition != null){
+			
+			sqlQuery += " WHERE ";
+			for(String condition : listeCondition) {
+				sqlQuery += condition;
+				
+				if(!(condition.equals(listeCondition.get(listeCondition.size()-1)))) {
+					 
+				 	sqlQuery += " AND ";
+				 }
+			}
+		}
+	 	sqlQuery += " ;";
+	 	
+		return sqlQuery;
 	}
 }
