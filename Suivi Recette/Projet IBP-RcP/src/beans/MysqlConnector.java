@@ -114,6 +114,10 @@ public class MysqlConnector {
 			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
 			ResultSet rs = pstmt.executeQuery();
 			
+			/***
+			 * implementation d'un arraylist en boucle à demander
+			 */
+			
 			while (rs.next()) {
 				ArrayList<String> ligne = null;
 				

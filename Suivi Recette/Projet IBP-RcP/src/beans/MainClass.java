@@ -15,6 +15,7 @@ public class MainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private PieChartModel pieModel1;
 	private ReaderExcel excel;
+	
     public int values[]={0} ;
     public int nbr;
 
@@ -69,15 +70,17 @@ public class MainClass implements Serializable {
         pieModel1.setLegendPosition("e");
     }
 
+	//Recuperation de l'ecel
 	public void createReaderExcel(){
 
 		excel = new ReaderExcel();
 		
-		excel.setNameFile("C:/Users/Mama/Dropbox/PCPI-05_IBP-RCP_2017/RE PCPI-05_IBP-RcP_2017  Recueil des besoins/Liste des tests exécutés MOA VPS05-01 (Conflit lié au codage Unicode).xls");		
+		excel.setNameFile("F:\\ESAIP\\Nouveau dossier\\gitHub\\05-IBP-RcP\\Suivi Recette\\Projet IBP-RcP\\src\\beans\\Listetests.xls");		
 		excel.setNameFeuille("Query1");
 		excel.initReader();		
-		
 		excel.read();
-		System.out.println(excel.ReadExcel());
+		excel.close();
+		//System.out.println(excel.ReadExcel());
 	}
 }
+
