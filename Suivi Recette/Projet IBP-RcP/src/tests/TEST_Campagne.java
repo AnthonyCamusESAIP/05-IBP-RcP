@@ -1,6 +1,6 @@
 package tests;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import beans.*;
 import junit.framework.TestCase;
