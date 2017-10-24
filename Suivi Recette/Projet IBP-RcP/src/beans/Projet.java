@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.*;
+
 /**
  * 
  * Nom de classe : Projet
@@ -17,11 +19,13 @@ public class Projet {
 
 	private int idProjet;
 	private String label;
+	private List<Campagne> campagnes;
 	
 	public Projet(int idProjet, String label) 
 	{
 		this.idProjet = idProjet;
 		this.label = label;
+		this.campagnes = new ArrayList<Campagne>();
 	}
 	
 	public int getIdProjet() 
@@ -39,6 +43,16 @@ public class Projet {
 	public void setLabel(String label) 
 	{
 		this.label = label;
+	}
+
+	public List<Campagne> getCampagnes() 
+	{
+		return campagnes;
+	}
+
+	public void setCampagnes(List<Campagne> campagnes)
+	{
+		this.campagnes = campagnes;
 	}
 	
 	
