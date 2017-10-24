@@ -24,9 +24,21 @@ public class MainClass implements Serializable {
 	public void init(){
         createPieModel1();
 		createReaderExcel();
-		tri =new Tri();
+		afficher();
 	}
 	
+	public void afficher(){
+		tri =new Tri();
+		System.out.println("___1___");
+		tri.list(excel.ReadExcel());
+		System.out.println("___2___");
+		String data[]=tri.getNomTest();
+		System.out.println("___3___");
+		System.out.println(data);
+		for(int i=0;i<data.length;i++){
+			System.out.println(data[i]);			
+		}
+	}
 	//graphique
     public PieChartModel getPieModel1() {
         return pieModel1;
