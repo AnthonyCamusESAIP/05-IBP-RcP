@@ -20,6 +20,7 @@ public class Test {
 	private Date date;
 	private String heure;
 	private String statut;
+	private String nomTest;
 	private Projet projet;
 	private Campagne campagne;
 	private Testeur testeur;
@@ -66,6 +67,15 @@ public class Test {
 	public void setStatut(String statut) 
 	{
 		this.statut = statut;
+	}
+	
+	public String getNomTest() 
+	{
+		return nomTest;
+	}
+	public void setNomTest(String nomTest) 
+	{
+		this.nomTest = nomTest;
 	}
 	public Projet getProjet() 
 	{
