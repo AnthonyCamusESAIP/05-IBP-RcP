@@ -15,6 +15,7 @@ public class MainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private PieChartModel pieModel1;
 	private ReaderExcel excel;
+	private Tri tri;
 	
     public int values[]={0} ;
     public int nbr;
@@ -23,6 +24,7 @@ public class MainClass implements Serializable {
 	public void init(){
         createPieModel1();
 		createReaderExcel();
+		tri =new Tri();
 	}
 	
 	//graphique
@@ -74,12 +76,7 @@ public class MainClass implements Serializable {
 	public void createReaderExcel(){
 
 		excel = new ReaderExcel();
-		
-<<<<<<< HEAD
 		excel.setNameFile("F:\\ESAIP\\Nouveau dossier\\gitHub\\05-IBP-RcP\\Suivi Recette\\Projet IBP-RcP\\src\\beans\\Listetests.xls");		
-=======
-		excel.setNameFile("C:\\Users\\Dante\\Desktop\\CPI4\\Projet\\Projet IBP - RcP\\Développement\\05-IBP-RcP\\Suivi Recette\\Projet IBP-RcP\\src\\beans\\Listetests.xls");		
->>>>>>> master
 		excel.setNameFeuille("Query1");
 		excel.initReader();		
 		excel.read();

@@ -1,10 +1,5 @@
 package tests;
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> master
 import org.junit.Test;
 
 import beans.*;
