@@ -3,9 +3,12 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import beans.MysqlConnector;
+import beans.*;
+
 import org.junit.Test;
 
 public class TEST_MysqlConnector {
@@ -28,7 +31,28 @@ public class TEST_MysqlConnector {
 	@Test
 	public void testMysqlInsert() {
 		
+
+		Projet projet = new Projet(1, "Test Projet");
+		Campagne campagne = new Campagne(1, "Test Campagne 1", projet);
+		Testeur testeur = new Testeur(1, "Test Testeur 1");
+		
+		Date uneDate = new Date(117,9,24);
+		System.out.println(uneDate);
+		beans.Test test = new beans.Test(1, uneDate , "11:51:00", "Test Test 1", projet, campagne, testeur );
+		
 		MysqlConnector bdd = new MysqlConnector();
+		/* Test 1 */
+		assertEquals(1,bdd.MysqlInsert(projet));
+		
+		/* Test 2 */
+		assertEquals(1,bdd.MysqlInsert(campagne));
+		
+		/* Test 3 */
+		assertEquals(1,bdd.MysqlInsert(testeur));		
+		
+		/* Test 4 */
+		assertEquals(1,bdd.MysqlInsert(test));
+		
 		bdd.MysqlClose();
 	}
 
@@ -66,7 +90,6 @@ public class TEST_MysqlConnector {
 
 		bdd.MysqlClose();
 	}
-	
 	@Test
 	public void testMysqlSelect() {
 		
@@ -76,7 +99,6 @@ public class TEST_MysqlConnector {
 		/* test 1 Select */
 		List<String> table = new ArrayList<String>();
 		List<String> variable = new ArrayList<String>();
-		List<String> condition = null;
 		variable.add("projet.idProjet");
 		variable.add("projet.label");
 		table.add("projet");
@@ -91,13 +113,12 @@ public class TEST_MysqlConnector {
 		d2.add("Projet Test 2");
 		expected.add(d2);
 		
-		assertEquals(expected, bdd.MysqlSelect(table, variable, condition));
+		assertEquals(expected, bdd.MysqlSelect(table, variable, null));
 		
 		/* test 2 */
-
 		table = new ArrayList<String>();
 		variable = new ArrayList<String>();
-		condition = null;
+		ArrayList<String> condition =  new ArrayList<String>();;
 		table.add("campagne");
 		table.add("projet");
 		variable.add("projet.idProduit");

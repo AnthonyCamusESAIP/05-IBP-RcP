@@ -53,30 +53,9 @@ public class MysqlConnector {
 	}
 
 	//Note (Alban): Insert de données dans la base
-	public String MysqlInsertRequete(Projet projet){
+	public int MysqlInsert(Projet projet){
+		String sqlQuery = "INSERT INTO projet (label) VALUES ('"+ projet.getLabel() +"');";
 		
-		String sqlQuery = "INSERT INTO projet ('label') VALUES ('"+ projet.getLabel() +"');";
-		return sqlQuery;
-	}
-	public String MysqlInsertRequete(Campagne campagne){
-		
-		String sqlQuery = "INSERT INTO campagne ('label','idProjet') VALUES ('"+ campagne.getLabel()+"',"+campagne.getProjet().getIdProjet()+");";
-		return sqlQuery;
-	}
-	public String MysqlInsertRequete(Testeur testeur){
-
-		String sqlQuery = "INSERT INTO testeur ('nomTesteur') VALUES ('"+ testeur.getNomTesteur() +"');";
-		return sqlQuery;
-	}
-	public String MysqlInsertRequete(Test test){
-
-		String sqlQuery = "INSERT INTO test ('date','heure','statut', 'nomTest','idProjet','idCampagne' ,'idTesteur') "
-				+ "VALUES ("+ test.getDate() +","+ test.getHeure() +",'"+ test.getStatut() +"',"
-				+ "'"+ test.getNom() +"', "+ test.getProjet().getIdProjet() +","+ test.getCampagne().getIdCampagne() +", "
-				+ test.getTesteur().getIdTesteur() +");";
-		return sqlQuery;
-	}
-	public int MysqlInsert(String sqlQuery){
 		int result = 0;
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
@@ -91,25 +70,14 @@ public class MysqlConnector {
 		}
 		return result;
 	}
-	/*
-	public int MysqlInsert(String nomTable, String[] listeDonnee){
+	public int MysqlInsert(Campagne campagne){
 		
-		//Note (Alban) : Appelle de la requete
-		//Note (Alban) : Creation de la requete
-				String sqlQuery = "INSERT INTO " +nomTable+ " VALUES (";
-				for(int i = 0; i <= listeDonnee.length; i++) {
-					sqlQuery += listeDonnee[i];
-					if( i != listeDonnee.length -1) {
-						sqlQuery += ", ";
-					}
-				}
-			 	sqlQuery += " ;";
+		String sqlQuery = "INSERT INTO campagne (label,idProjet) VALUES ('"+ campagne.getLabel()+"',"+campagne.getProjet().getIdProjet()+");";
 		
-		//Note (Alban): Execution de la requete
 		int result = 0;
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
-			result = pstmt.executeUpdate();
+			result  = pstmt.executeUpdate();
 
 			pstmt.close();
 			
@@ -120,7 +88,46 @@ public class MysqlConnector {
 		}
 		return result;
 	}
-	*/
+	public int MysqlInsert(Testeur testeur){
+
+		String sqlQuery = "INSERT INTO testeur (nomTesteur) VALUES ('"+ testeur.getNomTesteur() +"');";
+		
+		int result = 0;
+		try {
+			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
+			result  = pstmt.executeUpdate();
+
+			pstmt.close();
+			
+		} catch (Exception e) {
+
+			System.out.println("MysqlInsert Error : ");
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
+	public int MysqlInsert(Test test){
+
+		String sqlQuery = "INSERT INTO test (date,heure,statut, nomTest,idProjet,idCampagne,idTesteur) "
+				+ "VALUES ("+ test.getDate() +","+ test.getHeure() +",'"+ test.getStatut() +"',"
+				+ "'"+ test.getNomTest() +"', "+ test.getProjet().getIdProjet() +","+ test.getCampagne().getIdCampagne() +", "
+				+ test.getTesteur().getIdTesteur() +");";
+
+		int result = 0;
+		try {
+			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
+			result  = pstmt.executeUpdate();
+
+			pstmt.close();
+			
+		} catch (Exception e) {
+
+			System.out.println("MysqlInsert Error : ");
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
+	
 	//Note (Alban): Selection de données dans la base
 	public ArrayList<ArrayList<String>> MysqlSelect(List<String> nomTables, List<String> listeVariable, List<String> listeCondition){
 		
