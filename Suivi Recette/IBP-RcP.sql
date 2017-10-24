@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
@@ -58,7 +58,7 @@ CREATE TABLE `test` (
   `date` date NOT NULL,
   `heure` time NOT NULL,
   `statut` enum('N/A','Passed','Failed','Not Completed') NOT NULL,
-  `nomTesteur` varchar(255) NOT NULL,
+  `nomTest` varchar(255) NOT NULL,
   `idProjet` int(11) NOT NULL,
   `idCampagne` int(11) NOT NULL,
   `idTesteur` int(11) NOT NULL

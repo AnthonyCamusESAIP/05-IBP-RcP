@@ -1,11 +1,13 @@
 package tests;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> master
 import org.junit.Test;
 
-import beans.Campagne;
-import beans.Projet;
+import beans.*;
 import junit.framework.TestCase;
 
 public class TEST_Campagne extends TestCase {

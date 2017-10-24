@@ -75,7 +75,11 @@ public class MainClass implements Serializable {
 
 		excel = new ReaderExcel();
 		
+<<<<<<< HEAD
 		excel.setNameFile("F:\\ESAIP\\Nouveau dossier\\gitHub\\05-IBP-RcP\\Suivi Recette\\Projet IBP-RcP\\src\\beans\\Listetests.xls");		
+=======
+		excel.setNameFile("C:\\Users\\Dante\\Desktop\\CPI4\\Projet\\Projet IBP - RcP\\Développement\\05-IBP-RcP\\Suivi Recette\\Projet IBP-RcP\\src\\beans\\Listetests.xls");		
+>>>>>>> master
 		excel.setNameFeuille("Query1");
 		excel.initReader();		
 		excel.read();
