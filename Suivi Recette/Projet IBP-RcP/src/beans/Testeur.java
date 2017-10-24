@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.*;
 /**
  * 
  * Nom de classe : Testeur
@@ -17,12 +18,14 @@ public class Testeur {
 
 	private int idTesteur;
 	private String nomTesteur;
+	private List<Test> tests;
 	
 	
 	public Testeur(int idTesteur, String nomTesteur) 
 	{
 		this.idTesteur = idTesteur;
 		this.nomTesteur = nomTesteur;
+		this.tests = new ArrayList<Test>();
 	}
 	
 	public int getIdTesteur() 
@@ -40,6 +43,15 @@ public class Testeur {
 	public void setNomTesteur(String nomTesteur) 
 	{
 		this.nomTesteur = nomTesteur;
+	}
+	public List<Test> getTests() 
+	{
+		return tests;
+	}
+
+	public void setTests(List<Test> tests) 
+	{
+		this.tests = tests;
 	}
 	
 	
