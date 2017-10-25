@@ -120,8 +120,21 @@ public class Tri {
 		}
 	}
 	
-	public void okTesteur(){
-		//Note (Maryan) : utilisation SQL pour recouper les testeurs
+	public void okProjet(){
+		//int ok =0;
+		ArrayList<String> listProjet =new ArrayList<String>();
+		ArrayList<Integer> p = new ArrayList<Integer>();
+		System.out.println(p);
+		listProjet.add(projet.get(1));
+		//Note (Maryan) : 
+		for(int i=0;i<getProjet().size();i++){
+			if(listProjet.get(0)==projet.get(i)){
+				p.add(i);
+				System.out.println(" boucle for"+p);
+			}
+		}
+		System.out.println(p+" fin de fonction");
 	}
+	
 	
 }

@@ -1,7 +1,7 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
@@ -29,18 +29,9 @@ public class MainClass implements Serializable {
 	}
 	
 	public void afficher(){
-		ArrayList<String> data = new ArrayList<String>();
 		tri =new Tri();
 		tri.list(excel.ReadExcel());
-		//
-		data =tri.getNomTest();/*
-		for(int i=0;i<data.size();i++){
-			System.out.println(data.get(i));			
-		}*/
-
-		System.out.println(data);
-		System.out.println(tri.getLigne().get(1));
-		
+		tri.okProjet();
 	}
 	//graphique
     public PieChartModel getPieModel1() {
