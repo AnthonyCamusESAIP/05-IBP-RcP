@@ -13,11 +13,28 @@
 </h:head>
 <h:body>
 
-<p:panel>
-<p:chart type="line" model ="#{import.model}" />
-<p:chart type="pie" model ="#{import.pie}" />
-<p:chart type="bar" model ="#{import.bar}" />
-</p:panel>
+<p:dataTable var="JTable" value="#{ImportXLS.JTable}">
+
+    <p:column headerText="Nom">
+        <h:outputText value="#{ImportXLS.JTable}" />
+    </p:column>
+ 
+    <p:column headerText="Classe">
+        <h:outputText value="#{ImportXLS.JTable}" />
+    </p:column>
+ 
+    <p:column headerText="Sexe">
+        <h:outputText value="#{ImportXLS.JTable}" />
+    </p:column>
+ 
+    <p:column headerText="Couleurs">
+        <h:outputText value="#{ImportXLS.JTable}" />
+    </p:column>
+    
+     <p:column headerText="Poids">
+        <h:outputText value="#{ImportXLS.JTable}" />
+    </p:column>
+</p:dataTable>
 
 </h:body>
 </html>
