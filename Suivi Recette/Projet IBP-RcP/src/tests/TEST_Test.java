@@ -13,7 +13,7 @@ public class TEST_Test extends TestCase{
 	Testeur t = new Testeur(1, "Anthony");
 	java.util.Date utilDate = new java.util.Date();
 	Date sqlDate = new java.sql.Date(utilDate.getTime());
-	beans.Test te = new beans.Test(1,sqlDate,"15:49:00","Passed",p,c,t);
+	beans.Test te = new beans.Test(1,sqlDate,"15:49:00","Passed","Test n°1", c,t);
 	
 	@Test
 	public void testGetIdTest() {
@@ -66,19 +66,6 @@ public class TEST_Test extends TestCase{
 		String expected = "Failed";
 		te.setStatut(expected);
 		assertEquals(expected,te.getStatut());
-	}
-
-	@Test
-	public void testGetProjet() {
-		Projet expected = p;
-		assertEquals(expected,te.getProjet());
-	}
-
-	@Test
-	public void testSetProjet() {
-		Projet expected = new Projet(2, "Projet de test unitaires");
-		te.setProjet(expected);
-		assertEquals(expected,te.getProjet());
 	}
 
 	@Test
