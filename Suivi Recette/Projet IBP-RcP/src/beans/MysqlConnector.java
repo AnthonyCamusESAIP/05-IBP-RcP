@@ -194,7 +194,6 @@ public class MysqlConnector {
 		}
 	 	sqlQuery += " ;";
 	 	
-	 	System.out.println(sqlQuery);
 		return sqlQuery;
 	}
 }

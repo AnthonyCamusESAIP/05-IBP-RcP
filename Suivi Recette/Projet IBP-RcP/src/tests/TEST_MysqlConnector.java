@@ -42,16 +42,16 @@ public class TEST_MysqlConnector {
 		
 		MysqlConnector bdd = new MysqlConnector();
 		/* Test 1 */
-		assertEquals(1,bdd.MysqlInsert(projet));
+		//assertEquals(1,bdd.MysqlInsert(projet));
 		
 		/* Test 2 */
-		assertEquals(1,bdd.MysqlInsert(campagne));
+		//assertEquals(1,bdd.MysqlInsert(campagne));
 		
 		/* Test 3 */
-		assertEquals(1,bdd.MysqlInsert(testeur));		
+		//assertEquals(1,bdd.MysqlInsert(testeur));		
 		
 		/* Test 4 */
-		assertEquals(1,bdd.MysqlInsert(test));
+		//assertEquals(1,bdd.MysqlInsert(test));
 		
 		bdd.MysqlClose();
 	}
@@ -97,19 +97,19 @@ public class TEST_MysqlConnector {
 		/* test 1 Select */
 		List<String> table = new ArrayList<String>();
 		List<String> variable = new ArrayList<String>();
-		String condition =  "idProjet = 4 OR idProjet = 5";
+		String condition =  "";
 		variable.add("projet.idProjet");
-		variable.add("projet.label");
+		variable.add("projet.nomProjet");
 		table.add("projet");
 		
 		ArrayList<ArrayList<String>> expected = new ArrayList<ArrayList<String>>();
 		ArrayList<String> d = new ArrayList<String>();
 		ArrayList<String> d2 = new ArrayList<String>();
-		d.add("4");
-		d.add("Test Projet");
+		d.add("1");
+		d.add("Projet test 1");
 		expected.add(d);
-		d2.add("5");
-		d2.add("Test Projet");
+		d2.add("2");
+		d2.add("Projet test 2");
 		expected.add(d2);
 		
 		assertEquals(expected, bdd.MysqlSelect(table, variable, condition));
@@ -117,22 +117,47 @@ public class TEST_MysqlConnector {
 		/* test 2 */
 		table = new ArrayList<String>();
 		variable = new ArrayList<String>();
-		condition = "idProjet = 1 AND label LIKE '%P'";
-		table.add("campagne");
+		condition = "idProjet = 1";
 		table.add("projet");
 		variable.add("projet.idProjet");
-		variable.add("projet.label");
-		variable.add("campagne.label");
+		variable.add("projet.nomProjet");
 		
 		expected = new ArrayList<ArrayList<String>>();
 		d = new ArrayList<String>();
 		d2 = new ArrayList<String>();
 		d.add("1");
-		d.add("Projet Test 1");
+		d.add("Projet test 1");
 		expected.add(d);
-		d2.add("2");
-		d2.add("Projet Test 2");
-		expected.add(d2);
+		
+		assertEquals(expected, bdd.MysqlSelect(table, variable, condition));
+		
+		/* test 3 */
+		table = new ArrayList<String>();
+		variable = new ArrayList<String>();
+		condition = "";
+		table.add("campagne");
+		table.add("projet");
+		variable.add("projet.idProjet");
+		variable.add("projet.nomProjet");
+		variable.add("campagne.nomCampagne");
+		
+		expected = new ArrayList<ArrayList<String>>();
+
+		d = new ArrayList<String>();
+		d.add("1");
+		d.add("Projet test 1");
+		d.add("Campagne 1");		
+		expected.add(d);
+		d = new ArrayList<String>();
+		d.add("2");
+		d.add("Projet test 2");
+		d.add("Campagne 2");
+		expected.add(d);
+		d = new ArrayList<String>();
+		d.add("1");
+		d.add("Projet test 1");
+		d.add("Campagne 3");
+		expected.add(d);
 		
 		assertEquals(expected, bdd.MysqlSelect(table, variable, condition));
 		bdd.MysqlClose();

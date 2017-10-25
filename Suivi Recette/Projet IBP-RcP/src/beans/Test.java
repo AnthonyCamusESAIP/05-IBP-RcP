@@ -25,21 +25,14 @@ public class Test {
 	private Testeur testeur;
 	
 	
-<<<<<<< HEAD
-	public Test(int idTest, Date date, String heure, String statut,String nomTest , Projet projet, Campagne campagne, Testeur testeur) 
-=======
+
 	public Test(int idTest, Date date, String heure, String statut, String nomTest, Campagne campagne, Testeur testeur) 
->>>>>>> master
 	{
 		this.idTest = idTest;
 		this.date = date;
 		this.heure = heure;
 		this.statut = statut;
 		this.nomTest = nomTest;
-<<<<<<< HEAD
-		this.projet = projet;
-=======
->>>>>>> master
 		this.campagne = campagne;
 		this.testeur = testeur;
 	}
