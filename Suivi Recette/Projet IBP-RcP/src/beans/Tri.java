@@ -3,67 +3,77 @@ package beans;
 import java.util.ArrayList;
 
 public class Tri {
-	private String heureTest[];
-	private String statutTest[];
-	private String projet[];
-	private String campagne[];
-	private String nomTest[];
-	private String nomTesteur[];
-	private String dateTest[];
+	private ArrayList<String> heureTest = new ArrayList<String>();
+	private ArrayList<String> statutTest = new ArrayList<String>();
+	private ArrayList<String> projet = new ArrayList<String>();
+	private ArrayList<String> campagne = new ArrayList<String>();
+	private ArrayList<String> nomTest = new ArrayList<String>();
+	private ArrayList<String> nomTesteur = new ArrayList<String>();
+	private ArrayList<String> dateTest = new ArrayList<String>();
+	private ArrayList<ArrayList<String>> ligne = new ArrayList<ArrayList<String>>();
 	
-	public String[] getDateTest() {
+	
+	public ArrayList<ArrayList<String>> getLigne() {
+		return ligne;
+	}
+
+	public void setLigne(ArrayList<ArrayList<String>> ligne) {
+		this.ligne = ligne;
+	}
+
+	public ArrayList<String> getDateTest() {
 		return dateTest;
 	}
 
-	public void setDateTest(String[] dateTest) {
+	public void setDateTest(ArrayList<String> dateTest) {
 		this.dateTest = dateTest;
 	}
 
-	public String[] getHeureTest() {
+	public ArrayList<String> getHeureTest() {
 		return heureTest;
 	}
 
-	public void setHeureTest(String[] heureTest) {
+	public void setHeureTest(ArrayList<String> heureTest) {
 		this.heureTest = heureTest;
 	}
 
-	public String[] getStatutTest() {
+	public ArrayList<String> getStatutTest() {
 		return statutTest;
 	}
 
-	public void setStatutTest(String[] statutTest) {
+	public void setStatutTest(ArrayList<String> statutTest) {
 		this.statutTest = statutTest;
 	}
 
-	public String[] getProjet() {
+	public ArrayList<String> getProjet() {
 		return projet;
 	}
 
-	public void setProjet(String[] projet) {
+	public void setProjet(ArrayList<String> projet) {
 		this.projet = projet;
 	}
-
-	public String[] getCampagne() {
+	
+	public ArrayList<String> getCampagne() {
 		return campagne;
 	}
 
-	public void setCampagne(String[] campagne) {
+	public void setCampagne(ArrayList<String> campagne) {
 		this.campagne = campagne;
 	}
 
-	public String[] getNomTest() {
+	public ArrayList<String> getNomTest() {
 		return nomTest;
 	}
 
-	public void setNomTest(String[] nomTest) {
+	public void setNomTest(ArrayList<String> nomTest) {
 		this.nomTest = nomTest;
 	}
 
-	public String[] getNomTesteur() {
+	public ArrayList<String> getNomTesteur() {
 		return nomTesteur;
 	}
 
-	public void setNomTesteur(String[] nomTesteur) {
+	public void setNomTesteur(ArrayList<String> nomTesteur) {
 		this.nomTesteur = nomTesteur;
 	}
 
@@ -71,57 +81,47 @@ public class Tri {
 	public void list(ArrayList<ArrayList<String>> e){
 		int i=1;
 		int f=0;
-		int g =e.size();
-		//System.out.println("___1___"+e.size());
+		if(ligne.isEmpty()){
+		}else{
+			System.out.println("ligne non-vide");
+		}
 		
-		//
-		dateTest = new String[g];
-		heureTest = new String[g];
-		statutTest = new String[g];
-		projet = new String[g];
-		campagne = new String[g];
-		nomTest = new String[g];
-		nomTesteur = new String[g];
 		
-		while(i<e.size()||e.get(i).get(f)==null){
-			if(e.get(i).get(f)==null){
-				break;
-			}
-			f= 0;
-			while(f<e.get(i).size()){				
+		for(i=0;i<e.size();i++){
+			for(f=0;f<e.get(i).size();f++){				
 				switch(f){
 				case 0:
-					dateTest[f] = e.get(i).get(f);
+					dateTest.add(e.get(i).get(f));
 					break;
 				case 1:
-					heureTest[f]=e.get(i).get(f);
+					heureTest.add(e.get(i).get(f));
 					break;
 				case 2:
-					statutTest[f]=e.get(i).get(f);
+					statutTest.add(e.get(i).get(f));
 					break;
 				case 3:
-					projet[f]=e.get(i).get(f);
+					projet.add(e.get(i).get(f));
 					break;
 				case 4:
-					campagne[f]=e.get(i).get(f);
+					campagne.add(e.get(i).get(f));
 					break;
 				case 5:
-					nomTest[f]=e.get(i).get(f);
+					nomTest.add(e.get(i).get(f));
 					break;
 				case 6:
-					nomTesteur[f]=e.get(i).get(f);
+					nomTesteur.add(e.get(i).get(f));
 					break;
 				default:
-					System.out.println("ne passe dans rien");
-					
+					System.out.println("ne passe dans rien");					
 					break;					
 				}
-				System.out.println("___4___"+f+"   "+e.get(i).get(f));
-				f++;
 			}
-			i++;
+			f= 0;
 		}
-		System.out.println("___5___");
 	}
-
+	
+	public void okTesteur(){
+		//Note (Maryan) : utilisation SQL pour recouper les testeurs
+	}
+	
 }

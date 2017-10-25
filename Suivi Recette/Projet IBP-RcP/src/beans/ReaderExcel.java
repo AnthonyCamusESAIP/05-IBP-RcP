@@ -145,23 +145,23 @@ public class ReaderExcel {
     				
     				switch (cell.getCellTypeEnum()) {
     					case STRING:
-    						System.out.print(cell.getStringCellValue());
+    						//System.out.print(cell.getStringCellValue());
     						break;
     					case BOOLEAN:
-    						System.out.print(cell.getBooleanCellValue());
+    						//System.out.print(cell.getBooleanCellValue());
     						break;
     					case NUMERIC:
     						//System.out.print(cell.getNumericCellValue());
     						date = formatter.format(cell.getDateCellValue());
-    						System.out.println(date);
+    						//System.out.println(date);
     						break;
 					default:
 						break;
     				}
     				
-    				System.out.print(" _#_ ");
+    				//System.out.print(" _#_ ");
     			}
-    			System.out.println();
+    			//System.out.println();
     		}
     		
         }
