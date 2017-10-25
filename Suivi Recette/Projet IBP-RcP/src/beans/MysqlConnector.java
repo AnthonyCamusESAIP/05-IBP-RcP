@@ -54,7 +54,7 @@ public class MysqlConnector {
 
 	//Note (Alban): Insert de données dans la base
 	public int MysqlInsert(Projet projet){
-		String sqlQuery = "INSERT INTO projet (label) VALUES ('"+ projet.getLabel() +"');";
+		String sqlQuery = "INSERT INTO projet (nomProjet) VALUES ('"+ projet.getLabel() +"');";
 		
 		int result = 0;
 		try {
@@ -72,7 +72,7 @@ public class MysqlConnector {
 	}
 	public int MysqlInsert(Campagne campagne){
 		
-		String sqlQuery = "INSERT INTO campagne (label,idProjet) VALUES ('"+ campagne.getLabel()+"',"+campagne.getProjet().getIdProjet()+");";
+		String sqlQuery = "INSERT INTO campagne (nomCampagne,idProjet) VALUES ('"+ campagne.getLabel()+"',"+campagne.getProjet().getIdProjet()+");";
 		
 		int result = 0;
 		try {
@@ -108,11 +108,11 @@ public class MysqlConnector {
 	}
 	public int MysqlInsert(Test test){
 
-		String sqlQuery = "INSERT INTO test (date,heure,statut, nomTest,idProjet,idCampagne,idTesteur) "
-				+ "VALUES ("+ test.getDate() +","+ test.getHeure() +",'"+ test.getStatut() +"',"
-				+ "'"+ test.getNomTest() +"', "+ test.getProjet().getIdProjet() +","+ test.getCampagne().getIdCampagne() +", "
+		String sqlQuery = "INSERT INTO test (date,heure,statut, nomTest, idCampagne,idTesteur) "
+				+ "VALUES ('"+ test.getDate() +"','"+ test.getHeure() +"','"+ test.getStatut() +"',"
+				+ "'"+ test.getNomTest() +"',"+ test.getCampagne().getIdCampagne() +", "
 				+ test.getTesteur().getIdTesteur() +");";
-
+		
 		int result = 0;
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
@@ -129,12 +129,12 @@ public class MysqlConnector {
 	}
 	
 	//Note (Alban): Selection de données dans la base
-	public ArrayList<ArrayList<String>> MysqlSelect(List<String> nomTables, List<String> listeVariable, List<String> listeCondition){
+	public ArrayList<ArrayList<String>> MysqlSelect(List<String> nomTables, List<String> listeVariable, String condition){
 		
 		//Note (Alban) : Tableau de données séectionner
 		ArrayList<ArrayList<String>> donnees = new ArrayList<ArrayList<String>>();
 		//Note (Alban) : Requete Sql de Select
-		String sqlQuery = MysqlSelectRequete(nomTables, listeVariable, listeCondition);
+		String sqlQuery = MysqlSelectRequete(nomTables, listeVariable, condition);
 		
 		//Note (Alban) : Execution de la requete
 		try {
@@ -165,7 +165,7 @@ public class MysqlConnector {
 		
 		return donnees;
 	}
-	public String MysqlSelectRequete(List<String> nomTables, List<String> listeVariable, List<String> listeCondition){
+	public String MysqlSelectRequete(List<String> nomTables, List<String> listeVariable, String condition){
 				
 		//Note (Alban) : Creation de la requete
 		String sqlQuery = "SELECT ";
@@ -188,20 +188,13 @@ public class MysqlConnector {
 			 }
 			 
 		}
-		if (listeCondition != null){
+		if (condition != ""){
 			
-			sqlQuery += " WHERE ";
-			for(String condition : listeCondition) {
-				sqlQuery += condition;
-				
-				if(!(condition.equals(listeCondition.get(listeCondition.size()-1)))) {
-					 
-				 	sqlQuery += " AND ";
-				 }
-			}
+			sqlQuery += " WHERE "+ condition;
 		}
 	 	sqlQuery += " ;";
 	 	
+	 	System.out.println(sqlQuery);
 		return sqlQuery;
 	}
 }

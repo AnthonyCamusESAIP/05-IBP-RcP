@@ -6,6 +6,7 @@ import java.util.List;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import beans.*;
 
@@ -27,7 +28,7 @@ public class TEST_MysqlConnector {
 		bdd.MysqlClose();
 		assertEquals(null, bdd);
 	}
-
+	
 	@Test
 	public void testMysqlInsert() {
 		
@@ -36,9 +37,8 @@ public class TEST_MysqlConnector {
 		Campagne campagne = new Campagne(1, "Test Campagne 1", projet);
 		Testeur testeur = new Testeur(1, "Test Testeur 1");
 		
-		Date uneDate = new Date(117,9,24);
-		System.out.println(uneDate);
-		beans.Test test = new beans.Test(1, uneDate , "11:51:00", "Test Test 1", projet, campagne, testeur );
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		beans.Test test = new beans.Test(1, date , "11:51:00","N/A", "Test Test 1", campagne, testeur );
 		
 		MysqlConnector bdd = new MysqlConnector();
 		/* Test 1 */
@@ -66,22 +66,20 @@ public class TEST_MysqlConnector {
 		String req = "SELECT projet.idProduit, projet.label, campagne.label FROM campagne NATURAL JOIN projet WHERE idProduit == 1 AND label LIKE '%P' ;";
 		List<String> table = new ArrayList<String>();
 		List<String> variable = new ArrayList<String>();
-		List<String> condition = new ArrayList<String>();
+		String condition = "idProduit == 1 AND label LIKE '%P'";
 		table.add("campagne");
 		table.add("projet");
 		variable.add("projet.idProduit");
 		variable.add("projet.label");
 		variable.add("campagne.label");
 		
-		condition.add("idProduit == 1");
-		condition.add("label LIKE '%P'");
 		assertEquals(req, bdd.MysqlSelectRequete(table, variable, condition));
 		
 		/* test 2 */
 		req = "SELECT projet.idProduit FROM produit ;";
 		table = new ArrayList<String>();
 		variable = new ArrayList<String>();
-		condition = null;
+		condition = "";
 		variable.add("projet.idProduit");
 		table.add("produit");
 		assertEquals(req, bdd.MysqlSelectRequete(table, variable, condition));
@@ -99,6 +97,7 @@ public class TEST_MysqlConnector {
 		/* test 1 Select */
 		List<String> table = new ArrayList<String>();
 		List<String> variable = new ArrayList<String>();
+		String condition =  "idProjet = 4 OR idProjet = 5";
 		variable.add("projet.idProjet");
 		variable.add("projet.label");
 		table.add("projet");
@@ -106,27 +105,24 @@ public class TEST_MysqlConnector {
 		ArrayList<ArrayList<String>> expected = new ArrayList<ArrayList<String>>();
 		ArrayList<String> d = new ArrayList<String>();
 		ArrayList<String> d2 = new ArrayList<String>();
-		d.add("1");
-		d.add("Projet Test 1");
+		d.add("4");
+		d.add("Test Projet");
 		expected.add(d);
-		d2.add("2");
-		d2.add("Projet Test 2");
+		d2.add("5");
+		d2.add("Test Projet");
 		expected.add(d2);
 		
-		assertEquals(expected, bdd.MysqlSelect(table, variable, null));
+		assertEquals(expected, bdd.MysqlSelect(table, variable, condition));
 		
 		/* test 2 */
 		table = new ArrayList<String>();
 		variable = new ArrayList<String>();
-		ArrayList<String> condition =  new ArrayList<String>();;
+		condition = "idProjet = 1 AND label LIKE '%P'";
 		table.add("campagne");
 		table.add("projet");
-		variable.add("projet.idProduit");
+		variable.add("projet.idProjet");
 		variable.add("projet.label");
 		variable.add("campagne.label");
-		
-		condition.add("idProduit == 1");
-		condition.add("label LIKE '%P'");
 		
 		expected = new ArrayList<ArrayList<String>>();
 		d = new ArrayList<String>();

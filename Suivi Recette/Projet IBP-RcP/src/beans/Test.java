@@ -26,12 +26,13 @@ public class Test {
 	private Testeur testeur;
 	
 	
-	public Test(int idTest, Date date, String heure, String statut, Projet projet, Campagne campagne, Testeur testeur) 
+	public Test(int idTest, Date date, String heure, String statut,String nomTest , Projet projet, Campagne campagne, Testeur testeur) 
 	{
 		this.idTest = idTest;
 		this.date = date;
 		this.heure = heure;
 		this.statut = statut;
+		this.nomTest = nomTest;
 		this.projet = projet;
 		this.campagne = campagne;
 		this.testeur = testeur;
