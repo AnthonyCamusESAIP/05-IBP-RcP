@@ -21,18 +21,17 @@ public class Test {
 	private String heure;
 	private String statut;
 	private String nomTest;
-	private Projet projet;
 	private Campagne campagne;
 	private Testeur testeur;
 	
 	
-	public Test(int idTest, Date date, String heure, String statut, Projet projet, Campagne campagne, Testeur testeur) 
+	public Test(int idTest, Date date, String heure, String statut, String nomTest, Campagne campagne, Testeur testeur) 
 	{
 		this.idTest = idTest;
 		this.date = date;
 		this.heure = heure;
 		this.statut = statut;
-		this.projet = projet;
+		this.nomTest = nomTest;
 		this.campagne = campagne;
 		this.testeur = testeur;
 	}
@@ -77,14 +76,6 @@ public class Test {
 	{
 		this.nomTest = nomTest;
 	}
-	public Projet getProjet() 
-	{
-		return projet;
-	}
-	public void setProjet(Projet projet) 
-	{
-		this.projet = projet;
-	}
 	public Campagne getCampagne() 
 	{
 		return campagne;
@@ -101,7 +92,6 @@ public class Test {
 	{
 		this.testeur = testeur;
 	}
-
 	
 	
 }
