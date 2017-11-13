@@ -18,6 +18,8 @@ public class DataManager {
 	
 	private List<Projet> importedProjects;
 	private List<Projet> existingProjects;
+	private List<Testeur> importedTesteur;
+	private List<Testeur> existingTesteur;
 	private MysqlConnector mysqlConnect;
 	private ReaderExcel excelReader;
 	
@@ -33,6 +35,26 @@ public class DataManager {
 		// TODO: Lecture des projets du fichier excel
 	}
 	
+	public void initExistingTesteurs() {
+		// TODO: Select des testeurs en base
+	}
+	
+	public void initImportedTesteurs() {
+		// TODO: Lecture des testeurs du fichier excel
+	}
+	
+	public void dataInsertion(String typeObject) {
+		switch (typeObject) {
+			case "Projet":
+				// TODO: Insertion des projets importés
+			case "Campagne":
+				// TODO: Insertion des campagnes importées
+			case "Test":
+				// TODO: Insertion des test importés
+			case "Testeur":
+				// TODO: Insertion des testeurs importés
+		}	
+	}
 	
     public <T> List<T> listsIntersect(List<T> list1, List<T> list2) {
         List<T> list = new ArrayList<T>();
