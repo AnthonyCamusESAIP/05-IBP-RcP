@@ -23,16 +23,18 @@ public class MysqlConnector {
 	
 	private Connection connect;	//Note (Alban): Instance de la connexion
 	//Note (Alban): Methode de connexion à la bdd
-	public MysqlConnector(){
+	public MysqlConnector(String url,String login,String mdp){
 
 		connect = null;
 		//Note (Alban): Lien de la bdd 
-		String url = "jdbc:mysql://localhost:3306/ibp-rcp";
+		//String url = "jdbc:mysql://localhost:3306/ibp-rcp";
+		//String login = "root";
+		//String ldp = "";
 
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection(url, "root", "");
+			connect = DriverManager.getConnection(url, login, mdp);
 		} catch (Exception ex) {
 			
 			System.out.println("Connexion Error :");

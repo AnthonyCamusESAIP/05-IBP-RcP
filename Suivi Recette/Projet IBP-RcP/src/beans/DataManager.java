@@ -18,7 +18,7 @@ public class DataManager {
 	
 	private List<Projet> importedProjects;
 	private List<Projet> existingProjects;
-	private MysqlConnector mysqlConnect;
+	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
 	private ReaderExcel excelReader;
 	
 	public DataManager() {
