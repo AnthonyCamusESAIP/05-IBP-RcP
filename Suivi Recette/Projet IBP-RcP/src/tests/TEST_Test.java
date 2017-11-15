@@ -1,13 +1,16 @@
 package tests;
 
-import org.junit.Test;
-import beans.*;
+
+
 import java.sql.Date;
 
+import org.junit.Test;
+
+import beans.*;
 import junit.framework.TestCase;
 
 public class TEST_Test extends TestCase{
-	
+
 	Projet p = new Projet(1, "Projet de test");
 	Campagne c = new Campagne(1, "Campagne de test", p);
 	Testeur t = new Testeur(1, "Anthony");
@@ -17,81 +20,61 @@ public class TEST_Test extends TestCase{
 	
 	@Test
 	public void testGetIdTest() {
-		int expected = 1;
-		assertEquals(expected, te.getIdTest());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testSetIdTest() {
-		int expected = 2;
-		te.setIdTest(expected);
-		assertEquals(expected, te.getIdTest());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testGetDate() {
-		Date expected = sqlDate;
-		assertEquals(expected,te.getDate());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testSetDate() {
-		java.util.Date utilDate = new java.util.Date();
-		Date expected = new java.sql.Date(utilDate.getTime());
-		te.setDate(expected);
-		assertEquals(expected,te.getDate());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testGetHeure() {
-		String expected = "15:49:00";
-		assertEquals(expected,te.getHeure());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testSetHeure() {
-		String expected = "15:59:00";
-		te.setHeure(expected);
-		assertEquals(expected,te.getHeure());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testGetStatut() {
-		String expected = "Passed";
-		assertEquals(expected,te.getStatut());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testSetStatut() {
-		String expected = "Failed";
-		te.setStatut(expected);
-		assertEquals(expected,te.getStatut());
+		fail("Not yet implemented");
 	}
 
-	@Test
 	public void testGetCampagne() {
-		Campagne expected = c;
-		assertEquals(expected,te.getCampagne());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testSetCampagne() {
-		Campagne expected = new Campagne(2, "Campagne de test unitaire", p);
-		te.setCampagne(expected);
-		assertEquals(expected,te.getCampagne());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testGetTesteur() {
-		Testeur expected = t;
-		assertEquals(expected,te.getTesteur());
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testSetTesteur() {
-		Testeur expected = new Testeur(1, "Maryan");
-		te.setTesteur(expected);
-		assertEquals(expected,te.getTesteur());
+		fail("Not yet implemented");
 	}
 
 }
