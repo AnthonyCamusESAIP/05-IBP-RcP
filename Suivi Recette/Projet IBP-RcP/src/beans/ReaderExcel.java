@@ -43,57 +43,46 @@ public class ReaderExcel {
 	public Sheet getSheet() {
 		return sheet;
 	}
-
 	public void setSheet(Sheet sheet) {
 		this.sheet = sheet;
 	}
 
-	
 	//Note (Maryan): Setter et Getter
 	public Workbook getWorkbook1() {
 		return workbook1;
 	}
-
 	public void setWorkbook1(Workbook workbook1) {
 		this.workbook1 = workbook1;
 	}
 
-	
 	//Note (Maryan): Setter et Getter du inputstream de File
 	public FileInputStream getFile() {
 		return file;
 	}
-
 	public void setFile(FileInputStream file) {
 		this.file = file;
 	}
-
 	
 	// Note (Maryan) :Setter et getter du chemin du fichier
 	public void setNameFile(String e){
 		this.nameFile=e;
 	}
-	
 	public String getNameFile(){
 		return this.nameFile;
 	}
-	
 	
 	//Note (Maryan) :Setter et getter de la feuille
 	public String getNameFeuille() {
 		return nameFeuille;
 	}
-
 	public void setNameFeuille(String nameFeuille) {
 		this.nameFeuille = nameFeuille;
 	}
 	
 	
 	// Note (Maryan) :init des parametre chemin
-	public void initReader(){
-		if(getNameFile().equals(null)){
-			
-		}else{
+	public void initReader(String fileName, String sheetName){
+		if(!(getNameFile().equals(null))){
 		
 	        try {
 				file = new FileInputStream(new File(getNameFile()));
@@ -125,7 +114,6 @@ public class ReaderExcel {
 			e.printStackTrace();
 		}	
 }
-	
 	// Note (Maryan) :Lecture en dure de la feuille excel
 	public void read(){
 		String date = "";
@@ -184,22 +172,25 @@ public class ReaderExcel {
     		Iterator<Row> iterator = sheet.iterator();
     		
     		while (iterator.hasNext()) {
+    			
     			tabLigneDonnee = new ArrayList<String>();
     			Row nextRow = iterator.next();
     			Iterator<Cell> cellIterator = nextRow.cellIterator();
     			
     			while (cellIterator.hasNext()) {
+    				
     				Cell cell = cellIterator.next();
     				switch (cell.getCellTypeEnum()) {
-					case STRING:
-    						tabLigneDonnee.add(cell.getStringCellValue());
-    						break;
-    				case NUMERIC:
-    					date = formatter.format(cell.getDateCellValue()); // Note (Maryan) : Convertion des Dates en String
-    						tabLigneDonnee.add(date);
-    						break;
-					default:
-						break;
+    				
+						case STRING:
+	    						tabLigneDonnee.add(cell.getStringCellValue());
+	    						break;
+	    				case NUMERIC:
+	    					date = formatter.format(cell.getDateCellValue()); // Note (Maryan) : Convertion des Dates en String
+	    						tabLigneDonnee.add(date);
+	    						break;
+						default:
+							break;
     				}
     			}
         		tabDonneeExcel.add(tabLigneDonnee);

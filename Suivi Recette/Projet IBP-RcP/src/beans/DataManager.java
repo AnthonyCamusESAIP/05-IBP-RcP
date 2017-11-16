@@ -29,8 +29,18 @@ public class DataManager {
 		// TODO: Select des projets en base
 	}
 	
-	public void initImportedProjects() {
+	public static void initImportedProjects(ArrayList<ArrayList<String>> tabExel) {
 		// TODO: Lecture des projets du fichier excel
+		
+		System.out.println("Test Arriver initImportedProjects");
+		for(ArrayList<String> p: tabExel)
+	        {
+	            for(int i=0;i<p.size();i++)
+	        System.out.println("["+p.get(i)+"]");
+	         
+	        ;}
+		
+		
 	}
 	
 	

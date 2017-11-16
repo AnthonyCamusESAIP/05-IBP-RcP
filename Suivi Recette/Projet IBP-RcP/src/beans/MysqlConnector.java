@@ -143,15 +143,11 @@ public class MysqlConnector {
 			
 			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
 			ResultSet rs = pstmt.executeQuery();
-<<<<<<< HEAD
 			
 			/***
 			 * implementation d'un arraylist en boucle à demander
 			 */
 			
-=======
-
->>>>>>> Alban
 			while (rs.next()) {
 				ArrayList<String> ligne = new ArrayList<String>();
 				//Note (Alban) : Pour chaque listeVariable on ajoute à un Tableau la valeur de la cellule

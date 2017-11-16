@@ -1,12 +1,14 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 //import java.util.ArrayList;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
+import beans.DataManager;
 import org.primefaces.model.chart.PieChartModel;
 
 //@SuppressWarnings("serial")
@@ -16,7 +18,7 @@ public class MainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private PieChartModel pieModel1;
 	private ReaderExcel excel;
-	private Tri tri;
+	private Tri tri; 
 	
     public int values[]={0} ;
     public int nbr;
@@ -24,15 +26,17 @@ public class MainClass implements Serializable {
 	@PostConstruct
 	public void init(){
         createPieModel1();
+        //System.out.println("Test fonctionnement inti()");
 		createReaderExcel();
 		afficher();
 	}
 	
 	public void afficher(){
-		tri =new Tri();
+		tri = new Tri();
 		tri.list(excel.ReadExcel());
 		tri.okProjet();
 	}
+	
 	//graphique
     public PieChartModel getPieModel1() {
         return pieModel1;
@@ -82,15 +86,12 @@ public class MainClass implements Serializable {
 	public void createReaderExcel(){
 
 		excel = new ReaderExcel();
-<<<<<<< HEAD
-		excel.setNameFile("F:\\ESAIP\\Nouveau dossier\\gitHub\\05-IBP-RcP\\Suivi Recette\\Projet IBP-RcP\\src\\beans\\Listetests.xls");		
-=======
+		String fileName = "C:/Users/AlbanEcobichon/Dropbox/PCPI-05_IBP-RCP_2017/RE PCPI-05_IBP-RcP_2017  Recueil des besoins/Liste des tests exécutés MOA VPS05-01 (Conflit lié au codage Unicode).xls";		
+		String sheetName = "Query1";
 		
-		excel.setNameFile("C:/Users/AlbanEcobichon/Dropbox/PCPI-05_IBP-RCP_2017/RE PCPI-05_IBP-RcP_2017  Recueil des besoins/Liste des tests exécutés MOA VPS05-01 (Conflit lié au codage Unicode).xls");		
->>>>>>> Alban
-		excel.setNameFeuille("Query1");
-		excel.initReader();		
-		excel.read();
+		excel.initReader(fileName, sheetName);		
+		// ArrayList<ArrayList<String>> tabDonnee = excel.ReadExcel();
+		// DataManager.initImportedProjects(tabDonnee);
 		excel.close();
 		//System.out.println(excel.ReadExcel());
 	}
