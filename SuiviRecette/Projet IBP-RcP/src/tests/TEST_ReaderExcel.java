@@ -60,9 +60,9 @@ public class TEST_ReaderExcel extends TestCase {
 */
 	@Test
 	public void testClose(){
-		excel.setNameFeuille("Query1");
-		excel.setNameFile("F:\\ESAIP\\Nouveau dossier\\gitHub\\05-IBP-RcP\\Suivi Recette\\Projet IBP-RcP\\src\\beans\\Listetests.xls");
-		excel.initReader();
+		String sheetName = ("Query1");
+		String fileName = ("F:\\ESAIP\\Nouveau dossier\\gitHub\\05-IBP-RcP\\Suivi Recette\\Projet IBP-RcP\\src\\beans\\Listetests.xls");
+		excel.initReader(fileName, sheetName);
 		ReaderExcel expected = new ReaderExcel();
 		expected=excel;
 		System.out.println(excel.ReadExcel()+"1");
@@ -76,9 +76,9 @@ public class TEST_ReaderExcel extends TestCase {
 	}
 
 	public void testReadExcel() {
-		excel.setNameFeuille("Query1");
-		excel.setNameFile("F:\\ESAIP\\Nouveau dossier\\gitHub\\05-IBP-RcP\\Suivi Recette\\Projet IBP-RcP\\src\\beans\\Listetests.xls");
-		excel.initReader();
+		String sheetName = ("Query1");
+		String fileName = ("F:\\ESAIP\\Nouveau dossier\\gitHub\\05-IBP-RcP\\Suivi Recette\\Projet IBP-RcP\\src\\beans\\Listetests.xls");
+		excel.initReader(fileName, sheetName);
 		ReaderExcel expected = new ReaderExcel();
 		expected = excel;
 		

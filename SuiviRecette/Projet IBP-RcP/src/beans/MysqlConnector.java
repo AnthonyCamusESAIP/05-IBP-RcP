@@ -23,7 +23,8 @@ public class MysqlConnector {
 	
 	private Connection connect;	//Note (Alban): Instance de la connexion
 	//Note (Alban): Methode de connexion à la bdd
-	public MysqlConnector(String url,String login,String mdp){
+	
+	public MysqlConnector(String url, String login, String mdp) {
 
 		connect = null;
 		//Note (Alban): Lien de la bdd 
@@ -41,6 +42,7 @@ public class MysqlConnector {
 			System.out.println(ex.getMessage());
 		}
 	}
+
 	//Note (Alban): Methode de fermeture de la connexion à la bdd
 	public void MysqlClose(){
 
