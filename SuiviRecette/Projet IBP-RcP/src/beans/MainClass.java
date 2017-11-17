@@ -16,9 +16,8 @@ import org.primefaces.model.chart.PieChartModel;
 public class MainClass implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private PieChartModel pieModel1;
-	private ReaderExcel excel;
-	private Tri tri; 
+	private PieChartModel pieModel1 = new PieChartModel();
+	private DataManager dataManager = new DataManager();
 	
     public int values[]={0} ;
     public int nbr;
@@ -26,15 +25,7 @@ public class MainClass implements Serializable {
 	@PostConstruct
 	public void init(){
         createPieModel1();
-        //System.out.println("Test fonctionnement inti()");
-		createReaderExcel();
-		afficher();
-	}
-	
-	public void afficher(){
-		tri = new Tri();
-		tri.list(excel.ReadExcel());
-		tri.okProjet();
+		dataManager.createReaderExcel();
 	}
 	
 	//graphique
@@ -81,19 +72,5 @@ public class MainClass implements Serializable {
         pieModel1.setTitle("Simple Pie");
         pieModel1.setLegendPosition("e");
     }
-
-	//Recuperation de l'ecel
-	public void createReaderExcel(){
-
-		excel = new ReaderExcel();
-		String fileName = "C:/Users/AlbanEcobichon/Dropbox/PCPI-05_IBP-RCP_2017/RE PCPI-05_IBP-RcP_2017  Recueil des besoins/Liste des tests exécutés MOA VPS05-01 (Conflit lié au codage Unicode).xls";		
-		String sheetName = "Query1";
-		
-		excel.initReader(fileName, sheetName);		
-		// ArrayList<ArrayList<String>> tabDonnee = excel.ReadExcel();
-		// DataManager.initImportedProjects(tabDonnee);
-		excel.close();
-		//System.out.println(excel.ReadExcel());
-	}
 }
 
