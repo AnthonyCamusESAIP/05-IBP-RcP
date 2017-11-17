@@ -86,7 +86,7 @@ public class MainClass implements Serializable {
 	public void createReaderExcel(){
 
 		excel = new ReaderExcel();
-		String fileName = "C:/Users/AlbanEcobichon/Dropbox/PCPI-05_IBP-RCP_2017/RE PCPI-05_IBP-RcP_2017  Recueil des besoins/Liste des tests exécutés MOA VPS05-01 (Conflit lié au codage Unicode).xls";		
+		String fileName = "C:\\Users\\Dante\\Desktop\\CPI4\\Projet\\Dev\\05-IBP-RcP\\SuiviRecette\\Projet IBP-RcP\\src\\beans\\Listetests.xls";		
 		String sheetName = "Query1";
 		
 		excel.initReader(fileName, sheetName);		
