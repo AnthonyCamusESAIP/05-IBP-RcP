@@ -27,8 +27,8 @@ public class MainClass implements Serializable {
 	public void init(){
         createPieModel1();
         //System.out.println("Test fonctionnement inti()");
-		createReaderExcel();
-		afficher();
+		//createReaderExcel();
+		//afficher();
 	}
 	
 	public void afficher(){
