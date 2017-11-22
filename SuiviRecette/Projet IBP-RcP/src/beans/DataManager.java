@@ -17,8 +17,10 @@ import java.util.*;
 public class DataManager {
 	
 	private static List<Projet> importedProjects = new ArrayList<Projet>();
+	private static List<Campagne> importedCampagnes = new ArrayList<Campagne>();
 	private static List<Projet> existingProjects = new ArrayList<Projet>();
-	//private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
+	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
+	
 	private ReaderExcel excel = new ReaderExcel();
 	
 	public DataManager() {
@@ -27,10 +29,28 @@ public class DataManager {
 	
 	public void initExistingProjects() {
 		// TODO: Select des projets en base
+		List<String> nomTables = new ArrayList<String>();
+		nomTables.add("projet");
+		List<String> listeVariable = new ArrayList<String>();
+		listeVariable.add("idProjet");
+		listeVariable.add("nomProjet");
+		
+		String condition = "";
+		
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+		
+		result = mysqlConnect.MysqlSelect(nomTables, listeVariable, condition);
+		
+		for(ArrayList<String> ligne : result){
+			existingProjects.add(new Projet(Integer.parseInt(ligne.get(0)), ligne.get(1)));
+		}
+		
+		
+		
 	}
 	
 	public static void initImportedProjects(ArrayList<ArrayList<String>> tabExcel) {
-		// TODO: Lecture des projets du fichier excel
+		// Note (Alban) : Lecture des projets du fichier excel
 		
 		boolean projetPresent = false;
 		int cmpt = 0;
@@ -45,9 +65,51 @@ public class DataManager {
 				importedProjects.add(new Projet( cmpt , ligne.get(3)));
 				cmpt ++;
 			}
+			projetPresent = false;
 		}
 		
 		
+	}
+	
+	// Notes (Alban) : Code a Maryan
+	public static void initImportedCampagnes(ArrayList<ArrayList<String>> tabExcel){
+	    // TODO: Remanier pour reprendre depuis projet 
+	    boolean campagnePresent = false;
+	    int cmpt = 0;
+	    
+	    for(ArrayList<String> ligne : tabExcel){
+	        for(Campagne campagne : importedCampagnes){
+	            if(campagne.getLabel() == ligne.get(4)){
+	                campagnePresent =true;
+	            }
+	        }
+	        if(!campagnePresent){
+	            //importedCampagnes.add(new Campagne(cmpt,ligne.get(4)), /*projet*/ );
+	            cmpt++;
+	        }
+	        campagnePresent = false;
+	    }
+	}
+	
+	// Notes (Alban) : Code a Maryan
+	//Ajout des listes dans chaque projets
+	public static void initListsCampagne(ArrayList<ArrayList<String>> tabExcel){
+	    boolean campagnePresent = false;
+	    
+	    for(int j = 0 ; j < importedProjects.size() ; j++){
+	        //List<Campagne> list = new ArrayList<Campagne>();
+	        for(int k = 0 ; k < importedCampagnes.size() ; k++){
+	            for(ArrayList<String> ligne : tabExcel){
+	                if(ligne.get(3) == importedProjects.get(j).getLabel() || ligne.get(4) == importedCampagnes.get(k).getLabel()){
+	                    campagnePresent = true;
+	                }
+	            }
+	            if(!campagnePresent){
+	                //list.add(importedCampagnes);
+	            }
+	            campagnePresent = false;
+	        }
+	    }
 	}
 	
 	//Recuperation de l'excel
