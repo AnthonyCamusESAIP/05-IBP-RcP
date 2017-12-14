@@ -23,6 +23,7 @@ public class DataManager {
 	private static List<Testeur> importedTesteurs = new ArrayList<Testeur>();
 	
 	private static List<Projet> existingProjects = new ArrayList<Projet>();
+	private static List<Version> existingVersions = new ArrayList<Version>();
 	private static List<Testeur> existingTesteurs = new ArrayList<Testeur>();
 	
 	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
@@ -49,6 +50,25 @@ public class DataManager {
 			for(Campagne campagne : projet.getCampagnes()){
 				initExistingTest(campagne);
 			}
+		}
+	}
+	
+	public void initExistingVersion() {
+		
+		List<String> nomTables = new ArrayList<String>();
+		nomTables.add("version");
+		List<String> listeVariable = new ArrayList<String>();
+		listeVariable.add("idVersion");
+		listeVariable.add("nomVersion");
+		
+		String condition = "";
+		
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+		
+		result = mysqlConnect.MysqlSelect(nomTables, listeVariable, condition);
+		
+		for(ArrayList<String> ligne : result){
+			existingVersions.add(new Version(Integer.parseInt(ligne.get(0)), ligne.get(1)));
 		}
 	}
 	
@@ -224,6 +244,7 @@ public class DataManager {
 		}		
 	}
 
+	
 	//Note (Alban) : Initialisation des campagnes importées
 	public static void initImportedCampagnes(ArrayList<ArrayList<String>> tabExcel, List<Projet> importedProjects){ 
 		
@@ -259,13 +280,13 @@ public class DataManager {
 		int cmpt = 0;
 		
 		for(ArrayList<String> ligne : tabExcel){
-			for(Testeur Testeur : importedTesteur){
+			for(Testeur Testeur : importedTesteurs){
 				if(Testeur.getNomTesteur() == ligne.get(6)){
 					alreadyExists = true;
 				}
 			}
 			if(!alreadyExists){
-				importedTesteur.add(new Testeur( cmpt , ligne.get(6)));
+				importedTesteurs.add(new Testeur( cmpt , ligne.get(6)));
 				cmpt ++;
 			}
 			alreadyExists = false;

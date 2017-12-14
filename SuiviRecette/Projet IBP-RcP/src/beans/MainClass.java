@@ -27,7 +27,7 @@ public class MainClass implements Serializable {
         createPieModel1();
 		dataManager.createReaderExcel();
 		dataManager.initExistingProjects();
-		dataManager.initExistingCampagne(dataManager.getExistingProjects().get(0));
+		dataManager.initExistingCampagnes(dataManager.getExistingProjects().get(0));
 		dataManager.initExistingTest(dataManager.getExistingProjects().get(0).getCampagnes().get(0));
 	}
 	
