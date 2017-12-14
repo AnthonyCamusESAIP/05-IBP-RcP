@@ -17,7 +17,7 @@ import java.sql.Date;
 public class Test {
 
 	private int idTest;
-	private Date date;
+	private String date;
 	private String heure;
 	private String statut;
 	private String nomTest;
@@ -26,7 +26,7 @@ public class Test {
 	
 	
 
-	public Test(int idTest, Date date, String heure, String statut, String nomTest, Campagne campagne, Testeur testeur) 
+	public Test(int idTest, String date, String heure, String statut, String nomTest, Campagne campagne, Testeur testeur) 
 	{
 		this.idTest = idTest;
 		this.date = date;
@@ -44,11 +44,11 @@ public class Test {
 	{
 		this.idTest = idTest;
 	}
-	public Date getDate() 
+	public String getDate() 
 	{
 		return date;
 	}
-	public void setDate(Date date) 
+	public void setDate(String date) 
 	{
 		this.date = date;
 	}
