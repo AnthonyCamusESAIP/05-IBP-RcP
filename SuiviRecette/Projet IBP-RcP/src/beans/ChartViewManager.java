@@ -31,7 +31,10 @@ public class ChartViewManager implements Serializable {
     	tables.add("campagne");
     	tables.add("test");
     	List<String> attributs = new ArrayList<String>();
-    	attributs.add("*");
+    	attributs.add("nomProjet");
+    	attributs.add("nomCampagne");
+    	attributs.add("nomTest");
+
     	ArrayList<ArrayList<String>> data = mysqlConnect.MysqlSelect(tables, attributs, "");
     	System.out.println(data);
     }
