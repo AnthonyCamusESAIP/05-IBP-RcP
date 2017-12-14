@@ -61,11 +61,7 @@
 			</f:facet>
 		</p:menubar>
 	</h:form>
-	
-	<p:panel id="pieChartPnl" header="Simple Pie" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px;width:500px;float:left;text-align:center">
-    	<p:chart type="pie" model="#{mainClass.pieModel1}" />
-	</p:panel>
-	<p:draggable for="pieChartPnl" handle=".ui-panel-titlebar" />
+	<p:chart type="pie" model="#{chartViewManager.pieModel}" style="width:400px;height:300px" />
 	
 </h:body>
 </html>
