@@ -77,6 +77,7 @@ public class ChartViewManager implements Serializable {
 		this.nomProjet = _nomProjet;
 		this.date = _date;
 	}
+	
 	public ChartViewManager() {
 		this.date = "2017-12-22";
 		this.nomProjet ="GSP13044 - PPG - PARME - Sujets Prioritaires";
@@ -300,6 +301,7 @@ public class ChartViewManager implements Serializable {
     private void createModels() {
         createPieModel();
         createLineModel();
+        createBarModel();
     }
  
     private void createPieModel() {
@@ -398,11 +400,46 @@ public class ChartViewManager implements Serializable {
         int max = Arrays.stream(tab).max().getAsInt();
         yAxis.setLabel("Nombre de tests");
         yAxis.setMin(0);
-        yAxis.setMax(max);
+        yAxis.setMax(max+1);
     }
     
     private void createBarModel() {
+    	
     	barModel = new BarChartModel();
+    	
+        Calendar cal = Calendar.getInstance();
+    	try {
+			cal.setTime(df.parse(date));
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	ChartSeries thisWeek = new ChartSeries();
+        thisWeek.setLabel("Cette semaine");
+        thisWeek.set(date, nbTestThisWeek);
+        
+        cal.add(Calendar.DAY_OF_MONTH, -7);
+    	ChartSeries passedWeek = new ChartSeries();
+    	passedWeek.setLabel("Semaine dernière");
+    	passedWeek.set(df.format(cal.getTime()), nbTestWeek1);
+ 
+        barModel.addSeries(thisWeek);
+        barModel.addSeries(passedWeek);
+        
+        barModel.setTitle("Comparatif nombre de test total par rapport à la semaine dernière");
+        barModel.setLegendPosition("n");
+         
+        Axis xAxis = barModel.getAxis(AxisType.X);
+        xAxis.setLabel("Semaine");
+         
+        Axis yAxis = barModel.getAxis(AxisType.Y);
+        yAxis.setLabel("Tests");
+        yAxis.setMin(0);
+        int[] tab = {nbTestThisWeek, nbTestWeek1};
+        int max = Arrays.stream(tab).max().getAsInt();
+        yAxis.setMax(max+5);
     }
      
 }
