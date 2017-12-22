@@ -36,8 +36,11 @@ public class MysqlConnector {
 
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager.getConnection(url, login, mdp);
+			// TODO : Faire le deploiement de la bdd si elle existe pas
 		} catch (Exception ex) {
 			
+
+			// TODO : Faire le deploiement de la bdd si elle existe pas
 			System.out.println("Connexion Error :");
 			System.out.println(ex.getMessage());
 		}
@@ -58,7 +61,7 @@ public class MysqlConnector {
 
 	//Note (Alban): Insert de données dans la base
 	public int MysqlInsert(Projet projet){
-		String sqlQuery = "INSERT INTO projet (nomProjet) VALUES ('"+ projet.getLabel() +"');";
+		String sqlQuery = "INSERT INTO projet (nomProjet, idVersion) VALUES ('"+ projet.getLabel().replaceAll("['`\"]", " ")+"',1);";
 		
 		int result = 0;
 		try {
@@ -69,14 +72,14 @@ public class MysqlConnector {
 			
 		} catch (Exception e) {
 
-			System.out.println("MysqlInsert Error : ");
+			System.out.println("MysqlInsert Projet Error : ");
 			System.out.println(e.getMessage());
 		}
 		return result;
 	}
 	public int MysqlInsert(Campagne campagne){
 		
-		String sqlQuery = "INSERT INTO campagne (nomCampagne,idProjet) VALUES ('"+ campagne.getLabel()+"',"+campagne.getProjet().getIdProjet()+");";
+		String sqlQuery = "INSERT INTO campagne (nomCampagne,idProjet) VALUES ('"+ campagne.getLabel().replaceAll("['`\"]", " ")+"',"+campagne.getProjet().getIdProjet()+");";
 		
 		int result = 0;
 		try {
@@ -87,14 +90,15 @@ public class MysqlConnector {
 			
 		} catch (Exception e) {
 
-			System.out.println("MysqlInsert Error : ");
-			System.out.println(e.getMessage());
+			System.out.println("MysqlInsert Campagne Error : ");
+			System.out.println(e.getMessage()); 
+			System.out.println(sqlQuery);
 		}
 		return result;
 	}
 	public int MysqlInsert(Testeur testeur){
 
-		String sqlQuery = "INSERT INTO testeur (nomTesteur) VALUES ('"+ testeur.getNomTesteur() +"');";
+		String sqlQuery = "INSERT INTO testeur (nomTesteur) VALUES ('"+ testeur.getNomTesteur().replaceAll("['`\"]", " ")+"');";
 		
 		int result = 0;
 		try {
@@ -105,7 +109,7 @@ public class MysqlConnector {
 			
 		} catch (Exception e) {
 
-			System.out.println("MysqlInsert Error : ");
+			System.out.println("MysqlInsert Testeur Error : ");
 			System.out.println(e.getMessage());
 		}
 		return result;
@@ -113,8 +117,8 @@ public class MysqlConnector {
 	public int MysqlInsert(Test test){
 
 		String sqlQuery = "INSERT INTO test (date,heure,statut, nomTest, idCampagne,idTesteur) "
-				+ "VALUES ('"+ test.getDate() +"','"+ test.getHeure() +"','"+ test.getStatut() +"',"
-				+ "'"+ test.getNomTest() +"',"+ test.getCampagne().getIdCampagne() +", "
+				+ "VALUES ('"+ test.getDate().replaceAll("['`\"]", " ") +"','"+ test.getHeure().replaceAll("['`\"]", " ") +"','"+ test.getStatut().replaceAll("['`\"]", " ") +"',"
+				+ "'"+ test.getNomTest().replaceAll("['`\"]", " ") +"',"+ test.getCampagne().getIdCampagne() +", "
 				+ test.getTesteur().getIdTesteur() +");";
 		
 		int result = 0;
@@ -126,7 +130,7 @@ public class MysqlConnector {
 			
 		} catch (Exception e) {
 
-			System.out.println("MysqlInsert Error : ");
+			System.out.println("MysqlInsert Test Error : ");
 			System.out.println(e.getMessage());
 		}
 		return result;
@@ -202,7 +206,7 @@ public class MysqlConnector {
 		}
 	 	sqlQuery += " ;";
 	 	
-	 	System.out.println(sqlQuery);
+	 	//System.out.println(sqlQuery); 
 		return sqlQuery;
 	}
 }

@@ -97,8 +97,7 @@ public class TEST_MysqlConnector {
 		List<String> table = new ArrayList<String>();
 		List<String> variable = new ArrayList<String>();
 		String condition =  "";
-		variable.add("projet.idProjet");
-		variable.add("projet.nomProjet");
+		variable.add("projet.*");
 		table.add("projet");
 		
 		ArrayList<ArrayList<String>> expected = new ArrayList<ArrayList<String>>();

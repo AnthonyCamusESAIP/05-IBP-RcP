@@ -23,12 +23,11 @@ public class MainClass implements Serializable {
     public int nbr;
 
 	@PostConstruct
-	public void init(){
+	public void init(){		
         createPieModel1();
 		dataManager.createReaderExcel();
-		dataManager.initExistingProjects();
-		dataManager.initExistingCampagnes(dataManager.getExistingProjects().get(0));
-		dataManager.initExistingTest(dataManager.getExistingProjects().get(0).getCampagnes().get(0));
+		dataManager.sauvegardeImportedData();
+		
 	}
 	
 	//graphique

@@ -126,30 +126,31 @@ public class ReaderExcel {
     		
     		Iterator<Row> iterator = sheet.iterator();
     		
-    		while (iterator.hasNext()) {
-    			
-    			tabLigneDonnee = new ArrayList<String>();
-    			Row nextRow = iterator.next();
-    			Iterator<Cell> cellIterator = nextRow.cellIterator();
-    			
-    			while (cellIterator.hasNext()) {
-    				
-    				Cell cell = cellIterator.next();
-    				switch (cell.getCellTypeEnum()) {
-    				
-						case STRING:
-	    					tabLigneDonnee.add(cell.getStringCellValue());
-	    					break;
-	    				case NUMERIC:
-	    					date = formatter.format(cell.getDateCellValue()); // Note (Maryan) : Convertion des Dates en String
-	    					tabLigneDonnee.add(date);
-	    					break;
-						default:
-							break;
-    				}
-    			}
-        		tabDonneeExcel.add(tabLigneDonnee);
-    		}
+	    		while (iterator.hasNext()) {
+	    			
+	    			tabLigneDonnee = new ArrayList<String>();
+	    			Row nextRow = iterator.next();
+	    			Iterator<Cell> cellIterator = nextRow.cellIterator();
+	    			
+	    			while (cellIterator.hasNext()) {
+	    				
+	    				Cell cell = cellIterator.next();
+	    				switch (cell.getCellTypeEnum()) {
+	    				
+							case STRING:
+		    					tabLigneDonnee.add(cell.getStringCellValue());
+		    					break;
+		    				case NUMERIC:
+		    					date = formatter.format(cell.getDateCellValue()); // Note (Maryan) : Convertion des Dates en String
+		    					tabLigneDonnee.add(date);
+		    					break;
+							default:
+								break;
+	    				}
+	    			}
+	        		tabDonneeExcel.add(tabLigneDonnee);
+	    		}
+    		
         }
         catch (Exception e)
         {

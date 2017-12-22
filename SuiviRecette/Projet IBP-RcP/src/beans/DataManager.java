@@ -1,7 +1,4 @@
 package beans;
-import java.text.Format;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -30,7 +27,7 @@ public class DataManager {
 	private ReaderExcel excel = new ReaderExcel();
 	
 	public List<Projet> getExistingProjects() {
-		return existingProjects;
+		return existingProjects; 
 	}
 
 	public DataManager() {
@@ -39,21 +36,50 @@ public class DataManager {
 	
 	// Note (Alban) : Récupération des données existante
 	public void initExisting() {
-		initExistingProjects();
+		
+		initExistingVersions();
+		
 		initExistingTesteurs();
 		
-		for(Projet projet : existingProjects){
-			initExistingCampagnes(projet);
+		for(Version version : existingVersions){
+			initExistingProjects(version);
 		}
 		
-		for(Projet projet : existingProjects){
-			for(Campagne campagne : projet.getCampagnes()){
-				initExistingTest(campagne);
+		for(Version version : existingVersions){
+			for(Projet projet : version.getProjets()){
+				initExistingCampagnes(projet);
+			}
+		}
+		
+		for(Version version : existingVersions){
+			for(Projet projet : version.getProjets()){
+				for(Campagne campagne : projet.getCampagnes()){
+					initExistingTest(campagne);
+				}
 			}
 		}
 	}
 	
-	public void initExistingVersion() {
+	public void initExistingTesteurs() {
+		// TODO: Select des projets en base
+		List<String> nomTables = new ArrayList<String>();
+		nomTables.add("testeur");
+		List<String> listeVariable = new ArrayList<String>();
+		listeVariable.add("idTesteur");
+		listeVariable.add("nomTesteur");
+		
+		String condition = "";
+		
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+		
+		result = mysqlConnect.MysqlSelect(nomTables, listeVariable, condition);
+		
+		for(ArrayList<String> ligne : result){
+			existingTesteurs.add(new Testeur(Integer.parseInt(ligne.get(0)), ligne.get(1)));
+		}
+	}
+	
+	public void initExistingVersions() {
 		
 		List<String> nomTables = new ArrayList<String>();
 		nomTables.add("version");
@@ -72,23 +98,27 @@ public class DataManager {
 		}
 	}
 	
-	public void initExistingProjects() {
+	public void initExistingProjects(Version version) {
 		// TODO: Select des projets en base
+		List<Projet> lstProjet = new ArrayList<Projet>();
 		List<String> nomTables = new ArrayList<String>();
 		nomTables.add("projet");
+		nomTables.add("version");
 		List<String> listeVariable = new ArrayList<String>();
 		listeVariable.add("idProjet");
 		listeVariable.add("nomProjet");
 		
-		String condition = "";
+		String condition = "version.nomVersion = '"+version.getNomVersion()+"'";
 		
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 		
 		result = mysqlConnect.MysqlSelect(nomTables, listeVariable, condition);
 		
 		for(ArrayList<String> ligne : result){
+			lstProjet.add(new Projet(Integer.parseInt(ligne.get(0)), ligne.get(1)));
 			existingProjects.add(new Projet(Integer.parseInt(ligne.get(0)), ligne.get(1)));
 		}
+		version.setProjets(lstProjet);
 	}
 	
 	public void initExistingCampagnes(Projet projet){
@@ -159,80 +189,152 @@ public class DataManager {
 		
 	}
 
-	public void initExistingTesteurs() {
-		// TODO: Select des projets en base
-		List<String> nomTables = new ArrayList<String>();
-		nomTables.add("testeur");
-		List<String> listeVariable = new ArrayList<String>();
-		listeVariable.add("idTesteur");
-		listeVariable.add("nomTesteur");
-		
-		String condition = "";
-		
-		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
-		
-		result = mysqlConnect.MysqlSelect(nomTables, listeVariable, condition);
-		
-		for(ArrayList<String> ligne : result){
-			existingTesteurs.add(new Testeur(Integer.parseInt(ligne.get(0)), ligne.get(1)));
-		}
-	}
 	
 	// Note (Alban) : Sauvegarde des objets importés
 	
 	public void sauvegardeImportedData() {
-		
-		
+
 		initExisting();
 		
-		// TODO : Ajout Testeur
+		initImportedProjects(excel.ReadExcel());
+		initImportedTesteurs(excel.ReadExcel());
+		initImportedCampagnes(excel.ReadExcel());
+		initImportedTest(excel.ReadExcel());
+		
+		
 		for (Testeur impTesteur : importedTesteurs) {
-			boolean alreadyExistProject = false;
-			for (Testeur exiTesteur : existingTesteurs) {
-				
-				if (impTesteur.getNomTesteur() == exiTesteur.getNomTesteur()) {
-					alreadyExistProject = true;
+			boolean alreadyExistTesteurs = false; 
+			for (Testeur exiTesteur : existingTesteurs) {  
+				if (impTesteur.getNomTesteur().equals(exiTesteur.getNomTesteur())) {
+					alreadyExistTesteurs = true;
 				}
 			}
-			if (!alreadyExistProject) {
-				
-				 mysqlConnect.MysqlInsert(impTesteur);
+			if (!alreadyExistTesteurs) {
+				existingTesteurs.add(impTesteur);
+				mysqlConnect.MysqlInsert(impTesteur);
 			}
 		}
 		
-		// TODO : Ajout Projet
+		// Note (Alban) : Ajout Version création association dans la bdd (attendre verification)
+		
+		// Note (Alban) : Sauvegarde des projets inexistants
 		for (Projet impProject : importedProjects) {
 			boolean alreadyExistProject = false;
 			for (Projet exiProject : existingProjects) {
 				
-				if (impProject.getLabel() == exiProject.getLabel()) {
+				if (impProject.getLabel().equals(exiProject.getLabel())) {
 					alreadyExistProject = true;
 				}
 			}
 			if (!alreadyExistProject) {
 				
-				 mysqlConnect.MysqlInsert(impProject);
+				existingProjects.add(impProject);
+				
+				mysqlConnect.MysqlInsert(impProject);
 			}
 		}
 		
-		// TODO : Ajout Campagne
 		
-		// TODO : Ajout Test
+		// Note (Alban) : Sauvegarde des campagnes inexistantes
+		for (Version version : existingVersions){
+			for (Projet impProject : importedProjects) {
+				for (Projet exiProject : version.getProjets()) {
+					if (impProject.getLabel().equals(exiProject.getLabel())) {
+					
+						for (Campagne impCampagne : impProject.getCampagnes()) {
+							boolean alreadyExistCampagne = false;
+							for (Campagne exiCampagne : exiProject.getCampagnes()) {
+	
+								if (impCampagne.getLabel().equals(exiCampagne.getLabel())) {
+									alreadyExistCampagne = true; 
+								}
+							}
+							if (!alreadyExistCampagne) {
+								
+								impCampagne.setProjet(exiProject);
+								
+								List<Campagne> lstCamp = exiProject.getCampagnes();
+								lstCamp.add(impCampagne);
+								exiProject.setCampagnes(lstCamp);
+								
+								mysqlConnect.MysqlInsert(impCampagne);
+							}	
+							
+						}					
+					}
+				}
+			}
+		}
 		
+		
+		// Note (Alban) : Sauvegarde des tests inexistants
+		System.out.println("Entrer save Test");
+		for (Version version : existingVersions) {
+			for (Projet impProject : importedProjects) {
+				for (Projet exiProject : version.getProjets()) {
+					
+					if (impProject.getLabel().equals(exiProject.getLabel())) {
+						
+						for (Campagne impCampagne : impProject.getCampagnes()) {
+							for (Campagne exiCampagne : exiProject.getCampagnes()) {
+								
+								if (impCampagne.getLabel().equals(exiCampagne.getLabel())) {
+
+									int cmp = 0;
+									for (Test impTest : impCampagne.getTests()) {
+										cmp++;
+										System.out.println(cmp);
+										boolean alreadyExistTest = false;
+										for (Test exiTest : exiCampagne.getTests()) {
+				
+											if ((impTest.getNomTest().equals(exiTest.getNomTest()))&&(impTest.getDate().equals(exiTest.getDate()))&&(impTest.getHeure().equals(exiTest.getHeure()))&&(impTest.getStatut().equals(exiTest.getStatut()))) {
+												alreadyExistTest = true; 
+											}
+										}
+										if (!alreadyExistTest) {
+											
+											impTest.setCampagne(exiCampagne);
+											
+											List<Test> lstTest = exiCampagne.getTests();
+											lstTest.add(impTest);
+											exiCampagne.setTests(lstTest);
+											
+											mysqlConnect.MysqlInsert(impTest);
+										}	
+									}
+								}
+							}
+						}					
+					}
+				}
+			}
+		}
+
+		System.out.println("Sortie save Test");
+		//Vider l'existing ? existingProjects = null;
 	}
 
 	// Note (Alban) : Association CSV Classes
 
+	/*
+	Note (Alban) : En attente de verification automatisation en base 
+	public static void initImportedVersions(){
+		
+	}
+	*/
+	
 	//Note (Alban) : Initialisation des projets importés
 	public static void initImportedProjects(ArrayList<ArrayList<String>> tabExcel) {
 		// Note (Alban) : Lecture des projets du fichier excel
+		
+		// TODO : Comment definir la version ?
 		
 		boolean alreadyExists = false;
 		int cmpt = 0;
 		
 		for(ArrayList<String> ligne : tabExcel){
 			for(Projet projet : importedProjects){
-				if(projet.getLabel() == ligne.get(3)){
+				if(projet.getLabel().equals(ligne.get(3))){
 					alreadyExists = true;
 				}
 			}
@@ -246,7 +348,7 @@ public class DataManager {
 
 	
 	//Note (Alban) : Initialisation des campagnes importées
-	public static void initImportedCampagnes(ArrayList<ArrayList<String>> tabExcel, List<Projet> importedProjects){ 
+	public static void initImportedCampagnes(ArrayList<ArrayList<String>> tabExcel){ 
 		
 		for(Projet Project : importedProjects){
 
@@ -254,17 +356,16 @@ public class DataManager {
 			int cmp = 0;
 			for(ArrayList<String> ligne : tabExcel){
 				
-	            if(Project.getLabel() == ligne.get(3)){
+	            if(Project.getLabel().equals(ligne.get(3))){
 	            	boolean alreadyExist = false; 
 	            	for(Campagne campProject : Project.getCampagnes()){
-	            		if(campProject.getLabel() == ligne.get(4)){
+	            		if(campProject.getLabel().equals(ligne.get(4))){
 	            			alreadyExist = true;
 	            		}
-	            		
-	            		if(!(alreadyExist)){
-	            			lstCamp.add(new Campagne(cmp, ligne.get(4), Project));
-	            		}
 	            	}
+	            	if(!(alreadyExist)){
+            			lstCamp.add(new Campagne(cmp, ligne.get(4), Project));
+            		}
 	            }
 			}
 			Project.setCampagnes(lstCamp);
@@ -281,7 +382,7 @@ public class DataManager {
 		
 		for(ArrayList<String> ligne : tabExcel){
 			for(Testeur Testeur : importedTesteurs){
-				if(Testeur.getNomTesteur() == ligne.get(6)){
+				if(Testeur.getNomTesteur().equals(ligne.get(6))){
 					alreadyExists = true;
 				}
 			}
@@ -294,18 +395,27 @@ public class DataManager {
 	}
 
 	//Note (Alban) : Initialisation des tests importés
-	public static void initImportedTest(ArrayList<ArrayList<String>> tabExcel, List<Projet> importedProjects){
+	public static void initImportedTest(ArrayList<ArrayList<String>> tabExcel){
 		int cmpt = 0;
 		for(Projet project : importedProjects){
 			for(Campagne campagne : project.getCampagnes()){
 				List<Test> lstTest = new ArrayList<Test>();
 				for(ArrayList<String> ligne : tabExcel){
-					if(campagne.getLabel() == ligne.get(6)){
-						lstTest.add(new Test(cmpt ,ligne.get(0) ,ligne.get(1) ,ligne.get(2) ,ligne.get(5), campagne, null ));
+					if(campagne.getLabel().equals(ligne.get(4))){ 
+						for( Testeur testeur : existingTesteurs){
+							if(testeur.getNomTesteur().equals(ligne.get(6))){
+								lstTest.add(new Test(cmpt ,ligne.get(0) ,ligne.get(1) ,ligne.get(2) ,ligne.get(5), campagne, testeur));
+								
+							}
+						}
+						cmpt++;
 					}					
-				}	
+				}
+				campagne.setTests(lstTest);
 			}
 		}
+		
+		
 			
 	}
 	
