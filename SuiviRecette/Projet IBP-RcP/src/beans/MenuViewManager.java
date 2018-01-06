@@ -13,6 +13,7 @@ public class MenuViewManager {
     private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
     private ArrayList<ArrayList<String>> databaseProjects = new ArrayList<ArrayList<String>>();
     private String projectName;
+    
     @PostConstruct
     public void init() {
     	initProject();

@@ -180,7 +180,7 @@ public class DataManager {
 			for(ArrayList<String> lgnTesteur : resTesteur){
 				Testeur testeur = new Testeur(Integer.parseInt(lgnTesteur.get(0)),lgnTesteur.get(1));
 				lstTest.add(new Test(Integer.parseInt(ligne.get(0)), ligne.get(1) , ligne.get(2),  ligne.get(3), ligne.get(4), campagne, testeur));
-				System.out.println(ligne.get(0)+" "+ligne.get(2)+""+ligne.get(3)+" "+ligne.get(4));
+				//System.out.println(ligne.get(0)+" "+ligne.get(2)+""+ligne.get(3)+" "+ligne.get(4));
 			}
 			
 			
@@ -201,7 +201,8 @@ public class DataManager {
 		initImportedCampagnes(excel.ReadExcel());
 		initImportedTest(excel.ReadExcel());
 		
-		
+		importedTesteurs.remove(0);
+		importedProjects.remove(0);
 		for (Testeur impTesteur : importedTesteurs) {
 			boolean alreadyExistTesteurs = false; 
 			for (Testeur exiTesteur : existingTesteurs) {  
@@ -268,7 +269,7 @@ public class DataManager {
 		
 		
 		// Note (Alban) : Sauvegarde des tests inexistants
-		System.out.println("Entrer save Test");
+		//System.out.println("Entrer save Test");
 		for (Version version : existingVersions) {
 			for (Projet impProject : importedProjects) {
 				for (Projet exiProject : version.getProjets()) {
@@ -283,7 +284,7 @@ public class DataManager {
 									int cmp = 0;
 									for (Test impTest : impCampagne.getTests()) {
 										cmp++;
-										System.out.println(cmp);
+										//System.out.println(cmp);
 										boolean alreadyExistTest = false;
 										for (Test exiTest : exiCampagne.getTests()) {
 				
@@ -310,7 +311,7 @@ public class DataManager {
 			}
 		}
 
-		System.out.println("Sortie save Test");
+		//System.out.println("Sortie save Test");
 		//Vider l'existing ? existingProjects = null;
 	}
 
@@ -422,7 +423,7 @@ public class DataManager {
 	//Recuperation de l'excel
 	public void createReaderExcel(){
 		// TODO : Parametrer le filename et le sheetName a revoir
-		String fileName = "C:/Users/AlbanEcobichon/Dropbox/PCPI-05_IBP-RCP_2017/RE PCPI-05_IBP-RcP_2017  Recueil des besoins/Liste des tests exécutés MOA VPS05-01 (Conflit lié au codage Unicode).xls";		
+		String fileName = "E:\\Documents\\GitHub\\05-IBP-RcP\\SuiviRecette\\Projet IBP-RcP\\src\\beans\\Listetests.xls";		
 		String sheetName ="Query1";
 
 		excel.initReader(fileName, sheetName);

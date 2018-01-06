@@ -27,7 +27,6 @@ public class MainClass implements Serializable {
         createPieModel1();
 		dataManager.createReaderExcel();
 		dataManager.sauvegardeImportedData();
-		
 	}
 	
 	//graphique

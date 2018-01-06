@@ -31,6 +31,7 @@ public class ChartViewManager implements Serializable {
     private LineChartModel lineModel;
 	private BarChartModel barModel;
 	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
+	 private DataManager dataManager = new DataManager();
 	
 	private List<String> testPassedThisWeek;
 	private List<String> testNAThisWeek;
@@ -87,6 +88,8 @@ public class ChartViewManager implements Serializable {
     public void init() {
     	initData();
         createModels();
+        dataManager.createReaderExcel();
+		dataManager.sauvegardeImportedData();
     }
     
     public void initData() {
@@ -277,11 +280,11 @@ public class ChartViewManager implements Serializable {
     	nbTestWeek5 = testNAWeek5.size()+testPassedWeek5.size()+testFailedWeek5.size()+testNotCompletedWeek5.size();
     	
     	///////////////////////////////////////////////////////System.out.print\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-    	System.out.println("nb test semaine -1 :"+nbTestWeek1);
+    	/*System.out.println("nb test semaine -1 :"+nbTestWeek1);
     	System.out.println("nb test semaine -2 :"+nbTestWeek2);
     	System.out.println("nb test semaine -3 :"+nbTestWeek3);
     	System.out.println("nb test semaine -4 :"+nbTestWeek4);
-    	System.out.println("nb test semaine -5 :"+nbTestWeek5);
+    	System.out.println("nb test semaine -5 :"+nbTestWeek5);*/
     	
     }
   
@@ -325,11 +328,11 @@ public class ChartViewManager implements Serializable {
     private void createLineModel() {
     	
     	//Sytem.out.println
-    	System.out.println("date :"+date);
+    	/*System.out.println("date :"+date);
     	System.out.println("week 1 NA :"+testNAWeek1.size());
     	System.out.println("week 1 Passed :"+testPassedWeek1.size());
     	System.out.println("week 1 Failed :"+testFailedWeek1.size());
-    	System.out.println("week 1 NotCompleted :"+testNotCompletedWeek1.size());
+    	System.out.println("week 1 NotCompleted :"+testNotCompletedWeek1.size());*/
     	
     	lineModel = new LineChartModel();
     	
