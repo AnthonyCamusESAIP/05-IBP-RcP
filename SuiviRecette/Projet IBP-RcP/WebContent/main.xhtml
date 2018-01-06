@@ -60,6 +60,12 @@
 				<p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
 			</f:facet>
 		</p:menubar>
+		
+			<p:outputLabel for="projectName" value="Projet : " style="visibility:hidden" />
+            <p:selectOneMenu id="projectName" value="#{menuViewManager.projectId}" style="width:150px;visibility:hidden">
+                <f:selectItem itemLabel="Selectionner un projet" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{menuViewManager.projects}" />
+            </p:selectOneMenu>
 	</h:form>
 	
 	<h2 style="text-align:center">DashBoard de la semaine n°semaine pour le projet nomDuProjet </h2>
