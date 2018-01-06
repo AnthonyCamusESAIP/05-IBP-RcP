@@ -49,9 +49,9 @@ public class Testeur {
 		return tests;
 	}
 
-	public void setTests(List<Test> tests) 
+	public void setTests(List<Test> lstTest) 
 	{
-		this.tests = tests;
+		this.tests = lstTest;
 	}
 	
 	

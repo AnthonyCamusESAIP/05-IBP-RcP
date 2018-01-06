@@ -16,25 +16,18 @@ import org.primefaces.model.chart.PieChartModel;
 public class MainClass implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private PieChartModel pieModel1;
-	private ReaderExcel excel;
-	private Tri tri; 
+	private PieChartModel pieModel1 = new PieChartModel();
+	private DataManager dataManager = new DataManager();
 	
     public int values[]={0} ;
     public int nbr;
 
 	@PostConstruct
-	public void init(){
+	public void init(){		
         createPieModel1();
-        //System.out.println("Test fonctionnement inti()");
-		//createReaderExcel();
-		//afficher();
-	}
-	
-	public void afficher(){
-		tri = new Tri();
-		tri.list(excel.ReadExcel());
-		tri.okProjet();
+		dataManager.createReaderExcel();
+		dataManager.sauvegardeImportedData();
+		
 	}
 	
 	//graphique
@@ -81,19 +74,5 @@ public class MainClass implements Serializable {
         pieModel1.setTitle("Simple Pie");
         pieModel1.setLegendPosition("e");
     }
-
-	//Recuperation de l'ecel
-	public void createReaderExcel(){
-
-		excel = new ReaderExcel();
-		String fileName = "C:\\Users\\Dante\\Desktop\\CPI4\\Projet\\Dev\\05-IBP-RcP\\SuiviRecette\\Projet IBP-RcP\\src\\beans\\Listetests.xls";		
-		String sheetName = "Query1";
-		
-		excel.initReader(fileName, sheetName);		
-		// ArrayList<ArrayList<String>> tabDonnee = excel.ReadExcel();
-		// DataManager.initImportedProjects(tabDonnee);
-		excel.close();
-		//System.out.println(excel.ReadExcel());
-	}
 }
 

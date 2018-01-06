@@ -16,7 +16,7 @@ public class TEST_Test extends TestCase{
 	Testeur t = new Testeur(1, "Anthony");
 	java.util.Date utilDate = new java.util.Date();
 	Date sqlDate = new java.sql.Date(utilDate.getTime());
-	beans.Test te = new beans.Test(1,sqlDate,"15:49:00","Passed","Test n°1", c,t);
+	beans.Test te = new beans.Test(1,"2017-12-02","15:49:00","Passed","Test n°1", c,t);
 	
 	@Test
 	public void testGetIdTest() {

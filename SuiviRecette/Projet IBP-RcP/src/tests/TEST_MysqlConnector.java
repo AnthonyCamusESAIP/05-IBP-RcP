@@ -37,8 +37,7 @@ public class TEST_MysqlConnector {
 		Campagne campagne = new Campagne(1, "Test Campagne 1", projet);
 		Testeur testeur = new Testeur(1, "Test Testeur 1");
 		
-		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-		beans.Test test = new beans.Test(1, date , "11:51:00","N/A", "Test Test 1", campagne, testeur );
+		beans.Test test = new beans.Test(1, "2017-12-02" , "11:51:00","N/A", "Test Test 1", campagne, testeur );
 		
 		MysqlConnector bdd = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
 		/* Test 1 */
@@ -98,8 +97,7 @@ public class TEST_MysqlConnector {
 		List<String> table = new ArrayList<String>();
 		List<String> variable = new ArrayList<String>();
 		String condition =  "";
-		variable.add("projet.idProjet");
-		variable.add("projet.nomProjet");
+		variable.add("projet.*");
 		table.add("projet");
 		
 		ArrayList<ArrayList<String>> expected = new ArrayList<ArrayList<String>>();
