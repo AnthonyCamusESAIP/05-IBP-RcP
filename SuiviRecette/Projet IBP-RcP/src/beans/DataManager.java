@@ -16,7 +16,6 @@ import java.util.*;
 
 public class DataManager {
 	
-
 	private static List<Projet> importedProjects = new ArrayList<Projet>();
 	private static List<Testeur> importedTesteurs = new ArrayList<Testeur>();
 	
@@ -192,7 +191,7 @@ public class DataManager {
 
 	
 	// Note (Alban) : Sauvegarde des objets importés
-	
+	/* Grosse fonction de roumain qui marche pas....
 	public void sauvegardeImportedData() {
 
 		initExisting();
@@ -314,7 +313,180 @@ public class DataManager {
 		//System.out.println("Sortie save Test");
 		//Vider l'existing ? existingProjects = null;
 	}
+	*/
+	
+	public void saveData() {
+		clearData();
+		initExisting();
+		saveImportedTesteurs(excel.ReadExcel());
+		saveImportedProjects(excel.ReadExcel());
+		saveImportedCampagnes(excel.ReadExcel());
+		saveImportedTest(excel.ReadExcel());
+		
+		for (Testeur testeur : importedTesteurs) {
+			mysqlConnect.MysqlInsert(testeur);
+		}
+		
+		for (Projet projet : importedProjects) {
+			mysqlConnect.MysqlInsert(projet);
+			for (Campagne campagne : projet.getCampagnes()) {
+				mysqlConnect.MysqlInsert(campagne);
+				for (Test test : campagne.getTests()) {
+					mysqlConnect.MysqlInsert(test);
+				}
+			}
+		}
+		
+	}
 
+	public void clearData() {
+		importedProjects.clear();
+		importedTesteurs.clear();
+		existingProjects.clear();
+		existingTesteurs.clear();
+		existingVersions.clear();
+	}
+	
+	public void afficheTest() {
+		clearData();
+		initExisting();
+		saveImportedTesteurs(excel.ReadExcel());
+		saveImportedProjects(excel.ReadExcel());
+		saveImportedCampagnes(excel.ReadExcel());
+		saveImportedTest(excel.ReadExcel());
+		
+		for (Projet projet : importedProjects) {
+			System.out.println("Projet : "+projet.getLabel());
+			for (Campagne campagne : projet.getCampagnes()) {
+				System.out.println("	- "+campagne.getLabel());
+				for (Test test : campagne.getTests()) {
+					System.out.println("		- "+test.getNomTest());
+				}
+			}
+		}
+		for (Testeur testeur : importedTesteurs) {
+			System.out.println("Testeur : "+testeur.getNomTesteur());
+		}
+	}
+	
+	public void saveImportedProjects(ArrayList<ArrayList<String>> tabExcel) {
+		boolean alreadyExist = false;
+		int compteurId;
+		if (existingProjects.size()>0) {
+			compteurId = existingProjects.get(existingProjects.size()-1).getIdProjet() +1;
+		}
+		else {
+			compteurId = 1;
+		}
+		
+		for (ArrayList<String> line : tabExcel) {
+			for (Projet project : existingProjects) {
+				if (project.getLabel().equals(line.get(3))) {
+					alreadyExist = true;
+					break;
+				}
+			}
+			if (!alreadyExist&&!line.get(3).equals("Projet")) {
+				Projet p = new Projet(compteurId, line.get(3));
+				importedProjects.add(p);
+				existingProjects.add(p);
+				compteurId++;
+			}
+			alreadyExist = false;
+		}
+	}
+	
+	public void saveImportedCampagnes(ArrayList<ArrayList<String>> tabExcel){
+		boolean alreadyExist = false;
+		int compteurId;
+		List<Campagne> lstCampagnes = new ArrayList<Campagne>();
+		for (ArrayList<String> line : tabExcel) {
+			for (Projet project : existingProjects) {
+				if (project.getLabel().equals(line.get(3))) {
+					lstCampagnes = project.getCampagnes();
+					if (project.getCampagnes().size() >0) {
+						compteurId = project.getCampagnes().get(project.getCampagnes().size() -1).getIdCampagne() +1;
+					}
+					else {
+						compteurId = 1;
+					}
+					for (Campagne campagne : project.getCampagnes()) {
+						if (campagne.getLabel().equals(line.get(4))) {
+							alreadyExist = true;
+							break;
+						}
+					}
+					if (!alreadyExist&&!line.get(3).equals("Projet")) {
+						Campagne c = new Campagne(compteurId, line.get(4), project);
+						lstCampagnes.add(c);
+						compteurId++;
+						project.setCampagnes(lstCampagnes);
+					}
+					alreadyExist = false;
+				}
+			}
+		}
+	}
+	
+	public void saveImportedTesteurs(ArrayList<ArrayList<String>> tabExcel){
+		boolean alreadyExist = false;
+		int compteurId;
+		if (existingTesteurs.size()>0) {
+			compteurId = existingTesteurs.get(existingTesteurs.size()-1).getIdTesteur() +1;
+		}
+		else {
+			compteurId = 1;
+		}
+		for (ArrayList<String> line : tabExcel) {
+			for (Testeur testeur : existingTesteurs) {
+				if (testeur.getNomTesteur().equals(line.get(6))) {
+					alreadyExist = true;
+					break;
+				}
+			}
+			if (!alreadyExist&&!line.get(3).equals("Projet")) {
+				Testeur t = new Testeur(compteurId, line.get(6));
+				importedTesteurs.add(t);
+				existingTesteurs.add(t);
+				compteurId++;
+			}
+			alreadyExist = false;
+		}
+	}
+	
+	public void saveImportedTest(ArrayList<ArrayList<String>> tabExcel){
+		boolean alreadyExist = false;
+		List<Test> lstTests = new ArrayList<Test>();
+		for (ArrayList<String> line : tabExcel) {
+			for (Projet project : existingProjects) {
+				if (project.getLabel().equals(line.get(3))) {
+					for (Campagne campagne : project.getCampagnes()) {
+						if (campagne.getLabel().equals(line.get(4))) {
+							lstTests = campagne.getTests();
+							for(Test test : campagne.getTests()) {
+								if (test.getNomTest().equals(line.get(5))&&test.getDate().equals(line.get(0))&&test.getHeure().equals(line.get(1))&&test.getStatut().equals(line.get(2))) {
+									alreadyExist = true;
+									break;
+								}
+							}
+							if (!alreadyExist&&!line.get(3).equals("Projet")) {
+								for (Testeur testeur : existingTesteurs) {
+									if (testeur.getNomTesteur().equals(line.get(6))) {
+										Test t = new Test(0, line.get(0) ,line.get(1) ,line.get(2) ,line.get(5), campagne, testeur);
+										lstTests.add(t);
+										campagne.setTests(lstTests);
+									}
+								}
+								
+							}
+							alreadyExist = false;
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	// Note (Alban) : Association CSV Classes
 
 	/*
@@ -323,28 +495,7 @@ public class DataManager {
 		
 	}
 	*/
-	
-<<<<<<< HEAD
-	public void initExistingTesteurs() {
-		// TODO: Select des testeurs en base
-	}
-	
-	public void initImportedTesteurs() {
-		// TODO: Lecture des testeurs du fichier excel
-	}
-	
-	public void dataInsertion(String typeObject) {
-		switch (typeObject) {
-			case "Projet":
-				// TODO: Insertion des projets importés
-			case "Campagne":
-				// TODO: Insertion des campagnes importées
-			case "Test":
-				// TODO: Insertion des test importés
-			case "Testeur":
-				// TODO: Insertion des testeurs importés
-		}	
-=======
+	/*
 	//Note (Alban) : Initialisation des projets importés
 	public static void initImportedProjects(ArrayList<ArrayList<String>> tabExcel) {
 		// Note (Alban) : Lecture des projets du fichier excel
@@ -377,7 +528,6 @@ public class DataManager {
 			List<Campagne> lstCamp = new ArrayList<Campagne>();
 			int cmp = 0;
 			for(ArrayList<String> ligne : tabExcel){
-				
 	            if(Project.getLabel().equals(ligne.get(3))){
 	            	boolean alreadyExist = false; 
 	            	for(Campagne campProject : Project.getCampagnes()){
@@ -440,6 +590,7 @@ public class DataManager {
 		
 			
 	}
+	*/
 	
 	//Recuperation de l'excel
 	public void createReaderExcel(){
@@ -448,10 +599,9 @@ public class DataManager {
 		String sheetName ="Query1";
 
 		excel.initReader(fileName, sheetName);
-		ArrayList<ArrayList<String>> tabDonnee = excel.ReadExcel();
-		initImportedProjects(tabDonnee);
+		//ArrayList<ArrayList<String>> tabDonnee = excel.ReadExcel();
+		//saveImportedProjects(tabDonnee);
 		excel.close();
->>>>>>> master
 	}
 	
     public <T> List<T> listsIntersect(List<T> list1, List<T> list2) {
