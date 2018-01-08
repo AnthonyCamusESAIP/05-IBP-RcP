@@ -80,7 +80,7 @@ public class ChartViewManager implements Serializable {
 	}
 	
 	public ChartViewManager() {
-		this.date = "2017-12-22";
+		this.date = "2017-10-16";
 		this.nomProjet ="GSP13044 - PPG - PARME - Sujets Prioritaires";
 	}
  
