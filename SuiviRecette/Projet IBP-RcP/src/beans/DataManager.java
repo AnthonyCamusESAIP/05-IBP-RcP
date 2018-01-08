@@ -287,7 +287,6 @@ public class DataManager {
 										//System.out.println(cmp);
 										boolean alreadyExistTest = false;
 										for (Test exiTest : exiCampagne.getTests()) {
-				
 											if ((impTest.getNomTest().equals(exiTest.getNomTest()))&&(impTest.getDate().equals(exiTest.getDate()))&&(impTest.getHeure().equals(exiTest.getHeure()))&&(impTest.getStatut().equals(exiTest.getStatut()))) {
 												alreadyExistTest = true; 
 											}
@@ -301,7 +300,7 @@ public class DataManager {
 											exiCampagne.setTests(lstTest);
 											
 											mysqlConnect.MysqlInsert(impTest);
-										}	
+										}
 									}
 								}
 							}
