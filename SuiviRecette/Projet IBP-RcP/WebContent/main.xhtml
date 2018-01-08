@@ -60,12 +60,30 @@
 				<p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
 			</f:facet>
 		</p:menubar>
+		
+			<p:outputLabel for="projectName" value="Projet : " style="visibility:hidden" />
+            <p:selectOneMenu id="projectName" value="#{menuViewManager.projectId}" style="width:150px;visibility:hidden">
+                <f:selectItem itemLabel="Selectionner un projet" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{menuViewManager.projects}" />
+            </p:selectOneMenu>
 	</h:form>
 	
-	<p:panel id="pieChartPnl" header="Simple Pie" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px;width:500px;float:left;text-align:center">
-    	<p:chart type="pie" model="#{mainClass.pieModel1}" />
+	<h2 style="text-align:center">DashBoard de la semaine n°semaine pour le projet nomDuProjet </h2>
+	
+	<p:panel id="pieChartPnl" header="" widgetVar="panel" style="margin-bottom:20px;width:500px;float:left;text-align:center">
+		<p:chart type="pie" model="#{chartViewManager.pieModel}"/>
 	</p:panel>
 	<p:draggable for="pieChartPnl" handle=".ui-panel-titlebar" />
+	
+	<p:panel id="barChartPnl" header="" widgetVar="panel" style="margin-bottom:20px;width:500px;float:right;text-align:center">
+		<p:chart type="bar" model="#{chartViewManager.barModel}"/>
+	</p:panel>
+	<p:draggable for="barChartPnl" handle=".ui-panel-titlebar" />
+	
+	<p:panel id="lineChartPnl" header="" widgetVar="panel" style="width:1200px;float:left;text-align:center">
+		<p:chart type="line" model="#{chartViewManager.lineModel}" />
+	</p:panel>
+	<p:draggable for="lineChartPnl" handle=".ui-panel-titlebar" />
 	
 </h:body>
 </html>
