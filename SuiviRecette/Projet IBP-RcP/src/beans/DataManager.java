@@ -16,18 +16,7 @@ import java.util.*;
 
 public class DataManager {
 	
-<<<<<<< HEAD
-	private List<Projet> importedProjects;
-	private List<Projet> existingProjects;
-<<<<<<< HEAD:Suivi Recette/Projet IBP-RcP/src/beans/DataManager.java
-	private List<Testeur> importedTesteur;
-	private List<Testeur> existingTesteur;
-	private MysqlConnector mysqlConnect;
-=======
-	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
->>>>>>> master:SuiviRecette/Projet IBP-RcP/src/beans/DataManager.java
-	private ReaderExcel excelReader;
-=======
+
 	private static List<Projet> importedProjects = new ArrayList<Projet>();
 	private static List<Testeur> importedTesteurs = new ArrayList<Testeur>();
 	
@@ -37,7 +26,6 @@ public class DataManager {
 	
 	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
 	private ReaderExcel excel = new ReaderExcel();
->>>>>>> master
 	
 	public List<Projet> getExistingProjects() {
 		return existingProjects; 
