@@ -34,7 +34,6 @@ public class ReaderExcel {
 	// Note (Maryan) : implementation des variables
 	private Iterator<org.apache.poi.ss.usermodel.Row> iterator = null ;
 	private Workbook workbook1;	
-	private String nameFile;
 	private String nameFeuille;
 	private FileInputStream file;
 	private Sheet sheet ;
@@ -63,14 +62,6 @@ public class ReaderExcel {
 		this.file = file;
 	}
 	
-	// Note (Maryan) :Setter et getter du chemin du fichier
-	public void setNameFile(String e){
-		this.nameFile=e;
-	}
-	public String getNameFile(){
-		return this.nameFile;
-	}
-	
 	//Note (Maryan) :Setter et getter de la feuille
 	public String getNameFeuille() {
 		return nameFeuille;
@@ -81,10 +72,10 @@ public class ReaderExcel {
 	
 	
 	// Note (Maryan) :init des parametre chemin
-	public void initReader(String fileName, String sheetName){
+	public void initReader(FileInputStream _file, String sheetName){
 		
 	    try {
-			file = new FileInputStream(new File(fileName));
+			this.file = _file;
 			workbook1 = WorkbookFactory.create(file);
 			sheet = workbook1.getSheet(sheetName);
 	    	iterator = sheet.iterator();

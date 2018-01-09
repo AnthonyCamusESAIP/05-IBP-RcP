@@ -1,4 +1,5 @@
 package beans;
+import java.io.FileInputStream;
 import java.util.*;
 
 /**
@@ -16,22 +17,31 @@ import java.util.*;
 
 public class DataManager {
 	
-	private static List<Projet> importedProjects = new ArrayList<Projet>();
-	private static List<Testeur> importedTesteurs = new ArrayList<Testeur>();
+	private static List<Projet> importedProjects;
+	private static List<Testeur> importedTesteurs;
 	
-	private static List<Projet> existingProjects = new ArrayList<Projet>();
-	private static List<Version> existingVersions = new ArrayList<Version>();
-	private static List<Testeur> existingTesteurs = new ArrayList<Testeur>();
+	private static List<Projet> existingProjects;
+	private static List<Version> existingVersions;
+	private static List<Testeur> existingTesteurs;
 	
 	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
-	private ReaderExcel excel = new ReaderExcel();
+	private ReaderExcel excel;
+	private ArrayList<ArrayList<String>> tabExcel;
 	
 	public List<Projet> getExistingProjects() {
 		return existingProjects; 
 	}
 
-	public DataManager() {
-		
+	public DataManager(FileInputStream file, String sheetName) {
+		importedProjects = new ArrayList<Projet>();
+		importedTesteurs = new ArrayList<Testeur>();
+		existingProjects = new ArrayList<Projet>();
+		existingVersions = new ArrayList<Version>();
+		existingTesteurs = new ArrayList<Testeur>();
+		excel = new ReaderExcel();
+		excel.initReader(file, sheetName);
+		this.tabExcel = excel.ReadExcel();
+		excel.close();
 	}
 	
 	// Note (Alban) : Récupération des données existante
@@ -190,138 +200,14 @@ public class DataManager {
 	}
 
 	
-	// Note (Alban) : Sauvegarde des objets importés
-	/* Grosse fonction de roumain qui marche pas....
-	public void sauvegardeImportedData() {
-
-		initExisting();
-		
-		initImportedProjects(excel.ReadExcel());
-		initImportedTesteurs(excel.ReadExcel());
-		initImportedCampagnes(excel.ReadExcel());
-		initImportedTest(excel.ReadExcel());
-		
-		importedTesteurs.remove(0);
-		importedProjects.remove(0);
-		for (Testeur impTesteur : importedTesteurs) {
-			boolean alreadyExistTesteurs = false; 
-			for (Testeur exiTesteur : existingTesteurs) {  
-				if (impTesteur.getNomTesteur().equals(exiTesteur.getNomTesteur())) {
-					alreadyExistTesteurs = true;
-				}
-			}
-			if (!alreadyExistTesteurs) {
-				existingTesteurs.add(impTesteur);
-				mysqlConnect.MysqlInsert(impTesteur);
-			}
-		}
-		
-		// Note (Alban) : Ajout Version création association dans la bdd (attendre verification)
-		
-		// Note (Alban) : Sauvegarde des projets inexistants
-		for (Projet impProject : importedProjects) {
-			boolean alreadyExistProject = false;
-			for (Projet exiProject : existingProjects) {
-				
-				if (impProject.getLabel().equals(exiProject.getLabel())) {
-					alreadyExistProject = true;
-				}
-			}
-			if (!alreadyExistProject) {
-				
-				existingProjects.add(impProject);
-				
-				mysqlConnect.MysqlInsert(impProject);
-			}
-		}
-		
-		
-		// Note (Alban) : Sauvegarde des campagnes inexistantes
-		for (Version version : existingVersions){
-			for (Projet impProject : importedProjects) {
-				for (Projet exiProject : version.getProjets()) {
-					if (impProject.getLabel().equals(exiProject.getLabel())) {
-					
-						for (Campagne impCampagne : impProject.getCampagnes()) {
-							boolean alreadyExistCampagne = false;
-							for (Campagne exiCampagne : exiProject.getCampagnes()) {
-	
-								if (impCampagne.getLabel().equals(exiCampagne.getLabel())) {
-									alreadyExistCampagne = true; 
-								}
-							}
-							if (!alreadyExistCampagne) {
-								
-								impCampagne.setProjet(exiProject);
-								
-								List<Campagne> lstCamp = exiProject.getCampagnes();
-								lstCamp.add(impCampagne);
-								exiProject.setCampagnes(lstCamp);
-								
-								mysqlConnect.MysqlInsert(impCampagne);
-							}	
-							
-						}					
-					}
-				}
-			}
-		}
-		
-		
-		// Note (Alban) : Sauvegarde des tests inexistants
-		//System.out.println("Entrer save Test");
-		for (Version version : existingVersions) {
-			for (Projet impProject : importedProjects) {
-				for (Projet exiProject : version.getProjets()) {
-					
-					if (impProject.getLabel().equals(exiProject.getLabel())) {
-						
-						for (Campagne impCampagne : impProject.getCampagnes()) {
-							for (Campagne exiCampagne : exiProject.getCampagnes()) {
-								
-								if (impCampagne.getLabel().equals(exiCampagne.getLabel())) {
-
-									int cmp = 0;
-									for (Test impTest : impCampagne.getTests()) {
-										cmp++;
-										//System.out.println(cmp);
-										boolean alreadyExistTest = false;
-										for (Test exiTest : exiCampagne.getTests()) {
-											if ((impTest.getNomTest().equals(exiTest.getNomTest()))&&(impTest.getDate().equals(exiTest.getDate()))&&(impTest.getHeure().equals(exiTest.getHeure()))&&(impTest.getStatut().equals(exiTest.getStatut()))) {
-												alreadyExistTest = true; 
-											}
-										}
-										if (!alreadyExistTest) {
-											
-											impTest.setCampagne(exiCampagne);
-											
-											List<Test> lstTest = exiCampagne.getTests();
-											lstTest.add(impTest);
-											exiCampagne.setTests(lstTest);
-											
-											mysqlConnect.MysqlInsert(impTest);
-										}
-									}
-								}
-							}
-						}					
-					}
-				}
-			}
-		}
-
-		//System.out.println("Sortie save Test");
-		//Vider l'existing ? existingProjects = null;
-	}
-	*/
-	
+	// Note (Anthony) : Sauvegarde des données importés
 	public void saveData() {
 		clearData();
 		initExisting();
-		saveImportedTesteurs(excel.ReadExcel());
-		saveImportedProjects(excel.ReadExcel());
-		saveImportedCampagnes(excel.ReadExcel());
-		saveImportedTest(excel.ReadExcel());
+		saveImportedTesteurs(tabExcel);
+		saveImportedProjects(tabExcel);
+		saveImportedCampagnes(tabExcel);
+		saveImportedTest(tabExcel);
 		
 		for (Testeur testeur : importedTesteurs) {
 			mysqlConnect.MysqlInsert(testeur);
@@ -345,28 +231,6 @@ public class DataManager {
 		existingProjects.clear();
 		existingTesteurs.clear();
 		existingVersions.clear();
-	}
-	
-	public void afficheTest() {
-		clearData();
-		initExisting();
-		saveImportedTesteurs(excel.ReadExcel());
-		saveImportedProjects(excel.ReadExcel());
-		saveImportedCampagnes(excel.ReadExcel());
-		saveImportedTest(excel.ReadExcel());
-		
-		for (Projet projet : importedProjects) {
-			System.out.println("Projet : "+projet.getLabel());
-			for (Campagne campagne : projet.getCampagnes()) {
-				System.out.println("	- "+campagne.getLabel());
-				for (Test test : campagne.getTests()) {
-					System.out.println("		- "+test.getNomTest());
-				}
-			}
-		}
-		for (Testeur testeur : importedTesteurs) {
-			System.out.println("Testeur : "+testeur.getNomTesteur());
-		}
 	}
 	
 	public void saveImportedProjects(ArrayList<ArrayList<String>> tabExcel) {
@@ -486,8 +350,6 @@ public class DataManager {
 			}
 		}
 	}
-	
-	// Note (Alban) : Association CSV Classes
 
 	/*
 	Note (Alban) : En attente de verification automatisation en base 
@@ -495,124 +357,4 @@ public class DataManager {
 		
 	}
 	*/
-	/*
-	//Note (Alban) : Initialisation des projets importés
-	public static void initImportedProjects(ArrayList<ArrayList<String>> tabExcel) {
-		// Note (Alban) : Lecture des projets du fichier excel
-		
-		// TODO : Comment definir la version ?
-		
-		boolean alreadyExists = false;
-		int cmpt = 0;
-		
-		for(ArrayList<String> ligne : tabExcel){
-			for(Projet projet : importedProjects){
-				if(projet.getLabel().equals(ligne.get(3))){
-					alreadyExists = true;
-				}
-			}
-			if(!alreadyExists){
-				importedProjects.add(new Projet( cmpt , ligne.get(3)));
-				cmpt ++;
-			}
-			alreadyExists = false;
-		}		
-	}
-
-	
-	//Note (Alban) : Initialisation des campagnes importées
-	public static void initImportedCampagnes(ArrayList<ArrayList<String>> tabExcel){ 
-		
-		for(Projet Project : importedProjects){
-
-			List<Campagne> lstCamp = new ArrayList<Campagne>();
-			int cmp = 0;
-			for(ArrayList<String> ligne : tabExcel){
-	            if(Project.getLabel().equals(ligne.get(3))){
-	            	boolean alreadyExist = false; 
-	            	for(Campagne campProject : Project.getCampagnes()){
-	            		if(campProject.getLabel().equals(ligne.get(4))){
-	            			alreadyExist = true;
-	            		}
-	            	}
-	            	if(!(alreadyExist)){
-            			lstCamp.add(new Campagne(cmp, ligne.get(4), Project));
-            		}
-	            }
-			}
-			Project.setCampagnes(lstCamp);
-            cmp++;
-		}
-				
-	}
-	
-	//Note (Alban) : Initialisation des testeurs importées
-	public static void initImportedTesteurs(ArrayList<ArrayList<String>> tabExcel){
-		
-		boolean alreadyExists = false;
-		int cmpt = 0;
-		
-		for(ArrayList<String> ligne : tabExcel){
-			for(Testeur Testeur : importedTesteurs){
-				if(Testeur.getNomTesteur().equals(ligne.get(6))){
-					alreadyExists = true;
-				}
-			}
-			if(!alreadyExists){
-				importedTesteurs.add(new Testeur( cmpt , ligne.get(6)));
-				cmpt ++;
-			}
-			alreadyExists = false;
-		}		
-	}
-
-	//Note (Alban) : Initialisation des tests importés
-	public static void initImportedTest(ArrayList<ArrayList<String>> tabExcel){
-		int cmpt = 0;
-		for(Projet project : importedProjects){
-			for(Campagne campagne : project.getCampagnes()){
-				List<Test> lstTest = new ArrayList<Test>();
-				for(ArrayList<String> ligne : tabExcel){
-					if(campagne.getLabel().equals(ligne.get(4))){ 
-						for( Testeur testeur : existingTesteurs){
-							if(testeur.getNomTesteur().equals(ligne.get(6))){
-								lstTest.add(new Test(cmpt ,ligne.get(0) ,ligne.get(1) ,ligne.get(2) ,ligne.get(5), campagne, testeur));
-								
-							}
-						}
-						cmpt++;
-					}					
-				}
-				campagne.setTests(lstTest);
-			}
-		}
-		
-		
-			
-	}
-	*/
-	
-	//Recuperation de l'excel
-	public void createReaderExcel(){
-		// TODO : Parametrer le filename et le sheetName a revoir
-		String fileName = "E:\\Documents\\GitHub\\05-IBP-RcP\\SuiviRecette\\Projet IBP-RcP\\src\\beans\\Listetests.xls";		
-		String sheetName ="Query1";
-
-		excel.initReader(fileName, sheetName);
-		//ArrayList<ArrayList<String>> tabDonnee = excel.ReadExcel();
-		//saveImportedProjects(tabDonnee);
-		excel.close();
-	}
-	
-    public <T> List<T> listsIntersect(List<T> list1, List<T> list2) {
-        List<T> list = new ArrayList<T>();
-
-        for (T t : list1) {
-            if(list2.contains(t)) {
-                list.add(t);
-            }
-        }
-
-        return list;
-    }
 }

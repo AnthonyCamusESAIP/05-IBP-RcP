@@ -31,7 +31,6 @@ public class ChartViewManager implements Serializable {
     private LineChartModel lineModel;
 	private BarChartModel barModel;
 	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
-	private DataManager dataManager = new DataManager();
 	
 	private List<String> testPassedThisWeek;
 	private List<String> testNAThisWeek;
@@ -88,12 +87,6 @@ public class ChartViewManager implements Serializable {
     public void init() {
     	initData();
         createModels();
-        dataManager.createReaderExcel();
-		//dataManager.sauvegardeImportedData();
-        //dataManager.saveProject();
-        //dataManager.saveCampagne();
-        //dataManager.afficheTest();
-        dataManager.saveData();
     }
     
     public void initData() {

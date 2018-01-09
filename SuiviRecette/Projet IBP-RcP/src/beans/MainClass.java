@@ -17,7 +17,7 @@ public class MainClass implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private PieChartModel pieModel1 = new PieChartModel();
-	private DataManager dataManager = new DataManager();
+	//private DataManager dataManager = new DataManager();
 	
     public int values[]={0} ;
     public int nbr;
@@ -25,7 +25,7 @@ public class MainClass implements Serializable {
 	@PostConstruct
 	public void init(){		
         createPieModel1();
-		dataManager.createReaderExcel();
+		//dataManager.createReaderExcel();
 		//dataManager.sauvegardeImportedData();
 	}
 	
