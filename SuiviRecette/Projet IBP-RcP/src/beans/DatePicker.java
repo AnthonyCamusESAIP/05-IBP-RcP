@@ -1,8 +1,11 @@
 package beans;
 import java.util.Date;
+
+import javax.faces.bean.ManagedBean;
+
 import org.primefaces.context.RequestContext;
 
-
+@ManagedBean
 public class DatePicker {
 
 	private Date date;

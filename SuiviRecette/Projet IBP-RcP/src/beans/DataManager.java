@@ -199,7 +199,6 @@ public class DataManager {
 		
 	}
 
-	
 	// Note (Anthony) : Sauvegarde des données importés
 	public void saveData() {
 		clearData();
@@ -208,11 +207,9 @@ public class DataManager {
 		saveImportedProjects(tabExcel);
 		saveImportedCampagnes(tabExcel);
 		saveImportedTest(tabExcel);
-		
 		for (Testeur testeur : importedTesteurs) {
 			mysqlConnect.MysqlInsert(testeur);
 		}
-		
 		for (Projet projet : importedProjects) {
 			mysqlConnect.MysqlInsert(projet);
 			for (Campagne campagne : projet.getCampagnes()) {
@@ -222,7 +219,6 @@ public class DataManager {
 				}
 			}
 		}
-		
 	}
 
 	public void clearData() {
@@ -235,14 +231,7 @@ public class DataManager {
 	
 	public void saveImportedProjects(ArrayList<ArrayList<String>> tabExcel) {
 		boolean alreadyExist = false;
-		int compteurId;
-		if (existingProjects.size()>0) {
-			compteurId = existingProjects.get(existingProjects.size()-1).getIdProjet() +1;
-		}
-		else {
-			compteurId = 1;
-		}
-		
+		int compteurId = mysqlConnect.getValueAutoIncrement("projet");
 		for (ArrayList<String> line : tabExcel) {
 			for (Projet project : existingProjects) {
 				if (project.getLabel().equals(line.get(3))) {
@@ -268,12 +257,7 @@ public class DataManager {
 			for (Projet project : existingProjects) {
 				if (project.getLabel().equals(line.get(3))) {
 					lstCampagnes = project.getCampagnes();
-					if (project.getCampagnes().size() >0) {
-						compteurId = project.getCampagnes().get(project.getCampagnes().size() -1).getIdCampagne() +1;
-					}
-					else {
-						compteurId = 1;
-					}
+					compteurId = mysqlConnect.getValueAutoIncrement("campagne");
 					for (Campagne campagne : project.getCampagnes()) {
 						if (campagne.getLabel().equals(line.get(4))) {
 							alreadyExist = true;
@@ -294,13 +278,7 @@ public class DataManager {
 	
 	public void saveImportedTesteurs(ArrayList<ArrayList<String>> tabExcel){
 		boolean alreadyExist = false;
-		int compteurId;
-		if (existingTesteurs.size()>0) {
-			compteurId = existingTesteurs.get(existingTesteurs.size()-1).getIdTesteur() +1;
-		}
-		else {
-			compteurId = 1;
-		}
+		int compteurId = mysqlConnect.getValueAutoIncrement("testeur");
 		for (ArrayList<String> line : tabExcel) {
 			for (Testeur testeur : existingTesteurs) {
 				if (testeur.getNomTesteur().equals(line.get(6))) {

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 
@@ -24,9 +26,14 @@ import org.primefaces.model.chart.PieChartModel;
 
 import com.sun.glass.ui.Size;
  
+@SuppressWarnings("serial")
 @ManagedBean
 public class ChartViewManager implements Serializable {
  
+	
+	private Map<String,String> projects = new HashMap<String, String>();
+	private ArrayList<ArrayList<String>> databaseProjects = new ArrayList<ArrayList<String>>();
+	
     private PieChartModel pieModel;
     private LineChartModel lineModel;
 	private BarChartModel barModel;
@@ -69,24 +76,54 @@ public class ChartViewManager implements Serializable {
 	private int nbTestWeek4;
 	private int nbTestWeek5;
 	
-	private String nomProjet;
+	private int projectId;
+	private String projectName;
 	private String date;
 	protected final static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public ChartViewManager(String _nomProjet, String _date) {
-		this.nomProjet = _nomProjet;
+		this.projectName = _nomProjet;
 		this.date = _date;
 	}
 	
 	public ChartViewManager() {
-		this.date = "2017-10-16";
-		this.nomProjet ="GSP13044 - PPG - PARME - Sujets Prioritaires";
+		this.date = "2017-10-20";
+		this.projectName ="GSP13044 - PPG - PARME - Sujets Prioritaires";
 	}
- 
-    @PostConstruct
+	
+    public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public Map<String, String> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(Map<String, String> projects) {
+		this.projects = projects;
+	}
+
+	public int getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
+	}
+	
+	@PostConstruct
     public void init() {
     	initData();
         createModels();
+        initProject();
+    	projects = new HashMap<String, String>();
+    	for (ArrayList<String> arrayList : databaseProjects) {
+			projects.put(arrayList.get(1), arrayList.get(0));
+		}
     }
     
     public void initData() {
@@ -143,7 +180,7 @@ public class ChartViewManager implements Serializable {
     	
     	cal.add(Calendar.DAY_OF_MONTH, -4);
     	String monday = df.format(cal.getTime());
-    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.nomProjet+"' AND (Date BETWEEN '"+monday+"' AND '"+date+"')")) {
+    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.projectName+"' AND (Date BETWEEN '"+monday+"' AND '"+date+"')")) {
     		switch (string.get(0)) {
 			case "N/A":
 				testNAThisWeek.add(string.get(0));
@@ -165,7 +202,7 @@ public class ChartViewManager implements Serializable {
     	String friday = df.format(cal.getTime());
     	cal.add(Calendar.DAY_OF_MONTH, -4);
     	monday = df.format(cal.getTime());
-    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.nomProjet+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')")) {
+    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.projectName+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')")) {
     		switch (string.get(0)) {
 			case "N/A":
 				testNAWeek1.add(string.get(0));
@@ -182,14 +219,12 @@ public class ChartViewManager implements Serializable {
 			}
 		}
     	nbTestWeek1 = testNAWeek1.size()+testPassedWeek1.size()+testFailedWeek1.size()+testNotCompletedWeek1.size();
-    	//nbTestWeek1 = mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.nomProjet+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')").size();
     	
     	cal.add(Calendar.DAY_OF_MONTH, -3);
     	friday = df.format(cal.getTime());
     	cal.add(Calendar.DAY_OF_MONTH, -4);
     	monday = df.format(cal.getTime());
-    	//nbTestWeek2 = mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.nomProjet+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')").size();
-    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.nomProjet+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')")) {
+    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.projectName+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')")) {
     		switch (string.get(0)) {
 			case "N/A":
 				testNAWeek2.add(string.get(0));
@@ -211,8 +246,7 @@ public class ChartViewManager implements Serializable {
     	friday = df.format(cal.getTime());
     	cal.add(Calendar.DAY_OF_MONTH, -4);
     	monday = df.format(cal.getTime());
-    	//nbTestWeek3 = mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.nomProjet+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')").size();
-    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.nomProjet+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')")) {
+    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.projectName+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')")) {
     		switch (string.get(0)) {
 			case "N/A":
 				testNAWeek3.add(string.get(0));
@@ -234,8 +268,7 @@ public class ChartViewManager implements Serializable {
     	friday = df.format(cal.getTime());
     	cal.add(Calendar.DAY_OF_MONTH, -4);
     	monday = df.format(cal.getTime());
-    	//nbTestWeek4 = mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.nomProjet+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')").size();
-    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.nomProjet+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')")) {
+    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.projectName+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')")) {
     		switch (string.get(0)) {
 			case "N/A":
 				testNAWeek4.add(string.get(0));
@@ -257,8 +290,7 @@ public class ChartViewManager implements Serializable {
     	friday = df.format(cal.getTime());
     	cal.add(Calendar.DAY_OF_MONTH, -4);
     	monday = df.format(cal.getTime());
-    	//nbTestWeek5 = mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.nomProjet+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')").size();
-    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.nomProjet+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')")) {
+    	for (ArrayList<String> string : mysqlConnect.MysqlSelect(tables, attributs, "nomProjet ='"+this.projectName+"' AND (Date BETWEEN '"+monday+"' AND '"+friday+"')")) {
     		switch (string.get(0)) {
 			case "N/A":
 				testNAWeek5.add(string.get(0));
@@ -276,15 +308,17 @@ public class ChartViewManager implements Serializable {
 		}
     	nbTestWeek5 = testNAWeek5.size()+testPassedWeek5.size()+testFailedWeek5.size()+testNotCompletedWeek5.size();
     	
-    	///////////////////////////////////////////////////////System.out.print\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-    	/*System.out.println("nb test semaine -1 :"+nbTestWeek1);
-    	System.out.println("nb test semaine -2 :"+nbTestWeek2);
-    	System.out.println("nb test semaine -3 :"+nbTestWeek3);
-    	System.out.println("nb test semaine -4 :"+nbTestWeek4);
-    	System.out.println("nb test semaine -5 :"+nbTestWeek5);*/
-    	
     }
   
+    private void initProject() {
+    	List<String> tables = new ArrayList<String>();
+    	tables.add("projet");
+    	List<String> attributs = new ArrayList<String>();
+    	attributs.add("projet.idProjet");
+    	attributs.add("projet.nomProjet");
+    	databaseProjects = mysqlConnect.MysqlSelect(tables, attributs, "");
+    }
+    
     public LineChartModel getLineModel() {
 		return lineModel;
 	}
@@ -292,7 +326,6 @@ public class ChartViewManager implements Serializable {
 	public BarChartModel getBarModel() {
 		return barModel;
 	}
-
 
 	public PieChartModel getPieModel() {
         return pieModel;
@@ -323,13 +356,6 @@ public class ChartViewManager implements Serializable {
     }
     
     private void createLineModel() {
-    	
-    	//Sytem.out.println
-    	/*System.out.println("date :"+date);
-    	System.out.println("week 1 NA :"+testNAWeek1.size());
-    	System.out.println("week 1 Passed :"+testPassedWeek1.size());
-    	System.out.println("week 1 Failed :"+testFailedWeek1.size());
-    	System.out.println("week 1 NotCompleted :"+testNotCompletedWeek1.size());*/
     	
     	lineModel = new LineChartModel();
     	
@@ -441,5 +467,5 @@ public class ChartViewManager implements Serializable {
         int max = Arrays.stream(tab).max().getAsInt();
         yAxis.setMax(max+5);
     }
-     
+
 }

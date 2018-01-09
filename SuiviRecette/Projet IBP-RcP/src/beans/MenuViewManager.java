@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 
+@ManagedBean
 public class MenuViewManager {
     private int projectId;  
     private Map<String,String> projects = new HashMap<String, String>();

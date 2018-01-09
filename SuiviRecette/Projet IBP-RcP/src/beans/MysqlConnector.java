@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -209,4 +210,20 @@ public class MysqlConnector {
 	 	//System.out.println(sqlQuery); 
 		return sqlQuery;
 	}
+	public int getValueAutoIncrement(String tableName) {
+    	int currentValue = -1;
+    	String sqlQuery = "Select AUTO_INCREMENT From INFORMATION_SCHEMA.TABLES Where TABLE_SCHEMA = 'ibp-rcp' And TABLE_NAME = '"+tableName+"';";
+    	try {
+			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+	    		currentValue = rs.getInt(1);
+	    	}
+		} catch (SQLException e) {
+			System.out.println("MysqlSelect Error : ");
+			System.out.println(e.getMessage());
+		}
+    	
+    	return currentValue;
+    }
 }
