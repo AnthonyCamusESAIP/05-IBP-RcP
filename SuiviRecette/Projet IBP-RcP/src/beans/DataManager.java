@@ -32,14 +32,14 @@ public class DataManager {
 		return existingProjects; 
 	}
 
-	public DataManager(FileInputStream file, String sheetName) {
+	public DataManager(FileInputStream file) {
 		importedProjects = new ArrayList<Projet>();
 		importedTesteurs = new ArrayList<Testeur>();
 		existingProjects = new ArrayList<Projet>();
 		existingVersions = new ArrayList<Version>();
 		existingTesteurs = new ArrayList<Testeur>();
 		excel = new ReaderExcel();
-		excel.initReader(file, sheetName);
+		excel.initReader(file);
 		this.tabExcel = excel.ReadExcel();
 		excel.close();
 	}

@@ -12,17 +12,12 @@ package beans;
  * Copyright : Maryan Cimia
  */
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
@@ -32,77 +27,37 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 public class ReaderExcel {
 
 	// Note (Maryan) : implementation des variables
-	private Iterator<org.apache.poi.ss.usermodel.Row> iterator = null ;
-	private Workbook workbook1;	
-	private String nameFeuille;
 	private FileInputStream file;
+	private Workbook workbook1;	
 	private Sheet sheet ;
-
-	//Note (Maryan): Setter et Getter
-	public Sheet getSheet() {
-		return sheet;
-	}
-	public void setSheet(Sheet sheet) {
-		this.sheet = sheet;
-	}
-
-	//Note (Maryan): Setter et Getter
-	public Workbook getWorkbook1() {
-		return workbook1;
-	}
-	public void setWorkbook1(Workbook workbook1) {
-		this.workbook1 = workbook1;
-	}
-
-	//Note (Maryan): Setter et Getter du inputstream de File
-	public FileInputStream getFile() {
-		return file;
-	}
-	public void setFile(FileInputStream file) {
-		this.file = file;
-	}
-	
-	//Note (Maryan) :Setter et getter de la feuille
-	public String getNameFeuille() {
-		return nameFeuille;
-	}
-	public void setNameFeuille(String nameFeuille) {
-		this.nameFeuille = nameFeuille;
-	}
+	private Iterator<org.apache.poi.ss.usermodel.Row> iterator;	
 	
 	
 	// Note (Maryan) :init des parametre chemin
-	public void initReader(FileInputStream _file, String sheetName){
+	// Note (Alban) : Constructeur ? Besoin TU
+	public void initReader(FileInputStream _file){
 		
 	    try {
 			this.file = _file;
 			workbook1 = WorkbookFactory.create(file);
-			sheet = workbook1.getSheet(sheetName);
+			sheet = workbook1.getSheetAt(0);
 	    	iterator = sheet.iterator();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (EncryptedDocumentException e) {
-			e.printStackTrace();
-		} catch (InvalidFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}			
+		} 			
 		
 	}
 	// Note (Maryan) :fermeture
 	public void close(){
         try {
-			file.close();
-			workbook1.close();
-		} catch (FileNotFoundException e) {
+        	
+        	this.file.close();
+			this.workbook1.close();
+			
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (EncryptedDocumentException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
-}
+		} 
+	}
 	
 	
 	// Note (Maryan) :lecture plus tableau
@@ -123,7 +78,7 @@ public class ReaderExcel {
 	    			Row nextRow = iterator.next();
 	    			Iterator<Cell> cellIterator = nextRow.cellIterator();
 	    			
-	    			while (cellIterator.hasNext()) {
+	    			while ((cellIterator.hasNext())) {
 	    				
 	    				Cell cell = cellIterator.next();
 	    				switch (cell.getCellTypeEnum()) {
@@ -132,14 +87,16 @@ public class ReaderExcel {
 		    					tabLigneDonnee.add(cell.getStringCellValue());
 		    					break;
 		    				case NUMERIC:
-		    					date = formatter.format(cell.getDateCellValue()); // Note (Maryan) : Convertion des Dates en String
+		    					date = formatter.format(cell.getDateCellValue()); // Note (Maryan) : Convertion des Dates en String	    					
 		    					tabLigneDonnee.add(date);
 		    					break;
-							default:
+		    				default:
 								break;
 	    				}
 	    			}
-	        		tabDonneeExcel.add(tabLigneDonnee);
+	    			
+	    			tabDonneeExcel.add(tabLigneDonnee);
+	    			
 	    		}
     		
         }
