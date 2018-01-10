@@ -24,7 +24,7 @@ public class FileUpload {
 			try {
 				file.createNewFile();
 				event.getFile().write(file.getPath());
-				dataManager = new DataManager(new FileInputStream(file.getAbsolutePath()), "Query1");
+				dataManager = new DataManager(new FileInputStream(file.getAbsolutePath()));
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
