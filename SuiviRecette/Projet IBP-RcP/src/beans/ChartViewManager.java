@@ -1,6 +1,9 @@
 package beans;
 
 import javax.annotation.PostConstruct;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
@@ -77,19 +81,9 @@ public class ChartViewManager implements Serializable {
 	private int nbTestWeek5;
 	
 	private int projectId;
-	private String projectName;
-	private String date;
+	private String projectName = "";
+	private String date = "";
 	protected final static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	
-	public ChartViewManager(String _nomProjet, String _date) {
-		this.projectName = _nomProjet;
-		this.date = _date;
-	}
-	
-	public ChartViewManager() {
-		this.date = "2017-10-20";
-		this.projectName ="GSP13044 - PPG - PARME - Sujets Prioritaires";
-	}
 	
     public String getProjectName() {
 		return projectName;
@@ -117,6 +111,12 @@ public class ChartViewManager implements Serializable {
 	
 	@PostConstruct
     public void init() {
+    	if (projectName.equals("")) {
+    		this.projectName ="GSP13044 - PPG - PARME - Sujets Prioritaires";
+		}
+    	if (date.equals("")) {
+    		this.date = "2017-10-20";
+		}
     	initData();
         createModels();
         initProject();
@@ -468,4 +468,16 @@ public class ChartViewManager implements Serializable {
         yAxis.setMax(max+5);
     }
 
+    public void valueChangeSelectProject(ValueChangeEvent e) {
+    	projectId = Integer.parseInt(e.getNewValue().toString());
+    	for (ArrayList<String> arrayList : databaseProjects) {
+    		if (Integer.parseInt(arrayList.get(0)) == projectId) {
+				projectName = arrayList.get(1);
+			}
+		}
+    	initData();
+        createModels();
+        initProject();
+    }
+    
 }

@@ -18,17 +18,18 @@
 	<h:form>
 		<p:growl id="messages" />
 		<p:menubar>
+
 			<p:menuitem>
-				<p:outputLabel for="projectName" value="Projet :" />
-            	<p:selectOneMenu id="projectName" value="#{chartViewManager.projectName}" style="width:500px ">
+				<p:outputLabel for="projectName" value="Projet : " />
+            	<p:selectOneMenu id="projectName" value="#{chartViewManager.projectId}" style="width:500px " onchange="submit()" valueChangeListener="#{chartViewManager.valueChangeSelectProject}">
                 	<f:selectItem itemLabel="Selectionner un projet" itemValue="" noSelectionOption="true" />
-                	<f:selectItems value="#{chartViewManager.projects}" />
+                	<f:selectItems value="#{chartViewManager.projects}"/>
             	</p:selectOneMenu>
             </p:menuitem>
 			
 			<f:facet name="options">
 				<h:form enctype="multipart/form-data">
-    				<p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" auto="true" oncomplete="javascript:window.location.reload()" />
+    				<p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" auto="true" onsuccess="javascript:window.location.reload()" />
     				<p:growl id="messages" showDetail="true" />
 				</h:form>	
 			</f:facet>	
@@ -44,8 +45,8 @@
 			
 	</h:form>
 	
-	<h2 style="text-align:center">DashBoard du projet #{chartViewManager.projectName} </h2>
 	
+	<h2 style="text-align:center">DashBoard du projet  #{chartViewManager.projectName} </h2>
 	<p:panel id="pieChartPnl" header="" widgetVar="panel" style="margin-bottom:20px;width:500px;float:left;text-align:center">
 		<p:chart type="pie" model="#{chartViewManager.pieModel}"/>
 	</p:panel>
@@ -56,7 +57,7 @@
 	</p:panel>
 	<p:draggable for="barChartPnl" handle=".ui-panel-titlebar" />
 	
-	<p:panel id="lineChartPnl" header="" widgetVar="panel" style="width:1200px;float:left;text-align:center">
+	<p:panel id="lineChartPnl" header="" widgetVar="panel" style="width:1850px;float:left;text-align:center">
 		<p:chart type="line" model="#{chartViewManager.lineModel}" />
 	</p:panel>
 	<p:draggable for="lineChartPnl" handle=".ui-panel-titlebar" />

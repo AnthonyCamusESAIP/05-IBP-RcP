@@ -132,6 +132,7 @@ public class MysqlConnector {
 		} catch (Exception e) {
 
 			System.out.println("MysqlInsert Test Error : ");
+			System.out.println(sqlQuery);
 			System.out.println(e.getMessage());
 		}
 		return result;

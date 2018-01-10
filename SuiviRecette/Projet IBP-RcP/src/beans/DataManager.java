@@ -221,6 +221,7 @@ public class DataManager {
 		}
 	}
 
+
 	public void clearData() {
 		importedProjects.clear();
 		importedTesteurs.clear();
@@ -251,13 +252,12 @@ public class DataManager {
 	
 	public void saveImportedCampagnes(ArrayList<ArrayList<String>> tabExcel){
 		boolean alreadyExist = false;
-		int compteurId;
+		int compteurId = mysqlConnect.getValueAutoIncrement("campagne");
 		List<Campagne> lstCampagnes = new ArrayList<Campagne>();
 		for (ArrayList<String> line : tabExcel) {
 			for (Projet project : existingProjects) {
 				if (project.getLabel().equals(line.get(3))) {
 					lstCampagnes = project.getCampagnes();
-					compteurId = mysqlConnect.getValueAutoIncrement("campagne");
 					for (Campagne campagne : project.getCampagnes()) {
 						if (campagne.getLabel().equals(line.get(4))) {
 							alreadyExist = true;
@@ -317,6 +317,7 @@ public class DataManager {
 										Test t = new Test(0, line.get(0) ,line.get(1) ,line.get(2) ,line.get(5), campagne, testeur);
 										lstTests.add(t);
 										campagne.setTests(lstTests);
+										break;
 									}
 								}
 								
