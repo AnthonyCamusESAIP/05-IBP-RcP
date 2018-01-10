@@ -18,7 +18,6 @@
 	<h:form>
 		<p:growl id="messages" />
 		<p:menubar>
-
 			<p:menuitem>
 				<p:outputLabel for="projectName" value="Projet : " />
             	<p:selectOneMenu id="projectName" value="#{chartViewManager.projectId}" style="width:500px " onchange="submit()" valueChangeListener="#{chartViewManager.valueChangeSelectProject}">
@@ -29,7 +28,7 @@
 			
 			<f:facet name="options">
 				<h:form enctype="multipart/form-data">
-    				<p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" auto="true" onsuccess="javascript:window.location.reload()" />
+    				<p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" auto="true" oncomplete="javascript:window.location.reload()" />
     				<p:growl id="messages" showDetail="true" />
 				</h:form>	
 			</f:facet>	
