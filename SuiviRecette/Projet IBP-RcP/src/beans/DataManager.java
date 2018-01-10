@@ -204,23 +204,25 @@ public class DataManager {
 		clearData();
 		initExisting();
 		saveImportedTesteurs(tabExcel);
-		saveImportedProjects(tabExcel);
-		saveImportedCampagnes(tabExcel);
-		saveImportedTest(tabExcel);
 		for (Testeur testeur : importedTesteurs) {
 			mysqlConnect.MysqlInsert(testeur);
 		}
+		saveImportedProjects(tabExcel);
 		for (Projet projet : importedProjects) {
 			mysqlConnect.MysqlInsert(projet);
+		}
+		for (Campagne campagne : saveImportedCampagnes(tabExcel)) {
+			mysqlConnect.MysqlInsert(campagne);
+		}
+		saveImportedTest(tabExcel);
+		for (Projet projet : importedProjects) {
 			for (Campagne campagne : projet.getCampagnes()) {
-				mysqlConnect.MysqlInsert(campagne);
 				for (Test test : campagne.getTests()) {
 					mysqlConnect.MysqlInsert(test);
 				}
 			}
 		}
 	}
-
 
 	public void clearData() {
 		importedProjects.clear();
@@ -250,9 +252,10 @@ public class DataManager {
 		}
 	}
 	
-	public void saveImportedCampagnes(ArrayList<ArrayList<String>> tabExcel){
+	public List<Campagne> saveImportedCampagnes(ArrayList<ArrayList<String>> tabExcel){
 		boolean alreadyExist = false;
 		int compteurId = mysqlConnect.getValueAutoIncrement("campagne");
+		List<Campagne> campagneToSave = new ArrayList<Campagne>();
 		List<Campagne> lstCampagnes = new ArrayList<Campagne>();
 		for (ArrayList<String> line : tabExcel) {
 			for (Projet project : existingProjects) {
@@ -267,6 +270,7 @@ public class DataManager {
 					if (!alreadyExist&&!line.get(3).equals("Projet")) {
 						Campagne c = new Campagne(compteurId, line.get(4), project);
 						lstCampagnes.add(c);
+						campagneToSave.add(c);
 						compteurId++;
 						project.setCampagnes(lstCampagnes);
 					}
@@ -274,6 +278,7 @@ public class DataManager {
 				}
 			}
 		}
+		return campagneToSave;
 	}
 	
 	public void saveImportedTesteurs(ArrayList<ArrayList<String>> tabExcel){
