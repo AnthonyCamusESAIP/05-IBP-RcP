@@ -19,6 +19,7 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.event.ValueChangeEvent;
 
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
@@ -30,11 +31,10 @@ import org.primefaces.model.chart.PieChartModel;
 
 import com.sun.glass.ui.Size;
  
-@SuppressWarnings("serial")
 @ManagedBean
 public class ChartViewManager implements Serializable {
  
-	
+	private static final long serialVersionUID = 1L;
 	private Map<String,String> projects = new HashMap<String, String>();
 	private ArrayList<ArrayList<String>> databaseProjects = new ArrayList<ArrayList<String>>();
 	
@@ -81,8 +81,8 @@ public class ChartViewManager implements Serializable {
 	private int nbTestWeek5;
 	
 	private int projectId;
-	private String projectName = "";
-	private String date = "";
+	private String projectName = "GSP13044 - PPG - PARME - Sujets Prioritaires";
+	private String date = "2017-10-16";
 	protected final static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
     public String getProjectName() {
@@ -111,12 +111,6 @@ public class ChartViewManager implements Serializable {
 	
 	@PostConstruct
     public void init() {
-    	if (projectName.equals("")) {
-    		this.projectName ="GSP13044 - PPG - PARME - Sujets Prioritaires";
-		}
-    	if (date.equals("")) {
-    		this.date = "2017-10-20";
-		}
     	initData();
         createModels();
         initProject();
@@ -477,7 +471,53 @@ public class ChartViewManager implements Serializable {
 		}
     	initData();
         createModels();
-        initProject();
     }
     
+    public void valueChangeDate(SelectEvent e) {
+    	String dateSelected = e.getObject().toString();
+    	String day = dateSelected.substring(8, 10);
+    	String year = dateSelected.substring(24);
+    	String month = dateSelected.substring(4,7);
+    	switch (month) {
+		case "Jan":
+			month = "01";
+			break;
+		case "Feb":
+			month = "02";
+			break;
+		case "Mar":
+			month = "03";
+			break;
+		case "Apr":
+			month = "04";
+			break;
+		case "May":
+			month = "05";
+			break;
+		case "Jun":
+			month = "06";
+			break;
+		case "Jul":
+			month = "07";
+			break;
+		case "Aug":
+			month = "08";
+			break;
+		case "Sep":
+			month = "09";
+			break;
+		case "Oct":
+			month = "10";
+			break;
+		case "Nov":
+			month = "11";
+			break;
+		case "Dec":
+			month = "12";
+			break;
+		}
+    	date = year+"-"+month+"-"+day;
+    	initData();
+        createModels();
+    }
 }

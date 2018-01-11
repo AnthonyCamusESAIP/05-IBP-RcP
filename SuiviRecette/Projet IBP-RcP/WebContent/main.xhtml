@@ -18,24 +18,28 @@
 	<h:form>
 		<p:growl id="messages" />
 		<p:menubar>
-			<p:menuitem>
-				<p:outputLabel for="projectName" value="Projet : " />
-            	<p:selectOneMenu id="projectName" value="#{chartViewManager.projectId}" style="width:500px " onchange="submit()" valueChangeListener="#{chartViewManager.valueChangeSelectProject}">
-                	<f:selectItem itemLabel="Selectionner un projet" itemValue="" noSelectionOption="true" />
-                	<f:selectItems value="#{chartViewManager.projects}"/>
-            	</p:selectOneMenu>
-            </p:menuitem>
+				<p:menuitem id ="selectOneProject">
+					<h:form>
+						<p:outputLabel for="projectName" value="Projet : " />
+		            	<p:selectOneMenu id="projectName" value="#{chartViewManager.projectId}" style="width:500px " onchange="submit()" valueChangeListener="#{chartViewManager.valueChangeSelectProject}">
+		                	<f:selectItem itemLabel="Selectionner un projet" itemValue="default" noSelectionOption="true" disable="true"/>
+		                	<f:selectItems value="#{chartViewManager.projects}"/>
+		            	</p:selectOneMenu>
+		            </h:form>
+	            </p:menuitem>
 			
 			<f:facet name="options">
 				<h:form enctype="multipart/form-data">
-    				<p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" auto="true" oncomplete="javascript:window.location.reload()" />
+    				<p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" auto="true" oncomplete="javascript:window.location.reload()" allowTypes="/(\.|\/)(xls|xlsx|)$/"/>
     				<p:growl id="messages" showDetail="true" />
 				</h:form>	
 			</f:facet>	
 			
-			<p:menuitem>
-				<p:outputLabel for="popup" value="Date: " />
-        		<p:calendar id="popup" value="#{datePicker.date}" showWeek="true" showOtherMonths="true" selectOtherMonths="true" locale="en_GB" pattern="dd/MM/yyyy"/>
+			<p:menuitem id="datePicker">
+					<p:outputLabel for="popup" value="Date: " />
+	        		<p:calendar id="popup" value="2017-10-16" showWeek="true" showOtherMonths="true" onchange="javascript:window.location.reload()" selectOtherMonths="true" locale="en_GB" pattern="yyyy-MM-dd">
+	        			<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDate}"/>
+	        		</p:calendar>
 			</p:menuitem>
 			
 			
@@ -45,21 +49,33 @@
 	</h:form>
 	
 	
-	<h2 style="text-align:center">DashBoard du projet  #{chartViewManager.projectName} </h2>
-	<p:panel id="pieChartPnl" header="" widgetVar="panel" style="margin-bottom:20px;width:500px;float:left;text-align:center">
-		<p:chart type="pie" model="#{chartViewManager.pieModel}"/>
-	</p:panel>
-	<p:draggable for="pieChartPnl" handle=".ui-panel-titlebar" />
-	
-	<p:panel id="barChartPnl" header="" widgetVar="panel" style="margin-bottom:20px;width:500px;float:right;text-align:center">
-		<p:chart type="bar" model="#{chartViewManager.barModel}"/>
-	</p:panel>
-	<p:draggable for="barChartPnl" handle=".ui-panel-titlebar" />
-	
-	<p:panel id="lineChartPnl" header="" widgetVar="panel" style="width:1850px;float:left;text-align:center">
-		<p:chart type="line" model="#{chartViewManager.lineModel}" />
-	</p:panel>
-	<p:draggable for="lineChartPnl" handle=".ui-panel-titlebar" />
-	
+	<p:panelGrid id="charts">
+		<f:facet name="header">
+			<p:row>
+				<p:column colspan="7">DashBoard du projet  #{chartViewManager.projectName}</p:column>
+			</p:row>
+		</f:facet>
+		<p:row>
+			<p:column>
+				<p:panel id="pieChartPnl" header="" widgetVar="panel" style="width:500px;float:left;text-align:center">
+					<p:chart type="pie" model="#{chartViewManager.pieModel}"/>
+				</p:panel>
+				<p:draggable for="pieChartPnl" handle=".ui-panel-titlebar" />
+
+				<p:panel id="barChartPnl" header="" widgetVar="panel" style="width:500px;float:right;text-align:center">
+					<p:chart type="bar" model="#{chartViewManager.barModel}"/>
+				</p:panel>
+				<p:draggable for="barChartPnl" handle=".ui-panel-titlebar" />
+			</p:column>
+		</p:row>
+		<p:row>
+			<p:column>
+				<p:panel id="lineChartPnl" header="" widgetVar="panel" style="width:1850px;float:left;text-align:center">
+					<p:chart type="line" model="#{chartViewManager.lineModel}" />
+				</p:panel>
+				<p:draggable for="lineChartPnl" handle=".ui-panel-titlebar" />
+			</p:column>
+		</p:row>
+	</p:panelGrid>
 </h:body>
 </html>

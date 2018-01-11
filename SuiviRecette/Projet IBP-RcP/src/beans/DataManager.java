@@ -213,13 +213,8 @@ public class DataManager {
 		}
 		for (Campagne campagne : saveImportedCampagnes(tabExcel)) {
 			mysqlConnect.MysqlInsert(campagne);
-		}
-		saveImportedTest(tabExcel);
-		for (Projet projet : importedProjects) {
-			for (Campagne campagne : projet.getCampagnes()) {
-				for (Test test : campagne.getTests()) {
-					mysqlConnect.MysqlInsert(test);
-				}
+			for (Test test : campagne.getTests()) {
+				mysqlConnect.MysqlInsert(test);
 			}
 		}
 	}
@@ -301,9 +296,10 @@ public class DataManager {
 		}
 	}
 	
-	public void saveImportedTest(ArrayList<ArrayList<String>> tabExcel){
+	public List<Test> saveImportedTest(ArrayList<ArrayList<String>> tabExcel){
 		boolean alreadyExist = false;
 		List<Test> lstTests = new ArrayList<Test>();
+		List<Test> testToSave = new ArrayList<Test>();
 		for (ArrayList<String> line : tabExcel) {
 			for (Projet project : existingProjects) {
 				if (project.getLabel().equals(line.get(3))) {
@@ -322,6 +318,7 @@ public class DataManager {
 										Test t = new Test(0, line.get(0) ,line.get(1) ,line.get(2) ,line.get(5), campagne, testeur);
 										lstTests.add(t);
 										campagne.setTests(lstTests);
+										testToSave.add(t);
 										break;
 									}
 								}
@@ -333,12 +330,7 @@ public class DataManager {
 				}
 			}
 		}
+		return testToSave;
 	}
 
-	/*
-	Note (Alban) : En attente de verification automatisation en base 
-	public static void initImportedVersions(){
-		
-	}
-	*/
 }
