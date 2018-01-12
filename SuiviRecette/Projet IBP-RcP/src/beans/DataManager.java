@@ -28,6 +28,7 @@ public class DataManager {
 	private ReaderExcel excel;
 	private ArrayList<ArrayList<String>> tabExcel;
 	
+
 	public List<Projet> getExistingProjects() {
 		return existingProjects; 
 	}
@@ -55,7 +56,7 @@ public class DataManager {
 			initExistingProjects(version);
 		}
 		
-		for(Version version : existingVersions){
+		/*for(Version version : existingVersions){
 			for(Projet projet : version.getProjets()){
 				initExistingCampagnes(projet);
 			}
@@ -68,6 +69,17 @@ public class DataManager {
 				}
 			}
 		}
+		*/
+		
+		for (Projet projet : existingProjects) {
+			initExistingCampagnes(projet);
+		}
+		for (Projet projet : existingProjects) {
+			for (Campagne campagne : projet.getCampagnes()) {
+				initExistingTest(campagne);
+			}
+		}
+
 	}
 	
 	public void initExistingTesteurs() {
@@ -213,9 +225,9 @@ public class DataManager {
 		}
 		for (Campagne campagne : saveImportedCampagnes(tabExcel)) {
 			mysqlConnect.MysqlInsert(campagne);
-			for (Test test : campagne.getTests()) {
-				mysqlConnect.MysqlInsert(test);
-			}
+		}
+		for (Test test : saveImportedTest(tabExcel)) {
+			mysqlConnect.MysqlInsert(test);
 		}
 	}
 
