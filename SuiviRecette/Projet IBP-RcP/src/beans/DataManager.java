@@ -32,7 +32,13 @@ public class DataManager {
 	public List<Projet> getExistingProjects() {
 		return existingProjects; 
 	}
-
+	public List<Testeur> getExistingTesteur(){
+		return existingTesteurs;
+	}
+	public List<Version> getExistingVersion(){
+		return existingVersions;
+	}
+	
 	public DataManager(FileInputStream file) {
 		importedProjects = new ArrayList<Projet>();
 		importedTesteurs = new ArrayList<Testeur>();
@@ -74,12 +80,13 @@ public class DataManager {
 		for (Projet projet : existingProjects) {
 			initExistingCampagnes(projet);
 		}
+		
 		for (Projet projet : existingProjects) {
 			for (Campagne campagne : projet.getCampagnes()) {
 				initExistingTest(campagne);
 			}
 		}
-
+		
 	}
 	
 	public void initExistingTesteurs() {
@@ -188,8 +195,7 @@ public class DataManager {
 		result = mysqlConnect.MysqlSelect(nomTables, listeVariable, condition);
 		
 		for(ArrayList<String> ligne : result){
-			
-	        lstTest = new ArrayList<Test>();
+	        //lstTest = new ArrayList<Test>();
 			nomTables = new ArrayList<String>();
 			nomTables.add("testeur");
 			listeVariable = new ArrayList<String>();
@@ -243,14 +249,16 @@ public class DataManager {
 		boolean alreadyExist = false;
 		int compteurId = mysqlConnect.getValueAutoIncrement("projet");
 		for (ArrayList<String> line : tabExcel) {
+			String myProject = line.get(3).replaceAll("['`\"]", " ");
 			for (Projet project : existingProjects) {
-				if (project.getLabel().equals(line.get(3))) {
+				
+				if (project.getLabel().equals(myProject)) {
 					alreadyExist = true;
 					break;
 				}
 			}
 			if (!alreadyExist&&!line.get(3).equals("Projet")) {
-				Projet p = new Projet(compteurId, line.get(3));
+				Projet p = new Projet(compteurId, myProject);
 				importedProjects.add(p);
 				existingProjects.add(p);
 				compteurId++;
@@ -265,17 +273,20 @@ public class DataManager {
 		List<Campagne> campagneToSave = new ArrayList<Campagne>();
 		List<Campagne> lstCampagnes = new ArrayList<Campagne>();
 		for (ArrayList<String> line : tabExcel) {
+			String myProject = line.get(3).replaceAll("['`\"]", " ");
+			String myCampagne = line.get(4).replaceAll("['`\"]", " ");
+			
 			for (Projet project : existingProjects) {
-				if (project.getLabel().equals(line.get(3))) {
+				if (project.getLabel().equals(myProject)) {
 					lstCampagnes = project.getCampagnes();
 					for (Campagne campagne : project.getCampagnes()) {
-						if (campagne.getLabel().equals(line.get(4))) {
+						if (campagne.getLabel().equals(myCampagne)) {
 							alreadyExist = true;
 							break;
 						}
 					}
 					if (!alreadyExist&&!line.get(3).equals("Projet")) {
-						Campagne c = new Campagne(compteurId, line.get(4), project);
+						Campagne c = new Campagne(compteurId, myCampagne, project);
 						lstCampagnes.add(c);
 						campagneToSave.add(c);
 						compteurId++;
@@ -292,8 +303,9 @@ public class DataManager {
 		boolean alreadyExist = false;
 		int compteurId = mysqlConnect.getValueAutoIncrement("testeur");
 		for (ArrayList<String> line : tabExcel) {
+			String myTesteur = line.get(6).replaceAll("['`\"]", " ");
 			for (Testeur testeur : existingTesteurs) {
-				if (testeur.getNomTesteur().equals(line.get(6))) {
+				if (testeur.getNomTesteur().equals(myTesteur)) {
 					alreadyExist = true;
 					break;
 				}
@@ -313,21 +325,27 @@ public class DataManager {
 		List<Test> lstTests = new ArrayList<Test>();
 		List<Test> testToSave = new ArrayList<Test>();
 		for (ArrayList<String> line : tabExcel) {
+
+			String myProject = line.get(3).replaceAll("['`\"]", " ");
+			String myCampagne = line.get(4).replaceAll("['`\"]", " ");
+			String myTesteur = line.get(6).replaceAll("['`\"]", " ");
+			String myTest = line.get(5).replaceAll("['`\"]", " ");
+			
 			for (Projet project : existingProjects) {
-				if (project.getLabel().equals(line.get(3))) {
+				if (project.getLabel().equals(myProject)) {
 					for (Campagne campagne : project.getCampagnes()) {
-						if (campagne.getLabel().equals(line.get(4))) {
+						if (campagne.getLabel().equals(myCampagne)) {
 							lstTests = campagne.getTests();
 							for(Test test : campagne.getTests()) {
-								if (test.getNomTest().equals(line.get(5))&&test.getDate().equals(line.get(0))&&test.getHeure().equals(line.get(1))&&test.getStatut().equals(line.get(2))) {
+								if (test.getNomTest().equals(myTest)&&test.getDate().equals(line.get(0))&&test.getHeure().equals(line.get(1))&&test.getStatut().equals(line.get(2))) {
 									alreadyExist = true;
 									break;
 								}
 							}
 							if (!alreadyExist&&!line.get(3).equals("Projet")) {
 								for (Testeur testeur : existingTesteurs) {
-									if (testeur.getNomTesteur().equals(line.get(6))) {
-										Test t = new Test(0, line.get(0) ,line.get(1) ,line.get(2) ,line.get(5), campagne, testeur);
+									if (testeur.getNomTesteur().equals(myTesteur)) {
+										Test t = new Test(0, line.get(0) ,line.get(1) ,line.get(2) ,myTest, campagne, testeur);
 										lstTests.add(t);
 										campagne.setTests(lstTests);
 										testToSave.add(t);

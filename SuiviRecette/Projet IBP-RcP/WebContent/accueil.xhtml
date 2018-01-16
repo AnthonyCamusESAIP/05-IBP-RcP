@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<script>
+    PrimeFaces.locales['en_GB'] = {
+        firstDay : 1
+    };
+</script>
+</h:head>
+<h:body>
+
+	<h:form>
+		<p:menubar style="height:48px">
+		</p:menubar>	
+	</h:form>
+		
+	<h:form>
+		<p:outputPanel >
+			<div  style="text-align:center">
+				<h:form >
+				      <p:selectOneMenu id="projectName" value="#{chartViewManager.projectId}" style="width:500px; text-align:center" onchange="submit()" valueChangeListener="#{chartViewManager.valueChangeSelectProject}">
+				           	<f:selectItem itemLabel="Sélectionner un projet" itemValue="default" noSelectionOption="true" disable="true"/>
+				           	<f:selectItems value="#{chartViewManager.projects}"/>
+				       	</p:selectOneMenu>
+			    </h:form>
+			    
+				<h:form enctype="multipart/form-data" >
+		    		<p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" style="width:500px; text-align:center" auto="true" oncomplete="javascript:window.location.reload()" allowTypes="/(\.|\/)(xls|xlsx|)$/"/>
+		    		<p:growl id="messages" showDetail="true" />
+				</h:form>
+				
+				<h:form enctype="multipart/form-data">
+		    		<!-- Purge -->
+				</h:form>
+			</div>
+		</p:outputPanel>
+	</h:form>
+	
+</h:body>
+</html>
