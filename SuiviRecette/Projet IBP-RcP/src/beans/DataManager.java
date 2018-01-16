@@ -32,7 +32,13 @@ public class DataManager {
 	public List<Projet> getExistingProjects() {
 		return existingProjects; 
 	}
-
+	public List<Testeur> getExistingTesteur(){
+		return existingTesteurs;
+	}
+	public List<Version> getExistingVersion(){
+		return existingVersions;
+	}
+	
 	public DataManager(FileInputStream file) {
 		importedProjects = new ArrayList<Projet>();
 		importedTesteurs = new ArrayList<Testeur>();
