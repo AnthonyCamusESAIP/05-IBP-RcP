@@ -111,7 +111,7 @@ public class ChartViewManager implements Serializable {
 	
 	@PostConstruct
     public void init() {
-		mysqlConnect.purgeDatabase("2017-07-26");
+		//mysqlConnect.purgeDatabase("2017-07-26");
     	initData();
         createModels();
         initProject();

@@ -35,11 +35,11 @@ public class TEST_DataManager {
 			
 			DataManager dm = new DataManager(new FileInputStream("Test"));
 			List<Testeur> lstTesteur = new ArrayList<Testeur>();
-			lstTesteur.add(new Testeur(31, "bwenda"));
-			lstTesteur.add(new Testeur(32, "su24659"));
-			lstTesteur.add(new Testeur(33, "at21022"));
-			lstTesteur.add(new Testeur(34, "atbar11"));
-			lstTesteur.add(new Testeur(35, "ritonpa"));
+			lstTesteur.add(new Testeur(1, "bwenda"));
+			lstTesteur.add(new Testeur(2, "su24659"));
+			lstTesteur.add(new Testeur(3, "at21022"));
+			lstTesteur.add(new Testeur(4, "atbar11"));
+			lstTesteur.add(new Testeur(5, "ritonpa"));
 			
 			 dm.initExistingTesteurs();
 			 
@@ -82,13 +82,28 @@ public class TEST_DataManager {
 	@Test
 	public void testInitExistingTest() {
 		
-		DataManager dm = new DataManager(new FileInputStream("Test"));
-		Projet proj = new Projet(15, "GSP13044 - PPG - PARME - Sujets Prioritaires");
-		Campagne camp = new Campagne(182, "BPS Génération PSR2 Transmission",proj);
-		dm.initExistingTest(camp);
 		
-		
-		assertEquals();
+		try {
+			DataManager dm = new DataManager(new FileInputStream("Test"));
+			Testeur testeur = new Testeur(2, "su24659");
+			Projet proj = new Projet(1, "GSP13044 - PPG - PARME - Sujets Prioritaires");
+			Campagne camp = new Campagne(7, "BPS Génération PSR2 Transmission",proj);
+			beans.Test test = new beans.Test(87, "2017-10-04", "15:50:03","Passed", "EXF025-BPS N01 - Ctrl sémantiques Transmission- Plus de 4000 remises", camp, testeur);
+			beans.Test test2 = new beans.Test(121, "2017-04-28", "14:54:30", "Failed", "EXF025-BPS N100 - Ctrl sémantiques Transmission- Plus de 999999 opérations", camp, testeur);
+			dm.initExistingTest(camp);
+			
+			List<beans.Test> expected = new ArrayList<beans.Test>();
+			expected.add(test);
+			expected.add(test2);
+			
+			
+			
+			assertEquals(expected, camp.getTests());
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
