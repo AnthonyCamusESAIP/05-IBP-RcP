@@ -12,6 +12,8 @@
 
 package beans;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -25,25 +27,30 @@ public class MysqlConnector {
 	private Connection connect;	//Note (Alban): Instance de la connexion
 	//Note (Alban): Methode de connexion à la bdd
 	
-	public MysqlConnector(String url, String login, String mdp) {
+	public MysqlConnector(String url, String dbName, String login, String mdp) {
 
 		connect = null;
-		//Note (Alban): Lien de la bdd 
-		//String url = "jdbc:mysql://localhost:3306/ibp-rcp";
-		//String login = "root";
-		//String ldp = "";
-
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection(url, login, mdp);
+			connect = DriverManager.getConnection(url+dbName, login, mdp);
 			// TODO : Faire le deploiement de la bdd si elle existe pas
 		} catch (Exception ex) {
-			
-
-			// TODO : Faire le deploiement de la bdd si elle existe pas
-			System.out.println("Connexion Error :");
-			System.out.println(ex.getMessage());
+			if (ex.getMessage().equals("Unknown database 'ibp-rcp'")) {
+				try {
+					createDatabase("E:\\Documents\\GitHub\\05-IBP-RcP\\SuiviRecette\\Projet IBP-RcP\\src\\beans\\ibp-rcp.sql", DriverManager.getConnection(url, login, mdp));
+					Class.forName("com.mysql.jdbc.Driver");
+					connect = DriverManager.getConnection(url+dbName, login, mdp);
+				} catch (Exception e) {
+					System.out.println("Connexion Error :");
+					System.out.println(ex.getMessage());
+				}
+				
+			}
+			else {
+				System.out.println("Connexion Error :");
+				System.out.println(ex.getMessage());
+			}
 		}
 	}
 
@@ -207,8 +214,7 @@ public class MysqlConnector {
 			sqlQuery += " WHERE "+ condition;
 		}
 	 	sqlQuery += " ;";
-	 	
-	 	//System.out.println(sqlQuery); 
+
 		return sqlQuery;
 	}
 	public int getValueAutoIncrement(String tableName) {
@@ -227,4 +233,48 @@ public class MysqlConnector {
     	
     	return currentValue;
     }
+	private void createDatabase(String pathToSqlFile, Connection connection) {
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(pathToSqlFile));
+			String str;
+			PreparedStatement pstmt;
+			String sqlQuery = "";
+			while ((str = in.readLine()) != null) {
+				sqlQuery += str;
+				if (sqlQuery.contains(";")) {
+					pstmt = connection.prepareStatement(sqlQuery);
+					pstmt.execute();
+					sqlQuery = "";
+				}
+			}
+			in.close();		
+		} catch (Exception e) {
+			System.err.println("Failed to Execute" + pathToSqlFile +". The error is"+ e.getMessage());
+		} 
+	}
+	public void purgeDatabase(String date) {
+		String sqlQuery = "Delete From test Where date < '"+date+"'";
+		try {
+			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
+			pstmt.execute(sqlQuery);
+			sqlQuery = "Select idCampagne from campagne where (SELECT COUNT(idTest) from test WHERE test.idCampagne = campagne.idCampagne) = 0";
+			ResultSet rs = pstmt.executeQuery(sqlQuery);
+			while (rs.next()) {
+	    		sqlQuery = "Delete from campagne where idCampagne  = "+rs.getInt(1);
+	    		pstmt = connect.prepareStatement(sqlQuery);
+				pstmt.execute(sqlQuery);
+	    	}
+			sqlQuery = "Select idProjet from projet where (SELECT COUNT(idCampagne) from campagne WHERE campagne.idProjet = projet.idProjet) = 0";
+			rs = pstmt.executeQuery(sqlQuery);
+			while (rs.next()) {
+	    		sqlQuery = "Delete from projet where idProjet  = "+rs.getInt(1);
+	    		pstmt = connect.prepareStatement(sqlQuery);
+				pstmt.execute(sqlQuery);
+	    	}
+		} catch (SQLException e) {
+			System.out.println("MysqlDelete Error : ");
+			System.out.println(e.getMessage());
+		}
+		
+	}
 }

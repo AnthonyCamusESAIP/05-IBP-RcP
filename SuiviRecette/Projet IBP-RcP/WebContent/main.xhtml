@@ -22,7 +22,7 @@
 					<h:form>
 						<p:outputLabel for="projectName" value="Projet : " />
 		            	<p:selectOneMenu id="projectName" value="#{chartViewManager.projectId}" style="width:500px " onchange="submit()" valueChangeListener="#{chartViewManager.valueChangeSelectProject}">
-		                	<f:selectItem itemLabel="Selectionner un projet" itemValue="default" noSelectionOption="true" disable="true"/>
+		                	<f:selectItem itemLabel="Sélectionner un projet" itemValue="default" noSelectionOption="true" disable="true"/>
 		                	<f:selectItems value="#{chartViewManager.projects}"/>
 		            	</p:selectOneMenu>
 		            </h:form>
@@ -37,7 +37,7 @@
 			
 			<p:menuitem id="datePicker">
 					<p:outputLabel for="popup" value="Date: " />
-	        		<p:calendar id="popup" value="2017-10-16" showWeek="true" showOtherMonths="true" onchange="javascript:window.location.reload()" selectOtherMonths="true" locale="en_GB" pattern="yyyy-MM-dd">
+	        		<p:calendar id="popup" value="Sélectionner une date" showWeek="true" showOtherMonths="true" onchange="javascript:window.location.reload()" selectOtherMonths="true" locale="en_GB" pattern="yyyy-MM-dd">
 	        			<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDate}"/>
 	        		</p:calendar>
 			</p:menuitem>

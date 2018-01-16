@@ -41,7 +41,7 @@ public class ChartViewManager implements Serializable {
     private PieChartModel pieModel;
     private LineChartModel lineModel;
 	private BarChartModel barModel;
-	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
+	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/","ibp-rcp", "root", "");
 	
 	private List<String> testPassedThisWeek;
 	private List<String> testNAThisWeek;
@@ -111,6 +111,7 @@ public class ChartViewManager implements Serializable {
 	
 	@PostConstruct
     public void init() {
+		mysqlConnect.purgeDatabase("2017-07-26");
     	initData();
         createModels();
         initProject();
