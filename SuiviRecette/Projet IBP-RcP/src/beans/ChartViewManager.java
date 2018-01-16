@@ -35,13 +35,20 @@ import com.sun.glass.ui.Size;
 public class ChartViewManager implements Serializable {
  
 	private static final long serialVersionUID = 1L;
-	private Map<String,String> projects = new HashMap<String, String>();
+	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/","ibp-rcp", "root", "");
+	protected final static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	
 	private ArrayList<ArrayList<String>> databaseProjects = new ArrayList<ArrayList<String>>();
+	
+	private Map<String,String> projects = new HashMap<String, String>();
+	private int projectId = 70;
+	private String projectName = "GSP13044 - PPG - PARME - Sujets Prioritaires";
+	private String date = "2017-10-16";
+	private String datePurge;
 	
     private PieChartModel pieModel;
     private LineChartModel lineModel;
 	private BarChartModel barModel;
-	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/","ibp-rcp", "root", "");
 	
 	private List<String> testPassedThisWeek;
 	private List<String> testNAThisWeek;
@@ -80,38 +87,42 @@ public class ChartViewManager implements Serializable {
 	private int nbTestWeek4;
 	private int nbTestWeek5;
 	
-	private int projectId;
-	private String projectName = "GSP13044 - PPG - PARME - Sujets Prioritaires";
-	private String date = "2017-10-16";
-	protected final static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	
-    public String getProjectName() {
+    public String getDatePurge() {
+		return datePurge;
+	}
+    public void setDatePurge(String datePurge) {
+		this.datePurge = datePurge;
+	}
+	public String getProjectName() {
 		return projectName;
 	}
-
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-
 	public Map<String, String> getProjects() {
 		return projects;
 	}
-
 	public void setProjects(Map<String, String> projects) {
 		this.projects = projects;
 	}
-
 	public int getProjectId() {
 		return projectId;
 	}
-
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
+    public LineChartModel getLineModel() {
+		return lineModel;
+	}
+    public BarChartModel getBarModel() {
+		return barModel;
+	}
+	public PieChartModel getPieModel() {
+        return pieModel;
+    }
 	
 	@PostConstruct
     public void init() {
-		mysqlConnect.purgeDatabase("2017-07-26");
     	initData();
         createModels();
         initProject();
@@ -120,8 +131,7 @@ public class ChartViewManager implements Serializable {
 			projects.put(arrayList.get(1), arrayList.get(0));
 		}
     }
-    
-    public void initData() {
+	public void initData() {
 
     	testPassedThisWeek = new ArrayList<String>();
     	testNAThisWeek = new ArrayList<String>();
@@ -304,8 +314,7 @@ public class ChartViewManager implements Serializable {
     	nbTestWeek5 = testNAWeek5.size()+testPassedWeek5.size()+testFailedWeek5.size()+testNotCompletedWeek5.size();
     	
     }
-  
-    private void initProject() {
+	private void initProject() {
     	List<String> tables = new ArrayList<String>();
     	tables.add("projet");
     	List<String> attributs = new ArrayList<String>();
@@ -313,25 +322,59 @@ public class ChartViewManager implements Serializable {
     	attributs.add("projet.nomProjet");
     	databaseProjects = mysqlConnect.MysqlSelect(tables, attributs, "");
     }
-    
-    public LineChartModel getLineModel() {
-		return lineModel;
-	}
 
-	public BarChartModel getBarModel() {
-		return barModel;
-	}
-
-	public PieChartModel getPieModel() {
-        return pieModel;
+    private String formatDate(String dateSelected) {
+    	String result;
+    	String day = dateSelected.substring(8, 10);
+    	String year = dateSelected.substring(24);
+    	String month = dateSelected.substring(4,7);
+    	switch (month) {
+		case "Jan":
+			month = "01";
+			break;
+		case "Feb":
+			month = "02";
+			break;
+		case "Mar":
+			month = "03";
+			break;
+		case "Apr":
+			month = "04";
+			break;
+		case "May":
+			month = "05";
+			break;
+		case "Jun":
+			month = "06";
+			break;
+		case "Jul":
+			month = "07";
+			break;
+		case "Aug":
+			month = "08";
+			break;
+		case "Sep":
+			month = "09";
+			break;
+		case "Oct":
+			month = "10";
+			break;
+		case "Nov":
+			month = "11";
+			break;
+		case "Dec":
+			month = "12";
+			break;
+		}
+    	result = year+"-"+month+"-"+day;
+    	return result;
     }
-     
+   
     private void createModels() {
         createPieModel();
         createLineModel();
         createBarModel();
     }
- 
     private void createPieModel() {
         pieModel = new PieChartModel();
         if(testNAThisWeek.size() > 0) {
@@ -349,7 +392,6 @@ public class ChartViewManager implements Serializable {
         pieModel.setTitle("Résultats des tests");
         pieModel.setLegendPosition("w");
     }
-    
     private void createLineModel() {
     	
     	lineModel = new LineChartModel();
@@ -423,7 +465,6 @@ public class ChartViewManager implements Serializable {
         yAxis.setMin(0);
         yAxis.setMax(max+1);
     }
-    
     private void createBarModel() {
     	
     	barModel = new BarChartModel();
@@ -470,55 +511,20 @@ public class ChartViewManager implements Serializable {
 				projectName = arrayList.get(1);
 			}
 		}
+    	date = mysqlConnect.getLastDataDate(projectId);
     	initData();
         createModels();
     }
-    
     public void valueChangeDate(SelectEvent e) {
-    	String dateSelected = e.getObject().toString();
-    	String day = dateSelected.substring(8, 10);
-    	String year = dateSelected.substring(24);
-    	String month = dateSelected.substring(4,7);
-    	switch (month) {
-		case "Jan":
-			month = "01";
-			break;
-		case "Feb":
-			month = "02";
-			break;
-		case "Mar":
-			month = "03";
-			break;
-		case "Apr":
-			month = "04";
-			break;
-		case "May":
-			month = "05";
-			break;
-		case "Jun":
-			month = "06";
-			break;
-		case "Jul":
-			month = "07";
-			break;
-		case "Aug":
-			month = "08";
-			break;
-		case "Sep":
-			month = "09";
-			break;
-		case "Oct":
-			month = "10";
-			break;
-		case "Nov":
-			month = "11";
-			break;
-		case "Dec":
-			month = "12";
-			break;
-		}
-    	date = year+"-"+month+"-"+day;
+    	date = formatDate(e.getObject().toString());
     	initData();
         createModels();
     }
+    public void valueChangeDatePurge(SelectEvent e) {
+    	datePurge = formatDate(e.getObject().toString());
+    	mysqlConnect.purgeDatabase(datePurge);
+    	initData();
+        createModels();
+    }
+
 }

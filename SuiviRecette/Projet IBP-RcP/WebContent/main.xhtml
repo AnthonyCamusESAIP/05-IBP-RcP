@@ -37,12 +37,17 @@
 			
 			<p:menuitem id="datePicker">
 					<p:outputLabel for="popup" value="Date: " />
-	        		<p:calendar id="popup" value="Sélectionner une date" showWeek="true" showOtherMonths="true" onchange="javascript:window.location.reload()" selectOtherMonths="true" locale="en_GB" pattern="yyyy-MM-dd">
-	        			<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDate}"/>
+	        		<p:calendar id="popup" value="Sélectionner une date" showWeek="true" showOtherMonths="true" selectOtherMonths="true" locale="en_GB" pattern="yyyy-MM-dd">
+	        			<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDate}" update="@all"/>
 	        		</p:calendar>
 			</p:menuitem>
 			
-			
+			<p:menuitem id="datePickerPurge">
+				<p:outputLabel for="purge" value="Purge :" />
+        		<p:calendar id="purge" value="#{chartViewManager.datePurge}" showOn="button" locale="en_GB" pattern="yyyy-MM-dd">
+        			<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDatePurge}" update="@all"/>
+	        	</p:calendar>
+			</p:menuitem>
 		</p:menubar>
 		
 			

@@ -233,6 +233,22 @@ public class MysqlConnector {
     	
     	return currentValue;
     }
+	public String getLastDataDate(int idProject) {
+		String result = "";
+		String sqlQuery = "SELECT date FROM test NATURAL JOIN campagne NATURAL JOIN projet Where projet.idProjet = "+idProject+" ORDER BY test.date DESC LIMIT 1";
+    	try {
+			PreparedStatement pstmt = connect.prepareStatement(sqlQuery);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+	    		result = rs.getString(1);
+	    	}
+		} catch (SQLException e) {
+			System.out.println("MysqlSelect Error : ");
+			System.out.println(e.getMessage());
+		}
+    	System.out.println(result);
+		return result;
+	}
 	private void createDatabase(String pathToSqlFile, Connection connection) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(pathToSqlFile));
