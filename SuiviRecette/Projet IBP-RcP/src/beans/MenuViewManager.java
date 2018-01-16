@@ -12,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 public class MenuViewManager {
     private int projectId;  
     private Map<String,String> projects = new HashMap<String, String>();
-    private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
+    private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/","ibp-rcp", "root", "");
     private ArrayList<ArrayList<String>> databaseProjects = new ArrayList<ArrayList<String>>();
     private String projectName;
     

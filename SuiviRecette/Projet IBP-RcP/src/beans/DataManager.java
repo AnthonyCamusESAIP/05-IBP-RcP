@@ -24,7 +24,7 @@ public class DataManager {
 	private static List<Version> existingVersions;
 	private static List<Testeur> existingTesteurs;
 	
-	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/ibp-rcp", "root", "");
+	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/","ibp-rcp", "root", "");
 	private ReaderExcel excel;
 	private ArrayList<ArrayList<String>> tabExcel;
 	
