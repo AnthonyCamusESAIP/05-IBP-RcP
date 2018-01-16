@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -41,9 +42,9 @@ public class ChartViewManager implements Serializable {
 	private ArrayList<ArrayList<String>> databaseProjects = new ArrayList<ArrayList<String>>();
 	
 	private Map<String,String> projects = new HashMap<String, String>();
-	private int projectId = 70;
+	private int projectId = 69;
 	private String projectName = "GSP13044 - PPG - PARME - Sujets Prioritaires";
-	private String date = "2017-10-16";
+	private String date;
 	private String datePurge;
 	
     private PieChartModel pieModel;
@@ -87,7 +88,13 @@ public class ChartViewManager implements Serializable {
 	private int nbTestWeek4;
 	private int nbTestWeek5;
 	
-    public String getDatePurge() {
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getDatePurge() {
 		return datePurge;
 	}
     public void setDatePurge(String datePurge) {
@@ -123,13 +130,19 @@ public class ChartViewManager implements Serializable {
 	
 	@PostConstruct
     public void init() {
-    	initData();
-        createModels();
-        initProject();
-    	projects = new HashMap<String, String>();
-    	for (ArrayList<String> arrayList : databaseProjects) {
+		date = mysqlConnect.getLastDataDate(projectId);
+		initProject();
+		projects = new HashMap<String, String>();
+		for (ArrayList<String> arrayList : databaseProjects) {
 			projects.put(arrayList.get(1), arrayList.get(0));
 		}
+		for (ArrayList<String> arrayList : databaseProjects) {
+    		if (Integer.parseInt(arrayList.get(0)) == projectId) {
+				projectName = arrayList.get(1);
+			}
+		}
+    	initData();
+        createModels();
     }
 	public void initData() {
 
@@ -369,7 +382,8 @@ public class ChartViewManager implements Serializable {
     	result = year+"-"+month+"-"+day;
     	return result;
     }
-   
+
+    
     private void createModels() {
         createPieModel();
         createLineModel();

@@ -246,7 +246,6 @@ public class MysqlConnector {
 			System.out.println("MysqlSelect Error : ");
 			System.out.println(e.getMessage());
 		}
-    	System.out.println(result);
 		return result;
 	}
 	private void createDatabase(String pathToSqlFile, Connection connection) {
