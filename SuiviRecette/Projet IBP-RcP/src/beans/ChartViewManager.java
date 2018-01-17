@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIOutput;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.event.SelectEvent;
@@ -43,7 +46,7 @@ public class ChartViewManager implements Serializable {
 	
 	private Map<String,String> projects = new HashMap<String, String>();
 	private int projectId = 70;
-	private String projectName = "GSP13044 - PPG - PARME - Sujets Prioritaires";
+	private String projectName;
 	private String date = "2017-10-16";
 	private String datePurge;
 	
@@ -506,15 +509,6 @@ public class ChartViewManager implements Serializable {
     }
 
     public void valueChangeSelectProject(ValueChangeEvent e) {    
-    	System.out.println("Ca passe dedans ");
-    	/*
-    	try {
-			Runtime.getRuntime().exec("./main.xhtml");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-    	*/ 
     	projectId = Integer.parseInt(e.getNewValue().toString());
     	for (ArrayList<String> arrayList : databaseProjects) {
     		if (Integer.parseInt(arrayList.get(0)) == projectId) {
@@ -525,6 +519,19 @@ public class ChartViewManager implements Serializable {
     	initData();
         createModels();
          
+    }
+    public void valueChangeSelectProject(final AjaxBehaviorEvent event) throws IOException { 
+    	projectId = Integer.parseInt(((UIOutput)event.getSource()).getValue().toString());
+    	for (ArrayList<String> arrayList : databaseProjects) {
+    		if (Integer.parseInt(arrayList.get(0)) == projectId) {
+				projectName = arrayList.get(1);
+			}
+		}
+    	date = mysqlConnect.getLastDataDate(projectId);
+    	initData();
+        createModels();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("main.xhtml");
+        FacesContext.getCurrentInstance().responseComplete();
     }
     public void valueChangeDate(SelectEvent e) {
     	date = formatDate(e.getObject().toString());

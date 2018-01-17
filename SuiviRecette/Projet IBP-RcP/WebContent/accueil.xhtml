@@ -27,9 +27,10 @@
 				<h:form>
 					<p:outputLabel for="projectName" value="Projet : " />
 					<!-- javascript:location.href='main.xhtml' -->
-				    <p:selectOneMenu id="projectName" style="margin-bottom:30px" value="#{chartViewManager.projectId}" onchange="submit()" valueChangeListener="#{chartViewManager.valueChangeSelectProject}">
+				    <p:selectOneMenu id="projectName" style="margin-bottom:30px" value="0">
 				       	<f:selectItem itemLabel="Sélectionner un projet" itemValue="default" noSelectionOption="true" disable="true"/>
 				       	<f:selectItems value="#{chartViewManager.projects}"/>
+				       	<p:ajax event="change" listener="#{chartViewManager.valueChangeSelectProject}"/>
 				    </p:selectOneMenu>
 			    </h:form>
 				<h:form enctype="multipart/form-data" style="width:20%; margin-left:40%">
