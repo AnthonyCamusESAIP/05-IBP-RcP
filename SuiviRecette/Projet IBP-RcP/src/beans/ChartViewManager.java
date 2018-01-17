@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -504,7 +505,16 @@ public class ChartViewManager implements Serializable {
         yAxis.setMax(max+5);
     }
 
-    public void valueChangeSelectProject(ValueChangeEvent e) {
+    public void valueChangeSelectProject(ValueChangeEvent e) {    
+    	System.out.println("Ca passe dedans ");
+    	/*
+    	try {
+			Runtime.getRuntime().exec("./main.xhtml");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	*/ 
     	projectId = Integer.parseInt(e.getNewValue().toString());
     	for (ArrayList<String> arrayList : databaseProjects) {
     		if (Integer.parseInt(arrayList.get(0)) == projectId) {
@@ -514,6 +524,7 @@ public class ChartViewManager implements Serializable {
     	date = mysqlConnect.getLastDataDate(projectId);
     	initData();
         createModels();
+         
     }
     public void valueChangeDate(SelectEvent e) {
     	date = formatDate(e.getObject().toString());

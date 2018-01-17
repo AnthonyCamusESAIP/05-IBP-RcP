@@ -17,8 +17,8 @@
 
 	<h:form>
 		<p:growl id="messages" />
-		<p:menubar>
-				<p:menuitem id ="selectOneProject">
+		<p:menubar  style="height:50px">
+				<p:menuitem id ="selectOneProject" >
 					<h:form>
 						<p:outputLabel for="projectName" value="Projet : " />
 		            	<p:selectOneMenu id="projectName" value="#{chartViewManager.projectId}" style="width:500px " onchange="submit()" valueChangeListener="#{chartViewManager.valueChangeSelectProject}">

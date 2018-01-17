@@ -16,7 +16,7 @@
 <h:body>
 
 	<h:form>
-		<p:menubar style="height:48px">
+		<p:menubar style="height:50px">
 		</p:menubar>	
 	</h:form>
 		
@@ -24,28 +24,24 @@
 		<p:outputPanel >
 			<img src="logo.jpg" style="margin-bottom:100px" />
 			<div style="text-align:center">
-				<h:form >
+				<h:form>
 					<p:outputLabel for="projectName" value="Projet : " />
+					<!-- javascript:location.href='main.xhtml' -->
 				    <p:selectOneMenu id="projectName" style="margin-bottom:30px" value="#{chartViewManager.projectId}" onchange="submit()" valueChangeListener="#{chartViewManager.valueChangeSelectProject}">
 				       	<f:selectItem itemLabel="Sélectionner un projet" itemValue="default" noSelectionOption="true" disable="true"/>
 				       	<f:selectItems value="#{chartViewManager.projects}"/>
 				    </p:selectOneMenu>
 			    </h:form>
 				<h:form enctype="multipart/form-data" style="width:20%; margin-left:40%">
-		    		<p:menuitem>
-			    		<p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" style="margin-bottom:30px" auto="true" oncomplete="javascript:window.location.reload()" allowTypes="/(\.|\/)(xls|xlsx|)$/"/>
-			    		<p:growl id="messages" showDetail="true" />
-		    		</p:menuitem>
+			    	<p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}" style="margin-bottom:30px" auto="true" oncomplete="javascript:window.location.reload()" allowTypes="/(\.|\/)(xls|xlsx|)$/"/>
+			    	<p:growl id="messages" showDetail="true" />
 				</h:form>
 				<h:form enctype="multipart/form-data">
-		    		<p:menuitem id="datePickerPurge">
-						<p:outputLabel for="purge" value="Purge : " />
-		        		<p:calendar id="purge" style="margin-bottom:30px" value="#{chartViewManager.datePurge}" showOn="button" locale="en_GB" pattern="yyyy-MM-dd">
-		        			<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDatePurge}" update="@all"/>
-			        	</p:calendar>
-					</p:menuitem>
+					<p:outputLabel for="purge" value="Purge : " />
+		        	<p:calendar id="purge" style="margin-bottom:30px" value="#{chartViewManager.datePurge}" showOn="button" locale="en_GB" pattern="yyyy-MM-dd">
+		        		<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDatePurge}" update="@all"/>
+			        </p:calendar>
 				</h:form>
-				
 			</div>
 		</p:outputPanel>
 	</h:form>
