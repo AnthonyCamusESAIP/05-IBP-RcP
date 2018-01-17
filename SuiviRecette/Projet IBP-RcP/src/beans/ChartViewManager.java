@@ -125,7 +125,6 @@ public class ChartViewManager implements Serializable{
 	public PieChartModel getPieModel() {
         return pieModel;
     }
-
 	
 	@PostConstruct
     public void init() {
@@ -140,8 +139,6 @@ public class ChartViewManager implements Serializable{
 				projectName = arrayList.get(1);
 			}
 		}
-    	initData();
-        createModels();
     }
 	public void initData() {
 
@@ -382,7 +379,6 @@ public class ChartViewManager implements Serializable{
     	return result;
     }
 
-    
     private void createModels() {
         createPieModel();
         createLineModel();
@@ -528,7 +524,6 @@ public class ChartViewManager implements Serializable{
     	initData();
         createModels();
     }
-    
     public void valueChangeSelectProject(final AjaxBehaviorEvent event) throws IOException {
     	this.projectId = Integer.parseInt(((UIOutput)event.getSource()).getValue().toString());
     	for (ArrayList<String> arrayList : databaseProjects) {
@@ -543,7 +538,6 @@ public class ChartViewManager implements Serializable{
         createModels();
         
     }
-    
     public void valueChangeDate(SelectEvent e) {
     	date = formatDate(e.getObject().toString());
     	initData();
@@ -552,8 +546,6 @@ public class ChartViewManager implements Serializable{
     public void valueChangeDatePurge(SelectEvent e) {
     	datePurge = formatDate(e.getObject().toString());
     	mysqlConnect.purgeDatabase(datePurge);
-    	initData();
-        createModels();
     }
 
 }
