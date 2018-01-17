@@ -2,22 +2,22 @@ package beans;
 
 import javax.annotation.PostConstruct;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIOutput;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.event.SelectEvent;
@@ -27,23 +27,21 @@ import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.LineChartSeries;
 import org.primefaces.model.chart.PieChartModel;
 
-import com.sun.glass.ui.Size;
+@SuppressWarnings("serial")
+@ManagedBean(name = "chartViewManager")
+@SessionScoped
+public class ChartViewManager implements Serializable{
  
-@ManagedBean
-public class ChartViewManager implements Serializable {
- 
-	private static final long serialVersionUID = 1L;
 	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/","ibp-rcp", "root", "");
 	protected final static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	private ArrayList<ArrayList<String>> databaseProjects = new ArrayList<ArrayList<String>>();
 	
 	private Map<String,String> projects = new HashMap<String, String>();
-	private int projectId = 69;
-	private String projectName = "GSP13044 - PPG - PARME - Sujets Prioritaires";
+	private int projectId;
+	private String projectName;
 	private String date;
 	private String datePurge;
 	
@@ -127,6 +125,7 @@ public class ChartViewManager implements Serializable {
 	public PieChartModel getPieModel() {
         return pieModel;
     }
+
 	
 	@PostConstruct
     public void init() {
@@ -529,6 +528,22 @@ public class ChartViewManager implements Serializable {
     	initData();
         createModels();
     }
+    
+    public void valueChangeSelectProject(final AjaxBehaviorEvent event) throws IOException {
+    	this.projectId = Integer.parseInt(((UIOutput)event.getSource()).getValue().toString());
+    	for (ArrayList<String> arrayList : databaseProjects) {
+    		if (Integer.parseInt(arrayList.get(0)) == projectId) {
+				this.projectName = arrayList.get(1);
+			}
+		}
+    	this.date = mysqlConnect.getLastDataDate(projectId);
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("main.xhtml");
+        FacesContext.getCurrentInstance().responseComplete();
+    	initData();
+        createModels();
+        
+    }
+    
     public void valueChangeDate(SelectEvent e) {
     	date = formatDate(e.getObject().toString());
     	initData();
