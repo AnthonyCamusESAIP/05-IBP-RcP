@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIOutput;
@@ -125,7 +126,7 @@ public class ChartViewManager implements Serializable{
 	public PieChartModel getPieModel() {
         return pieModel;
     }
-	
+
 	@PostConstruct
     public void init() {
 		date = mysqlConnect.getLastDataDate(projectId);
@@ -538,10 +539,26 @@ public class ChartViewManager implements Serializable{
         createModels();
         
     }
-    public void valueChangeDate(SelectEvent e) {
-    	date = formatDate(e.getObject().toString());
-    	initData();
-        createModels();
+    public void valueChangeDate(SelectEvent event) {
+    	Calendar cal = Calendar.getInstance();
+    	try {
+			cal.setTime(df.parse(formatDate(event.getObject().toString())));
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	cal.add(Calendar.DAY_OF_MONTH, -30);
+    	String beginPeriod = df.format(cal.getTime());
+    	if (mysqlConnect.verifyNumberDataPeriod(projectId, beginPeriod, date) > 0) {
+        	date = formatDate(event.getObject().toString());
+        	initData();
+            createModels();
+		}
+    	else {
+    		FacesContext context = FacesContext.getCurrentInstance();   
+            context.addMessage(null, new FacesMessage("Error",  "Pas de données pour la date sélectionnée.") );
+    	}
     }
     public void valueChangeDatePurge(SelectEvent e) {
     	datePurge = formatDate(e.getObject().toString());
