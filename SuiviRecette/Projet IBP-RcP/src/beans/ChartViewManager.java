@@ -41,7 +41,7 @@ public class ChartViewManager implements Serializable{
 	
 	private ArrayList<ArrayList<String>> databaseProjects = new ArrayList<ArrayList<String>>();
 	
-	private double avancementMeteo=0;
+	private double avancementMeteo = 0;
 	private String avancementImage = ""; 
 	
 	private Map<String,String> projects = new HashMap<String, String>();
@@ -615,7 +615,7 @@ public class ChartViewManager implements Serializable{
     	
     	double nbrTest = Integer.parseInt(nbrTests.get(0).get(0));
     	  
-    	avancementMeteo = ((testPassed+(testFailed*(0.5)))/nbrTest)*100 ;
+    	avancementMeteo = Math.round(((testPassed+(testFailed*(0.5)))/nbrTest)*100); 
     	if(avancementMeteo >= 85){
     		avancementImage = "sun.png";
     	} else if (avancementMeteo >= 70){
