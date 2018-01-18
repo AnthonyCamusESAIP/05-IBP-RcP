@@ -2,6 +2,7 @@ package beans;
 
 import javax.annotation.PostConstruct;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
@@ -39,6 +40,9 @@ public class ChartViewManager implements Serializable{
 	protected final static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	private ArrayList<ArrayList<String>> databaseProjects = new ArrayList<ArrayList<String>>();
+	
+	private double avancementMeteo=0;
+	private String avancementImage = ""; 
 	
 	private Map<String,String> projects = new HashMap<String, String>();
 	private int projectId;
@@ -117,7 +121,19 @@ public class ChartViewManager implements Serializable{
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
-    public LineChartModel getLineModel() {
+    public double getAvancementMeteo() {
+		return avancementMeteo;
+	}
+	public void setAvancementMeteo(double avancementMeteo) {
+		this.avancementMeteo = avancementMeteo;
+	}
+	public String getAvancementImage() {
+		return avancementImage;
+	}
+	public void setAvancementImage(String avancementImage) {
+		this.avancementImage = avancementImage;
+	}
+	public LineChartModel getLineModel() {
 		return lineModel;
 	}
     public BarChartModel getBarModel() {
@@ -129,6 +145,7 @@ public class ChartViewManager implements Serializable{
 
 	@PostConstruct
     public void init() {
+		
 		date = mysqlConnect.getLastDataDate(projectId);
 		loadProjectList();
 		updateProjectName();
@@ -523,20 +540,23 @@ public class ChartViewManager implements Serializable{
     public void valueChangeSelectProject(ValueChangeEvent e) {
     	projectId = Integer.parseInt(e.getNewValue().toString());
     	updateProjectName();
+    	avancementMeteo();
     	date = mysqlConnect.getLastDataDate(projectId);
+    	
     	initData();
         createModels();
     }
     public void valueChangeSelectProject(final AjaxBehaviorEvent event) throws IOException {
     	this.projectId = Integer.parseInt(((UIOutput)event.getSource()).getValue().toString());
     	updateProjectName();
+    	avancementMeteo();
     	this.date = mysqlConnect.getLastDataDate(projectId);
     	FacesContext.getCurrentInstance().getExternalContext().redirect("main.xhtml");
         FacesContext.getCurrentInstance().responseComplete();
     	initData();
         createModels();
         
-    }
+    }  
     public void valueChangeDate(SelectEvent event) {
     	Calendar cal = Calendar.getInstance();
     	try {
@@ -562,5 +582,47 @@ public class ChartViewManager implements Serializable{
     	datePurge = formatDate(e.getObject().toString());
     	mysqlConnect.purgeDatabase(datePurge);
     	loadProjectList();
+    }
+    
+    public void avancementMeteo(){
+    	List<String> nomTables = new ArrayList<String>();
+    	nomTables.add("campagne");
+    	nomTables.add("test"); 
+    	List<String> listeVariable = new ArrayList<String>();
+    	listeVariable.add("count(1)");
+    	String condition = "campagne.idProjet = "+ projectId+" AND (statut = 'Passed')";
+    	ArrayList<ArrayList<String>> testsPassed = mysqlConnect.MysqlSelect(nomTables, listeVariable, condition);
+    	
+    	double testPassed = Integer.parseInt(testsPassed.get(0).get(0));
+    	
+    	nomTables = new ArrayList<String>();
+    	nomTables.add("campagne");
+    	nomTables.add("test");
+    	listeVariable = new ArrayList<String>();
+    	listeVariable.add("count(1)");
+    	condition = "campagne.idProjet = "+ projectId + " AND (statut = 'Failed')";
+    	ArrayList<ArrayList<String>> testsFailed = mysqlConnect.MysqlSelect(nomTables, listeVariable, condition);
+    	
+    	double testFailed = Integer.parseInt(testsFailed.get(0).get(0));
+    	
+    	nomTables = new ArrayList<String>();
+    	nomTables.add("campagne");
+    	nomTables.add("test");
+    	listeVariable = new ArrayList<String>(); 
+    	listeVariable.add("count(1)");
+    	condition = "campagne.idProjet = "+ projectId;
+    	ArrayList<ArrayList<String>> nbrTests = mysqlConnect.MysqlSelect(nomTables, listeVariable, condition);
+    	
+    	double nbrTest = Integer.parseInt(nbrTests.get(0).get(0));
+    	  
+    	avancementMeteo = ((testPassed+(testFailed*(0.5)))/nbrTest)*100 ;
+    	if(avancementMeteo >= 85){
+    		avancementImage = "sun.png";
+    	} else if (avancementMeteo >= 70){
+    		avancementImage = "sun-cloud.png";
+    	} else {
+    		avancementImage = "cloud-storm.png";
+    	}
+    	
     }
 }

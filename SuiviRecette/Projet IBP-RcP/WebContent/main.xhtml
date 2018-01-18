@@ -56,7 +56,10 @@
 					<p:chart type="pie" model="#{chartViewManager.pieModel}"/>
 				</p:panel>
 				<p:draggable for="pieChartPnl" handle=".ui-panel-titlebar" />
-
+				<p:panel style="float:left;text-align:center;margin-top:100px;margin-left:10px; margin-right:10px">
+			    	<img src="#{chartViewManager.avancementImage}"  /> 
+			    	<h:outputText value="#{chartViewManager.avancementMeteo} %" />
+			    </p:panel>
 				<p:panel id="barChartPnl" header="" widgetVar="panel" style="width:30%;float:right;text-align:center">
 					<p:chart type="bar" model="#{chartViewManager.barModel}"/>
 				</p:panel>
