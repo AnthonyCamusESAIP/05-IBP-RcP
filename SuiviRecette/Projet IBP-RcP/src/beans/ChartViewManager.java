@@ -130,16 +130,8 @@ public class ChartViewManager implements Serializable{
 	@PostConstruct
     public void init() {
 		date = mysqlConnect.getLastDataDate(projectId);
-		initProject();
-		projects = new HashMap<String, String>();
-		for (ArrayList<String> arrayList : databaseProjects) {
-			projects.put(arrayList.get(1), arrayList.get(0));
-		}
-		for (ArrayList<String> arrayList : databaseProjects) {
-    		if (Integer.parseInt(arrayList.get(0)) == projectId) {
-				projectName = arrayList.get(1);
-			}
-		}
+		loadProjectList();
+		updateProjectName();
     }
 	public void initData() {
 
@@ -332,7 +324,21 @@ public class ChartViewManager implements Serializable{
     	attributs.add("projet.nomProjet");
     	databaseProjects = mysqlConnect.MysqlSelect(tables, attributs, "");
     }
-
+    public void loadProjectList() {
+    	initProject();
+    	projects = new HashMap<String, String>();
+		for (ArrayList<String> arrayList : databaseProjects) {
+			projects.put(arrayList.get(1), arrayList.get(0));
+		}
+    }
+    public void updateProjectName() {
+    	for (ArrayList<String> arrayList : databaseProjects) {
+    		if (Integer.parseInt(arrayList.get(0)) == projectId) {
+				this.projectName = arrayList.get(1);
+			}
+		}
+    }
+	
     private String formatDate(String dateSelected) {
     	String result;
     	String day = dateSelected.substring(8, 10);
@@ -516,22 +522,14 @@ public class ChartViewManager implements Serializable{
 
     public void valueChangeSelectProject(ValueChangeEvent e) {
     	projectId = Integer.parseInt(e.getNewValue().toString());
-    	for (ArrayList<String> arrayList : databaseProjects) {
-    		if (Integer.parseInt(arrayList.get(0)) == projectId) {
-				projectName = arrayList.get(1);
-			}
-		}
+    	updateProjectName();
     	date = mysqlConnect.getLastDataDate(projectId);
     	initData();
         createModels();
     }
     public void valueChangeSelectProject(final AjaxBehaviorEvent event) throws IOException {
     	this.projectId = Integer.parseInt(((UIOutput)event.getSource()).getValue().toString());
-    	for (ArrayList<String> arrayList : databaseProjects) {
-    		if (Integer.parseInt(arrayList.get(0)) == projectId) {
-				this.projectName = arrayList.get(1);
-			}
-		}
+    	updateProjectName();
     	this.date = mysqlConnect.getLastDataDate(projectId);
     	FacesContext.getCurrentInstance().getExternalContext().redirect("main.xhtml");
         FacesContext.getCurrentInstance().responseComplete();
@@ -563,6 +561,6 @@ public class ChartViewManager implements Serializable{
     public void valueChangeDatePurge(SelectEvent e) {
     	datePurge = formatDate(e.getObject().toString());
     	mysqlConnect.purgeDatabase(datePurge);
+    	loadProjectList();
     }
-
 }
