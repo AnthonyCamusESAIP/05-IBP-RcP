@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		
+	</h:head>
+	<h:body>
+	
+		<h:form>
+			<p:poll interval="200" update="@form" />
+			<p:chart id="graph1" type="pie" model="#{mainClass.pieModel1}"  style="height:300px; width: 40%; float:left;" />
+			<p:chart id="graph2" type="pie" model="#{mainClass.pieModel2}" style="height:300px; width: 60%; float:left;"/>
+		</h:form> 
+		
+		<!--
+		<h:dataTable value="#{mysqlConnect.tuple}" var="car" border="2">
+			<h:column>
+				<f:facet name="header">Nbr de Brand</f:facet>
+		       	#{car.x}
+		    </h:column>
+			<h:column>
+				<f:facet name="header">Valeur Total</f:facet>
+		        #{car.y}
+		     </h:column>
+		</h:dataTable>		
+		<h:dataTable value="#{csvReader.ReadCSV()}" var="car" border="2">
+			<h:column>
+		       	#{car[0]}
+		    </h:column>
+			<h:column>
+		        #{car[1]}
+		    </h:column>
+		    
+			<h:column>
+		        #{car[2]}
+		    </h:column>
+		    
+			<h:column>
+		        #{car[3]}
+		    </h:column>
+		    
+			<h:column>
+		        #{car[4]}
+		    </h:column>
+		    
+			<h:column>
+		        #{car[5]}
+		    </h:column>
+		    
+			<h:column>
+		        #{car[6]}
+		    </h:column>
+		</h:dataTable>
+		-->
+	</h:body>
+</html>
+

@@ -1,0 +1,183 @@
+Date_exec_test;Heure_exec_test;Statut_du_test;Projet;Campagne;Nom_du_test;Nom_du_testeur
+16/10/2017 00:00;09:06:53;N/A;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - PSR PF et GF;027-B2-PF-SBB-PackSEPA-SEP0014E;bnwenda
+16/10/2017 00:00;10:01:53;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - PSR PF et GF;030-B2-PF-SBB-PackSEPA-SEP0061E;bnwenda
+16/10/2017 00:00;15:14:00;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - PSR PF et GF;035-B2-PF-SBB-PackSEPA-IBP0010E;bnwenda
+16/10/2017 00:00;16:55:46;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - PSR PF et GF;036-B2-PF-SBB-PackSEPA-IBP0014E;bnwenda
+16/10/2017 00:00;16:55:52;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - PSR PF et GF;037-B2-PF-SBB-PackSEPA-IBP0020E;bnwenda
+16/10/2017 00:00;15:13:25;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - PSR PF et GF;038-B2-PF-SBB-PackSEPA-IBP0024E;bnwenda
+16/10/2017 00:00;16:25:07;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - PSR PF et GF;023-B2-PF-SDD-IBAN BIC-PSR-01-236;bnwenda
+16/10/2017 00:00;10:01:16;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - PSR PF et GF;025-B2-PF-SCT-IBAN BIC-PSR-01-246;bnwenda
+13/10/2017 00:00;15:10:48;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - PSR PF et GF;021-B2-PF-SDD-IBAN BIC-PSR-01-224;bnwenda
+12/10/2017 00:00;15:01:17;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - PSR PF et GF;026-B2-PF-SBB-PackSEPA-SEP0004E;bnwenda
+11/10/2017 00:00;12:26:33;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N21 -  Ctrl syntaxique-Pack SEPA SDD- ICS;su24659
+11/10/2017 00:00;09:42:17;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N02 -  Ctrl syntaxique-Pack SEPA SCT - devise EUR;su24659
+11/10/2017 00:00;09:42:21;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N03 -  Ctrl syntaxique-Pack SEPA SCT- montant devise;su24659
+11/10/2017 00:00;09:42:26;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N04 -  Ctrl syntaxique-Pack SEPA SCT- devise;su24659
+11/10/2017 00:00;09:42:52;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N05 -  Ctrl syntaxique-Pack SEPA SCT - valeur Sepa;su24659
+11/10/2017 00:00;16:25:12;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N06 -  Ctrl syntaxique-Pack SEPA SCT - cle invalide;su24659
+11/10/2017 00:00;16:21:27;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N07 -  Ctrl syntaxique-Pack SEPA SCT- Code pays;su24659
+11/10/2017 00:00;16:24:00;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N09 -  Ctrl syntaxique-Pack SEPA SCT- Longueur sup 70;su24659
+11/10/2017 00:00;16:24:31;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N10 -  Ctrl syntaxique-Pack SEPA SDD- RUM;su24659
+11/10/2017 00:00;16:23:55;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N12 -  Ctrl syntaxique-Pack SEPA SCT- EndToEndId;su24659
+11/10/2017 00:00;09:43:14;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N13 -  Ctrl syntaxique-SDD - PmtInfid identiques;su24659
+11/10/2017 00:00;17:15:12;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF025-BPS N300 -  Ctrl sémantique-SCT - Total montant;su24659
+11/10/2017 00:00;17:33:43;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF025-BPS N300 -  Ctrl sémantique-SCT - Total montant;su24659
+11/10/2017 00:00;09:14:47;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF025-BPS N400 - Ctrl sémantiques Transmission- Présence de l IBAN;su24659
+11/10/2017 00:00;09:18:04;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF025-BPS N500 -  Ctrl sémantique-SDD - PmtInfid identiques;su24659
+11/10/2017 00:00;14:44:13;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;056-B4-PF-SBB-Cle ICS-PSR-01-226;su24659
+11/10/2017 00:00;15:37:24;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;058-B4-PF-SBB-IBAN BIC-PSR-01-237;su24659
+11/10/2017 00:00;09:39:44;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;061-B4-PF-SCT-PackSEPA-SEP0005E;su24659
+11/10/2017 00:00;09:40:06;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;062-B4-PF-SCT-PackSEPA-SEP0015E;su24659
+11/10/2017 00:00;09:40:26;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;063-B4-PF-SCT-PackSEPA-SEP0036E;su24659
+11/10/2017 00:00;09:41:10;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;066-B4-PF-SCT-PackSEPA-SEP0087E;su24659
+11/10/2017 00:00;14:54:37;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;073-B4-PF-SBB-PackSEPA-IBP0025E;su24659
+11/10/2017 00:00;16:45:44;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N16 -  Ctrl syntaxique-SCT - Total montant;su24659
+11/10/2017 00:00;17:15:41;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N16 -  Ctrl syntaxique-SCT - Total montant;su24659
+11/10/2017 00:00;16:32:10;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF025-BPS N01 - Ctrl sémantiques Transmission- Plus de 4000 remises;su24659
+11/10/2017 00:00;09:43:35;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N20 -  Ctrl syntaxique-Pack SEPA SCT - valeur TRF;su24659
+11/10/2017 00:00;13:01:20;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N21 -  Ctrl syntaxique-Pack SEPA SDD- ICS;su24659
+11/10/2017 00:00;14:20:39;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N22 -  Ctrl syntaxique-Pack SEPA SDD- sequence slash non autorisee;su24659
+11/10/2017 00:00;09:43:18;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N19 -  Ctrl syntaxique-Pack SEPA SCT - valeur SLEV;su24659
+11/10/2017 00:00;09:43:40;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N25 -  Ctrl syntaxique-SCT - Présence IBAN dans toutes les remises;su24659
+11/10/2017 00:00;11:17:30;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - reparation;003 - SCT - RAB - DEST - IBAN INVALIDE  BIC FAUX;bnwenda
+11/10/2017 00:00;11:17:48;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - reparation;004 - SCT - RAB - DEST - IBAN NON SEPA;bnwenda
+11/10/2017 00:00;11:16:37;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - reparation;002 - SCT - RAB - DEST - IBAN international;bnwenda
+11/10/2017 00:00;11:18:06;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - reparation;006 - SCT -  RAB - EXP - IBAN valide BIC faux;bnwenda
+11/10/2017 00:00;11:18:24;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - reparation;007 - SCT -  RAB - EXP - IBAN valide BIC anomalie;bnwenda
+11/10/2017 00:00;09:44:11;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N26 -  Ctrl syntaxique-SCT - Total nombre operations;su24659
+09/10/2017 00:00;17:38:30;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N20 -  Ctrl syntaxique-Pack SEPA SCT - valeur TRF;su24659
+09/10/2017 00:00;16:08:33;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N19 -  Ctrl syntaxique-Pack SEPA SCT - valeur SLEV;su24659
+09/10/2017 00:00;16:07:28;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N19 -  Ctrl syntaxique-Pack SEPA SCT - valeur SLEV;su24659
+09/10/2017 00:00;17:12:42;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N20 -  Ctrl syntaxique-Pack SEPA SCT - valeur TRF;su24659
+05/10/2017 00:00;15:25:09;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N14 -  Ctrl syntaxique-SCT - Element FinInstnld incomplet;su24659
+05/10/2017 00:00;16:21:30;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N15 -  Ctrl syntaxique-SCT - PmtInfid non valorisée;su24659
+05/10/2017 00:00;14:29:06;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N12 -  Ctrl syntaxique-Pack SEPA SCT- EndToEndId;su24659
+05/10/2017 00:00;14:25:42;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N13 -  Ctrl syntaxique-SDD - PmtInfid identiques;su24659
+05/10/2017 00:00;09:01:42;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N01 -  Ctrl syntaxique-Pack SEPA SCT - balise Dbtr Nm;su24659
+05/10/2017 00:00;09:22:55;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N100 -  Ctrl format de fichier SCT;su24659
+05/10/2017 00:00;09:23:10;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N200 -  Ctrl format XML de fichier SCT;su24659
+05/10/2017 00:00;15:26:36;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N14 -  Ctrl syntaxique-SCT - Element FinInstnld incomplet;su24659
+05/10/2017 00:00;17:01:13;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N15 -  Ctrl syntaxique-SCT - PmtInfid non valorisée;su24659
+05/10/2017 00:00;14:26:38;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N13 -  Ctrl syntaxique-SDD - PmtInfid identiques;su24659
+05/10/2017 00:00;09:22:30;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N11 -  Ctrl syntaxique-SDD - syntaxe incorrecte caractère interdit;su24659
+05/10/2017 00:00;14:32:54;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N12 -  Ctrl syntaxique-Pack SEPA SCT- EndToEndId;su24659
+05/10/2017 00:00;09:22:23;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N10 -  Ctrl syntaxique-Pack SEPA SDD- RUM;su24659
+05/10/2017 00:00;09:22:07;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N09 -  Ctrl syntaxique-Pack SEPA SCT- Longueur sup 70;su24659
+05/10/2017 00:00;09:21:53;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N07 -  Ctrl syntaxique-Pack SEPA SCT- Code pays;su24659
+05/10/2017 00:00;09:21:43;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N06 -  Ctrl syntaxique-Pack SEPA SCT - cle invalide;su24659
+05/10/2017 00:00;09:21:35;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N05 -  Ctrl syntaxique-Pack SEPA SCT - valeur Sepa;su24659
+05/10/2017 00:00;09:21:20;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N04 -  Ctrl syntaxique-Pack SEPA SCT- devise;su24659
+05/10/2017 00:00;09:14:12;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N03 -  Ctrl syntaxique-Pack SEPA SCT- montant devise;su24659
+05/10/2017 00:00;09:02:51;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N02 -  Ctrl syntaxique-Pack SEPA SCT - devise EUR;su24659
+05/10/2017 00:00;09:28:43;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N26 -  Ctrl syntaxique-SCT - Total nombre operations;su24659
+05/10/2017 00:00;11:36:56;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - reparation;008 - SCT -  RAB - EXP - IBAN INVALIDE  BIC FAUX MULTIREMISE;bnwenda
+05/10/2017 00:00;09:25:03;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N24 -  Ctrl syntaxique-SCT - Total nombre remises;su24659
+05/10/2017 00:00;09:25:40;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N25 -  Ctrl syntaxique-SCT - Présence IBAN dans toutes les remises;su24659
+05/10/2017 00:00;09:29:28;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF025-BPS N200 -  Ctrl sémantique fileformat incorrect niveau remise;su24659
+05/10/2017 00:00;09:25:24;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF025-BPS N01 - Ctrl sémantiques Transmission- Plus de 4000 remises;su24659
+05/10/2017 00:00;10:55:49;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPATL - PSR PF et GF;007-B1-PF-SCT-PackSEPA-SEP0001E;at21022
+05/10/2017 00:00;11:31:43;N/A;GSP13044 - PPG - PARME - Sujets Prioritaires;BPATL - PSR PF et GF;008-B1-PF-SCT-PackSEPA-SEP0006E;at21022
+05/10/2017 00:00;13:39:23;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPATL - PSR PF et GF;010-B1-PF-SCT-PackSEPA-SEP0047E;at21022
+05/10/2017 00:00;14:04:50;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPATL - PSR PF et GF;011-B1-PF-SCT-PackSEPA-SEP0058E;at21022
+05/10/2017 00:00;15:59:10;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPATL - PSR PF et GF;018-B1-PF-SDD-PackSEPA-IBP0018E;atbar11
+04/10/2017 00:00;17:50:21;Not Completed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPATL - PSR PF et GF;001-B1-PF-SCT-Habilitation   compte-PSR-01-213;atbar11
+04/10/2017 00:00;15:58:03;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Lot 1;061-B4-PF-SCT-PackSEPA-SEP0005E;su24659
+04/10/2017 00:00;15:59:49;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Lot 1;062-B4-PF-SCT-PackSEPA-SEP0015E;su24659
+04/10/2017 00:00;14:55:52;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - reparation;001 - SCT - RAB - DEST - IBAN VALIDE  BIC FAUX;bnwenda
+04/10/2017 00:00;16:44:09;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - reparation;005BIS - SCT - RAB - MF DEST - IBAN VALIDE  ANOMALIE BIC;bnwenda
+04/10/2017 00:00;15:50:03;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR2 Transmission;EXF025-BPS N01 - Ctrl sémantiques Transmission- Plus de 4000 remises;su24659
+04/10/2017 00:00;17:24:26;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS - PSR PF et GF;EXF023-BPS N01 -  Ctrl syntaxique-Pack SEPA SCT - balise Dbtr Nm;su24659
+04/10/2017 00:00;15:42:45;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF025-BPS N01 - Ctrl sémantiques Transmission- Plus de 4000 remises;su24659
+04/10/2017 00:00;15:09:48;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N200 -  Ctrl format XML de fichier SCT;su24659
+04/10/2017 00:00;10:30:48;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N09 -  Ctrl syntaxique-Pack SEPA SCT- Longueur sup 70;su24659
+04/10/2017 00:00;11:57:21;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N10 -  Ctrl syntaxique-Pack SEPA SDD- RUM;su24659
+04/10/2017 00:00;14:21:17;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N04 -  Ctrl syntaxique-Pack SEPA SCT- devise;su24659
+04/10/2017 00:00;10:04:50;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N05 -  Ctrl syntaxique-Pack SEPA SCT - valeur Sepa;su24659
+03/10/2017 00:00;15:19:34;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N03 -  Ctrl syntaxique-Pack SEPA SCT- montant devise;su24659
+03/10/2017 00:00;11:36:16;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N26 -  Ctrl syntaxique-SCT - Total nombre operations;su24659
+03/10/2017 00:00;12:08:58;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF025-BPS N500 -  Ctrl sémantique-SDD - PmtInfid identiques;su24659
+03/10/2017 00:00;14:38:21;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N25 -  Ctrl syntaxique-SCT - Présence IBAN dans toutes les remises;su24659
+03/10/2017 00:00;14:55:01;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPBFC - reparation;005 - SCT - RAB - DEST - IBAN VALIDE  ANOMALIE BIC;bnwenda
+02/10/2017 00:00;11:53:56;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N02 -  Ctrl syntaxique-Pack SEPA SCT - devise EUR;su24659
+28/07/2017 00:00;10:11:31;Failed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML PAR CYBER UPLOAD;BPS-P01-CY UPLOAD VSOT en XML -N05 - Authentification client - Transmission CYBER KO- VALEUR TREB -File format pain 001.001.03.sct;su24659
+28/07/2017 00:00;11:20:33;Passed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML PAR CYBER UPLOAD;BPS-P01-CY UPLOAD VSOT en XML -N06 - Authentification client  - Modification Ecran Bordereau;su24659
+27/07/2017 00:00;11:42:59;Passed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML PAR CYBER UPLOAD;BPS-P01-CY UPLOAD VSOT en XML -N03 - Authentification client - Transmission CYBER KO - client non abonné au VSOT;su24659
+26/07/2017 00:00;15:25:20;Passed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML PAR CYBER UPLOAD;BPS-P01-CY UPLOAD VSOT en XML -N04 - Authentification client - Transmission CYBER OK - Valeur TREA non renseignée;su24659
+26/07/2017 00:00;16:42:25;Passed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML PAR CYBER UPLOAD;BPS-P01-CY UPLOAD VSOT en XML -N01- Authentification client  -Télétransmission UPLOAD OK;su24659
+26/07/2017 00:00;15:01:39;N/A;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML PAR CYBER UPLOAD;BPS-P01-CY UPLOAD VSOT en XML -N02- Authentification client  -Télétransmission UPLOAD OK- Compta Ok;su24659
+26/07/2017 00:00;16:16:21;Passed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML - UPLOAD CYBER;ATL01 - [NR] [CyUp VSOT XML] - VSOT CFONB;at21022
+26/07/2017 00:00;16:21:46;Passed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML - UPLOAD CYBER;ATL02 - [NR] [CyUp VSOT XML] - SCT XML;at21022
+26/07/2017 00:00;15:12:56;Passed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML - UPLOAD CYBER;ATL03 -  [CyUp VSOT XML] - VSOT XML mono remise;at21022
+26/07/2017 00:00;15:12:59;Passed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML - UPLOAD CYBER;ATL04 -  [CyUp VSOT XML] - VSOT XML multi remise;at21022
+26/07/2017 00:00;15:26:25;Failed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML - UPLOAD CYBER;ATL05 -  [CyUp VSOT XML] - Fichier XML multi remises- VSOT puis SCT =- ko;at21022
+26/07/2017 00:00;15:58:56;Failed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML - UPLOAD CYBER;ATL06 -  [CyUp VSOT XML] - Fichier XML multi remises- SCT puis VSOT =- ko;at21022
+26/07/2017 00:00;16:02:13;N/A;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML - UPLOAD CYBER;ATL07 -  [CyUp VSOT XML] - Fichier VSOT XML - Bénéficiaire hors FR;at21022
+26/07/2017 00:00;16:02:16;Passed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML - UPLOAD CYBER;ATL08 -  [CyUp VSOT XML] - Fichier VSOT XML - Mt hors euro;at21022
+26/07/2017 00:00;16:05:08;Failed;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML - UPLOAD CYBER;ATL09 -  [CyUp VSOT XML] - Fichier VSOT XML non conforme xsd;at21022
+26/07/2017 00:00;16:21:33;N/A;GSP13287 - PPG - OPE1 - PARME - OPI VSOT en XML;VSOT XML - UPLOAD CYBER;ATL10 - [NR] [CyUp VSOT XML] - Fichier VSOT XML - bénéficiaire hors CVI;at21022
+28/04/2017 00:00;11:28:16;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPRI Lot 1;039-B3-PF-SDD-IBAN BIC-PSR-01-218;ritonpa
+28/04/2017 00:00;11:57:37;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N11 -  Ctrl syntaxique-SDD - syntaxe incorrecte caractère interdit;su24659
+28/04/2017 00:00;15:17:29;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N100 -  Ctrl format de fichier SCT;su24659
+28/04/2017 00:00;14:50:02;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Lot 1;071-B4-PF-SDD-PackSEPA-IBP0017E;su24659
+28/04/2017 00:00;14:54:30;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR2 Transmission;EXF025-BPS N100 - Ctrl sémantiques Transmission- Plus de 999999 opérations;su24659
+27/04/2017 00:00;10:49:02;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N07 -  Ctrl syntaxique-Pack SEPA SCT- Code pays;su24659
+26/04/2017 00:00;14:42:59;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N06 -  Ctrl syntaxique-Pack SEPA SCT - cle invalide;su24659
+11/04/2017 00:00;10:48:02;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N16 -  Ctrl syntaxique-SCT - Total montant;su24659
+11/04/2017 00:00;11:20:08;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF025-BPS N200 -  Ctrl sémantique fileformat incorrect niveau remise;su24659
+07/04/2017 00:00;09:47:00;Not Completed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF025-BPS N100 - Ctrl sémantiques Transmission- Plus de 999999 opérations;su24659
+05/04/2017 00:00;16:35:24;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;BPS Génération PSR1;EXF023-BPS N24 -  Ctrl syntaxique-SCT - Total nombre remises;su24659
+08/03/2017 00:00;15:56:40;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;PSR1;BPRI NO1 - SDD PmtInfid identiques;ritonpa
+10/02/2017 00:00;15:37:48;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_05_BoutEnBout;at21022
+10/02/2017 00:00;15:37:37;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_02_CANAL EBICS TS;at21022
+10/02/2017 00:00;16:22:55;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_19_IBAN destinataire MONACO;at21022
+08/02/2017 00:00;15:05:22;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_15_Alimentation LNDORD_sans SIRET sans NAME;bnwenda
+08/02/2017 00:00;15:06:46;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_16_Alimentation LNDORD_SIRET et NAME;bnwenda
+08/02/2017 00:00;14:53:44;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_13_Alimentation LNDORD_SIRET;bnwenda
+06/02/2017 00:00;17:16:39;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_11_XML caractères spéciaux - majuscules;bnwenda
+03/02/2017 00:00;17:05:49;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_12_Multi-remise_mapping;bnwenda
+03/02/2017 00:00;17:30:07;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_14_Alimentation LNDORD_NAME;bnwenda
+03/02/2017 00:00;10:09:24;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_10_XML donnée absentes mais obligatoires CFONB;bnwenda
+03/02/2017 00:00;11:31:10;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO004-Contrôler le FileFormat d'un flux;EXFCO004 - BPS- N02 - Cas non passant FileFormat non connu par PARME, le distributeur, la banque pour SWIFTNET;su24659
+03/02/2017 00:00;10:11:23;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_24_NR - fichier CFONB;bnwenda
+02/02/2017 00:00;10:34:02;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_17_RJ_XML en devise non EURO;at21022
+02/02/2017 00:00;09:42:16;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO017 - Contrôler laTransmission (sémantique);EXFCO017 - BPS - N01- Contrôler la Transmission - Cas passant SCT;su24659
+02/02/2017 00:00;14:59:27;Not Completed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_03_CANAL SwiftNet;bnwenda
+02/02/2017 00:00;09:41:19;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO010 - Générer les points de Mesure;EXFCO010 - BPS- N01 - Cas passant SCT par SWIFTNET;su24659
+31/01/2017 00:00;17:20:27;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO018 - EXFCO020;BPS N03-  prestation de transfert  Cas non passant SCT -Ttaille fonctionnelle supérieure;su24659
+31/01/2017 00:00;17:06:18;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO006 - Contrôler contrat de service;EXFCO006 - BPS- N01 - Authentification - Cas passant SCT par SWIFTNET;su24659
+31/01/2017 00:00;17:11:40;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO006 - Contrôler contrat de service;EXFCO006 - BPS- N03 - Authentification - Cas non passant SCT par SWIFTNET;su24659
+31/01/2017 00:00;17:17:24;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO013 - Contrôler les transmissions en double;EXFCO013 - BPS- N01 - Cas passant SCT en double par SWIFTNET;su24659
+31/01/2017 00:00;17:05:00;Not Completed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO005 - Créer une transmission;EXFCO005 - BPS- N02 - Cas passant LCR  par SWIFTNET;su24659
+31/01/2017 00:00;17:16:35;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO008 - Mettre à jour le statut de la transmission;EXFCO008 - BPS- N01 - Cas passant SCT par SWIFTNET;su24659
+31/01/2017 00:00;17:18:58;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO018 - EXFCO019;BPS N03-  prestation de transfert  Cas non passant SCT -Ttaille technique supérieure;su24659
+26/01/2017 00:00;17:22:01;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_04_CANAL Cyber Upload;at21022
+26/01/2017 00:00;17:34:00;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_21_RJ_IBAN destinataire clef RIB KO;at21022
+26/01/2017 00:00;17:34:05;Failed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_22_RJ_BIC destinataire non correspondant;at21022
+26/01/2017 00:00;17:38:34;N/A;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_23_RJ_BIC destinataire inexistant;at21022
+25/01/2017 00:00;13:49:05;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_18_RJ_NR - IBAN destinataire hors CVI;at21022
+24/01/2017 00:00;16:27:39;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;REVOCATION DES CERTIFICATS EBICS;EXFCO049 BPRI N02 Envoi de flux avec des certificats bloqués;ritonpa
+24/01/2017 00:00;15:03:02;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;REVOCATION DES CERTIFICATS EBICS;EXFCO049 BPRI N01 Envoi de flux avec des certificats révoqués;ritonpa
+24/01/2017 00:00;15:00:31;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;RENOUVELLEMENT DES CETIFICATS EBICS;EXFCO047 BPRI N01 Renouvelement certificat authentification, chiffrement et signature;ritonpa
+24/01/2017 00:00;15:00:39;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;RENOUVELLEMENT DES CETIFICATS EBICS;EXFCO047 BPRI N02 Renouvelement certificat authentification, chiffrement;ritonpa
+24/01/2017 00:00;15:01:28;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;RENOUVELLEMENT DES CETIFICATS EBICS;EXFCO047 BPRI N03 Renouvelement certificat de signature;ritonpa
+24/01/2017 00:00;15:01:39;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;RENOUVELLEMENT DES CETIFICATS EBICS;EXFCO047 BPRI N04 Renouvelement certificat de signature expiré;ritonpa
+24/01/2017 00:00;15:02:41;N/A;GSP13044 - PPG - PARME - Sujets Prioritaires;RENOUVELLEMENT DES CETIFICATS EBICS;EXFCO047 BPRI N05 Renouvelement de certificat partagé;ritonpa
+24/01/2017 00:00;14:57:45;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;DECLARATION DE CERTIFICATS EBICS;EXFCO046 BPRI N01 Generation certificat logiciel;ritonpa
+24/01/2017 00:00;14:58:00;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;DECLARATION DE CERTIFICATS EBICS;EXFCO046 BPRI N02 Generation certificat materiel;ritonpa
+24/01/2017 00:00;14:58:08;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;DECLARATION DE CERTIFICATS EBICS;EXFCO046 BPRI N03 Aprés validation des certificats envoi de transaction;ritonpa
+24/01/2017 00:00;14:58:55;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;DECLARATION DE CERTIFICATS EBICS;EXFCO046 BPRI N04 Envoi de transaction avec certificat non valide;ritonpa
+24/01/2017 00:00;14:59:13;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;DECLARATION DE CERTIFICATS EBICS;EXFCO046 BPRI N05 Generation de certificat déjà enregistré;ritonpa
+24/01/2017 00:00;14:59:29;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;DECLARATION DE CERTIFICATS EBICS;EXFCO046 BPRI N06 Envoi de flux avec UID et PID avec d autre certificats enregistrés;ritonpa
+24/01/2017 00:00;14:59:46;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;DECLARATION DE CERTIFICATS EBICS;EXFCO046 BPRI N07 Envoi de flux avec des certificats expirés;ritonpa
+24/01/2017 00:00;14:59:58;N/A;GSP13044 - PPG - PARME - Sujets Prioritaires;DECLARATION DE CERTIFICATS EBICS;EXFCO046 BPRI N08 Envoi même certificat pour 2 Uid et Pid d un même contrat;ritonpa
+24/01/2017 00:00;15:00:04;N/A;GSP13044 - PPG - PARME - Sujets Prioritaires;DECLARATION DE CERTIFICATS EBICS;EXFCO046 BPRI N09 Envoi même certificats pour 1 Uid et Pid sur 2 contrats différents;ritonpa
+20/01/2017 00:00;09:40:31;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO003-Identifier la banque émettrice;EXFCO003 - BPS- N01 - Cas passant SCT par SWIFTNET;su24659
+20/01/2017 00:00;11:07:22;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO005 - Créer une transmission;EXFCO005 - BPS- N01 - Cas passant SCT par SWIFTNET;su24659
+19/01/2017 00:00;09:51:18;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO018 - EXFCO019;BPS N01-  prestation de transfert  Cas passant SCT - Verifier la taille technique;su24659
+19/01/2017 00:00;16:58:04;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_20_RJ_IBAN destinataire hors FR hors MC;bnwenda
+19/01/2017 00:00;11:25:16;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO004-Contrôler le FileFormat d'un flux;EXFCO004 - BPS- N01 - Cas passant FileFormat reconnu par PARME, le distributeur, la banque pour SWIFTNET;su24659
+19/01/2017 00:00;09:53:18;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;EXFCO018 - EXFCO020;BPS N01-  prestation de transfert  Cas passant SCT - Verifier la taille fonctionnelle;su24659
+18/01/2017 00:00;15:20:10;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_06_RJ_Category_Purpose_une_remise;at21022
+18/01/2017 00:00;15:20:40;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_07_RJ_Category_Purpose_deux_remises;at21022
+18/01/2017 00:00;15:21:02;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_08_RJ_SCT_SEPA_classique;at21022
+18/01/2017 00:00;15:21:19;Passed;GSP13044 - PPG - PARME - Sujets Prioritaires;VSOT XML;VSOT_XML_09_RJ_XML non conforme xsd;at21022
