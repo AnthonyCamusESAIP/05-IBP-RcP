@@ -19,7 +19,6 @@ public class FileUpload {
 
 	public void handleFileUpload(FileUploadEvent event) {
         if(event.getFile() != null) {
-        	System.out.println();
             file = new File(System.getProperty("java.io.tmpdir")+"lstTest.xls");
 			try {
 				file.createNewFile();
