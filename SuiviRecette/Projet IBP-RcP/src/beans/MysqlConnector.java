@@ -213,7 +213,6 @@ public class MysqlConnector {
 			sqlQuery += " WHERE "+ condition;
 		}
 	 	sqlQuery += " ;";
-
 		return sqlQuery;
 	}
 	public int getValueAutoIncrement(String tableName) {
