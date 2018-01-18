@@ -18,6 +18,9 @@
 	<h:form>
 		<p:growl id="messages" />
 		<p:menubar  style="height:50px">
+			<p:menuitem >		
+				<input type="button" style="float:right" value="Accueil" onclick="javascript:location.href='accueil.xhtml'"/>
+			</p:menuitem>
 			<p:menuitem id ="selectOneProject" >
 				<h:form>
 					<p:outputLabel for="projectName" value="Projet : " />
@@ -34,16 +37,17 @@
 	        			<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDate}" update="@all"/>
 	        		</p:calendar>
 			</p:menuitem>
+			
 		</p:menubar>
 		
 			
 	</h:form>
 	
 	
-	<p:panelGrid id="charts">
-		<f:facet name="header">
-			<p:row>
-				<p:column colspan="7">DashBoard du projet  #{chartViewManager.projectName}</p:column>
+	<p:panelGrid id="charts" >
+		<f:facet name="header" >
+			<p:row >
+				<p:column colspan="7" >DashBoard du projet  #{chartViewManager.projectName}</p:column>
 			</p:row>
 		</f:facet>
 		<p:row>
