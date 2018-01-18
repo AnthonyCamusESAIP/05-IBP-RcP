@@ -292,4 +292,20 @@ public class MysqlConnector {
 		}
 		
 	}
+	public int verifyNumberDataPeriod(int idProjet, String dateBegin, String dateEnd) {
+		int result = 0;
+		String sqlQuery = "SELECT COUNT(test.idTest) FROM test NATURAL JOIN campagne WHERE campagne.idProjet = "+idProjet+" AND (test.date BETWEEN '"+dateBegin+"' AND '"+dateEnd+"')";
+		PreparedStatement pstmt;
+		try {
+			pstmt = connect.prepareStatement(sqlQuery);
+			ResultSet rs = pstmt.executeQuery(sqlQuery);
+			while (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("MysqlVerify Error : ");
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
 }

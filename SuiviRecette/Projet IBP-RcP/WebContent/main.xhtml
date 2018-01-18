@@ -16,7 +16,7 @@
 <h:body>
 
 	<h:form>
-		<p:growl id="messages" />
+		<p:growl id="messages" showDetail="true" sticky="false" />
 		<p:menubar  style="height:50px">
 			<p:menuitem id ="selectOneProject" >
 				<h:form>
@@ -28,9 +28,9 @@
 		        </h:form>
 	        </p:menuitem>
 			
-			<p:menuitem id="datePicker">
-					<p:outputLabel for="popup" value="Date: " />
-	        		<p:calendar id="popup" value="Sélectionner une date" showWeek="true" showOtherMonths="true" selectOtherMonths="true" locale="en_GB" pattern="yyyy-MM-dd">
+			<p:menuitem>
+					<p:outputLabel for="datePicker" value="Date: " />
+	        		<p:calendar id="datePicker" value="Sélectionner une date" showWeek="true" showOtherMonths="true" selectOtherMonths="true" locale="en_GB" pattern="yyyy-MM-dd">
 	        			<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDate}" update="@all"/>
 	        		</p:calendar>
 			</p:menuitem>
