@@ -13,6 +13,7 @@
 package beans;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,10 +29,8 @@ public class MysqlConnector {
 	//Note (Alban): Methode de connexion à la bdd
 	
 	public MysqlConnector(String url, String dbName, String login, String mdp) {
-
 		connect = null;
 		try {
-
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager.getConnection(url+dbName, login, mdp);
 			// TODO : Faire le deploiement de la bdd si elle existe pas
@@ -226,6 +225,7 @@ public class MysqlConnector {
 			while (rs.next()) {
 	    		currentValue = rs.getInt(1);
 	    	}
+			pstmt.close();
 		} catch (SQLException e) {
 			System.out.println("MysqlSelect Error : ");
 			System.out.println(e.getMessage());
@@ -242,6 +242,7 @@ public class MysqlConnector {
 			while (rs.next()) {
 	    		result = rs.getString(1);
 	    	}
+			pstmt.close();
 		} catch (SQLException e) {
 			System.out.println("MysqlSelect Error : ");
 			System.out.println(e.getMessage());
@@ -252,7 +253,7 @@ public class MysqlConnector {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(pathToSqlFile));
 			String str;
-			PreparedStatement pstmt;
+			PreparedStatement pstmt = null;
 			String sqlQuery = "";
 			while ((str = in.readLine()) != null) {
 				sqlQuery += str;
@@ -262,9 +263,10 @@ public class MysqlConnector {
 					sqlQuery = "";
 				}
 			}
-			in.close();		
+			pstmt.close();
+			in.close();
 		} catch (Exception e) {
-			System.err.println("Failed to Execute" + pathToSqlFile +". The error is"+ e.getMessage());
+			System.err.println("Failed to Execute" + pathToSqlFile +". The error is "+ e.getMessage());
 		} 
 	}
 	public void purgeDatabase(String date) {
@@ -286,6 +288,7 @@ public class MysqlConnector {
 	    		pstmt = connect.prepareStatement(sqlQuery);
 				pstmt.execute(sqlQuery);
 	    	}
+			pstmt.close();
 		} catch (SQLException e) {
 			System.out.println("MysqlDelete Error : ");
 			System.out.println(e.getMessage());
@@ -302,6 +305,7 @@ public class MysqlConnector {
 			while (rs.next()) {
 				result = rs.getInt(1);
 			}
+			pstmt.close();
 		} catch (SQLException e) {
 			System.out.println("MysqlVerify Error : ");
 			System.out.println(e.getMessage());
