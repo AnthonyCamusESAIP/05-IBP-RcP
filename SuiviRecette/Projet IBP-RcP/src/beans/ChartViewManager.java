@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,8 @@ import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.chart.Axis;
@@ -127,7 +131,19 @@ public class ChartViewManager implements Serializable {
 	
 	@PostConstruct
     public void init() {
-    	initData();
+		/*
+		 * Pour Antho
+		String path = this.getClass().getClassLoader().getResource("").getPath();
+		try {
+			String fullPath = URLDecoder.decode(path, "UTF-8");
+			System.out.println(fullPath);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		
+		initData();
         createModels();
         initProject();
     	projects = new HashMap<String, String>();
@@ -135,6 +151,7 @@ public class ChartViewManager implements Serializable {
 			projects.put(arrayList.get(1), arrayList.get(0));
 		}
     }
+	
 	public void initData() {
 
     	testPassedThisWeek = new ArrayList<String>();
@@ -508,7 +525,8 @@ public class ChartViewManager implements Serializable {
         yAxis.setMax(max+5);
     }
 
-    public void valueChangeSelectProject(ValueChangeEvent e) {    
+    public void valueChangeSelectProject(ValueChangeEvent e) {  
+    
     	projectId = Integer.parseInt(e.getNewValue().toString());
     	for (ArrayList<String> arrayList : databaseProjects) {
     		if (Integer.parseInt(arrayList.get(0)) == projectId) {
@@ -521,7 +539,8 @@ public class ChartViewManager implements Serializable {
          
     }
     public void valueChangeSelectProject(final AjaxBehaviorEvent event) throws IOException { 
-    	projectId = Integer.parseInt(((UIOutput)event.getSource()).getValue().toString());
+    	
+  	  	projectId = Integer.parseInt(((UIOutput)event.getSource()).getValue().toString());
     	for (ArrayList<String> arrayList : databaseProjects) {
     		if (Integer.parseInt(arrayList.get(0)) == projectId) {
 				projectName = arrayList.get(1);
@@ -530,7 +549,9 @@ public class ChartViewManager implements Serializable {
     	date = mysqlConnect.getLastDataDate(projectId);
     	initData();
         createModels();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("main.xhtml");
+        
+        String url= "main.xhtml?idPro="+projectId;
+        FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         FacesContext.getCurrentInstance().responseComplete();
     }
     public void valueChangeDate(SelectEvent e) {
