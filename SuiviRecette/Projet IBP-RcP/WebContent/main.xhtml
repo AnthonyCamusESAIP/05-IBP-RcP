@@ -41,13 +41,6 @@
 	        			<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDate}" update="@all"/>
 	        		</p:calendar>
 			</p:menuitem>
-			
-			<p:menuitem id="datePickerPurge">
-				<p:outputLabel for="purge" value="Purge :" />
-        		<p:calendar id="purge" value="#{chartViewManager.datePurge}" showOn="button" locale="en_GB" pattern="yyyy-MM-dd">
-        			<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDatePurge}" update="@all"/>
-	        	</p:calendar>
-			</p:menuitem>
 		</p:menubar>
 		
 			

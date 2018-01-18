@@ -2,24 +2,19 @@ package beans;
 
 import javax.annotation.PostConstruct;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -34,24 +29,22 @@ import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.LineChartSeries;
 import org.primefaces.model.chart.PieChartModel;
 
-import com.sun.glass.ui.Size;
+@SuppressWarnings("serial")
+@ManagedBean(name = "chartViewManager")
+@SessionScoped
+public class ChartViewManager implements Serializable{
  
-@ManagedBean
-public class ChartViewManager implements Serializable {
- 
-	private static final long serialVersionUID = 1L;
 	private MysqlConnector mysqlConnect = new MysqlConnector("jdbc:mysql://localhost:3306/","ibp-rcp", "root", "");
 	protected final static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	private ArrayList<ArrayList<String>> databaseProjects = new ArrayList<ArrayList<String>>();
 	
 	private Map<String,String> projects = new HashMap<String, String>();
-	private int projectId = 70;
+	private int projectId;
 	private String projectName;
-	private String date = "2017-10-16";
+	private String date;
 	private String datePurge;
 	
     private PieChartModel pieModel;
@@ -95,7 +88,13 @@ public class ChartViewManager implements Serializable {
 	private int nbTestWeek4;
 	private int nbTestWeek5;
 	
-    public String getDatePurge() {
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getDatePurge() {
 		return datePurge;
 	}
     public void setDatePurge(String datePurge) {
@@ -131,24 +130,16 @@ public class ChartViewManager implements Serializable {
 	
 	@PostConstruct
     public void init() {
-		/*
-		 * Pour Antho
-		String path = this.getClass().getClassLoader().getResource("").getPath();
-		try {
-			String fullPath = URLDecoder.decode(path, "UTF-8");
-			System.out.println(fullPath);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		
-		initData();
-        createModels();
-        initProject();
-    	projects = new HashMap<String, String>();
-    	for (ArrayList<String> arrayList : databaseProjects) {
+		date = mysqlConnect.getLastDataDate(projectId);
+		initProject();
+		projects = new HashMap<String, String>();
+		for (ArrayList<String> arrayList : databaseProjects) {
 			projects.put(arrayList.get(1), arrayList.get(0));
+		}
+		for (ArrayList<String> arrayList : databaseProjects) {
+    		if (Integer.parseInt(arrayList.get(0)) == projectId) {
+				projectName = arrayList.get(1);
+			}
 		}
     }
 	
@@ -390,7 +381,7 @@ public class ChartViewManager implements Serializable {
     	result = year+"-"+month+"-"+day;
     	return result;
     }
-   
+
     private void createModels() {
         createPieModel();
         createLineModel();
@@ -554,6 +545,20 @@ public class ChartViewManager implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         FacesContext.getCurrentInstance().responseComplete();
     }
+    public void valueChangeSelectProject(final AjaxBehaviorEvent event) throws IOException {
+    	this.projectId = Integer.parseInt(((UIOutput)event.getSource()).getValue().toString());
+    	for (ArrayList<String> arrayList : databaseProjects) {
+    		if (Integer.parseInt(arrayList.get(0)) == projectId) {
+				this.projectName = arrayList.get(1);
+			}
+		}
+    	this.date = mysqlConnect.getLastDataDate(projectId);
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("main.xhtml");
+        FacesContext.getCurrentInstance().responseComplete();
+    	initData();
+        createModels();
+        
+    }
     public void valueChangeDate(SelectEvent e) {
     	date = formatDate(e.getObject().toString());
     	initData();
@@ -562,8 +567,6 @@ public class ChartViewManager implements Serializable {
     public void valueChangeDatePurge(SelectEvent e) {
     	datePurge = formatDate(e.getObject().toString());
     	mysqlConnect.purgeDatabase(datePurge);
-    	initData();
-        createModels();
     }
 
 }
