@@ -11,6 +11,14 @@
     PrimeFaces.locales['en_GB'] = {
         firstDay : 1
     };
+    function extLegend() 
+    {
+        this.cfg.legend= {
+            show: true,
+            location: 's',
+            placement: 'outsideGrid'
+        };
+    }
 </script>
 </h:head>
 <h:body>
@@ -32,8 +40,8 @@
 	        </p:menuitem>
 			
 			<p:menuitem>
-					<p:outputLabel for="datePicker" value="Date: " />
-	        		<p:calendar id="datePicker" value="Sélectionner une date" showWeek="true" showOtherMonths="true" selectOtherMonths="true" locale="en_GB" pattern="yyyy-MM-dd" beforeShowDay="thursdayOnly">
+					<p:outputLabel for="datePicker" value="Sélectionner une date : " />
+	        		<p:calendar id="datePicker" showWeek="true" showOtherMonths="true" required="false" selectOtherMonths="true" locale="en_GB" pattern="yyyy-MM-dd">
 	        			<p:ajax event="dateSelect" listener="#{chartViewManager.valueChangeDate}" update="@all"/>
 	        		</p:calendar>
 			</p:menuitem>
@@ -55,9 +63,12 @@
 				</p:panel>
 				<p:panel style="display: inline; width:35.5%; float:left;text-align:center;margin-top:100px;margin-left:1%; margin-right:1%">
 			    	<h:outputText value="#{chartViewManager.avancementMeteo} % d'avancement" />
+					<br/>
+			    	<h:outputText value="Nombre de test total pour ce projet : #{chartViewManager.nbTestTotal}"/>
 			    </p:panel>
+			    
 				<p:panel id="barChartPnl" header="Comparatif des tests excecutés par rapport à la semaine dernière" widgetVar="panel" style="display: inline; width:30%;float:right;text-align:center">
-					<p:chart type="bar" model="#{chartViewManager.barModel}"/>
+					<p:chart type="bar" model="#{chartViewManager.barModel}" extender="extLegend"/>
 				</p:panel>
 			</p:column>
 		</p:row>

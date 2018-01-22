@@ -31,6 +31,7 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.LegendPlacement;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.PieChartModel;
 
@@ -95,7 +96,14 @@ public class ChartViewManager implements Serializable{
 	private int nbTestWeek3;
 	private int nbTestWeek4;
 	private int nbTestWeek5;
+	private int nbTestTotal;
 	
+	public int getNbTestTotal() {
+		return nbTestTotal;
+	}
+	public void setNbTestTotal(int nbTestTotal) {
+		this.nbTestTotal = nbTestTotal;
+	}
 	public String getDate() {
 		return date;
 	}
@@ -150,7 +158,6 @@ public class ChartViewManager implements Serializable{
 
 	@PostConstruct
     public void init() {
-		
 		date = mysqlConnect.getLastDataDate(projectId);
 		loadProjectList();
 		updateProjectName();
@@ -526,9 +533,10 @@ public class ChartViewManager implements Serializable{
  
         barModel.addSeries(thisWeek);
         barModel.addSeries(passedWeek);
-       
+        barModel.setTitle("");
         barModel.setLegendPosition("n");
-         
+        barModel.setLegendPlacement(LegendPlacement.OUTSIDEGRID); 
+        
         Axis xAxis = barModel.getAxis(AxisType.X);
         xAxis.setLabel("Semaine");
          
@@ -545,7 +553,7 @@ public class ChartViewManager implements Serializable{
     	updateProjectName();
     	avancementMeteo();
     	date = mysqlConnect.getLastDataDate(projectId);
-    	
+    	nbTestTotal = mysqlConnect.getNumberTestTotal(projectId);
     	initData();
         createModels();
     }
@@ -553,12 +561,12 @@ public class ChartViewManager implements Serializable{
     	this.projectId = Integer.parseInt(((UIOutput)event.getSource()).getValue().toString());
     	updateProjectName();
     	avancementMeteo();
+    	nbTestTotal = mysqlConnect.getNumberTestTotal(projectId);
     	this.date = mysqlConnect.getLastDataDate(projectId);
     	FacesContext.getCurrentInstance().getExternalContext().redirect("main.xhtml");
         FacesContext.getCurrentInstance().responseComplete();
     	initData();
         createModels();
-        
     }  
     public void valueChangeDate(SelectEvent event) {
     	Calendar cal = Calendar.getInstance();
