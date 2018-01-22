@@ -13,7 +13,6 @@
 package beans;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -328,4 +327,6 @@ public class MysqlConnector {
 		}
 		return result;
 	}
+
 }
+
